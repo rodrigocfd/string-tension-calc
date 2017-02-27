@@ -1,0 +1,65 @@
+<!--
+ * String Tension Calculator
+ * @author Rodrigo Cesar de Freitas Dias
+ * @license MIT
+ * @see https://github.com/rodrigocfd/string-tension-calc
+-->
+
+<html>
+<head>
+	<meta name="author" content="Rodrigo Cesar de Freitas Dias"/>
+	<link rel="icon" type="image/x-icon" href="favicon.ico"/>
+	<title>String Tension Calculator</title>
+	<link rel="stylesheet" type="text/css" href="dress.css"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/flot/0.8.3/jquery.flot.min.js"></script>
+	<script src="constants.js"></script>
+	<script src="StringRow.js"></script>
+	<script src="StringSet.js"></script>
+	<script src="main.js"></script>
+</head>
+<body>
+	<div>
+		<h2>String Tension Calculator</h2>
+		<div id="chooseUnit">
+			<label><input type="radio" name="unit" value="kg" checked> kg</label>
+			<label><input type="radio" name="unit" value="lbs"> lbs</label>
+		</div>
+	</div>
+	<div id="setsArea">
+		<input type="button" id="newStringSet" value="New string set"/>
+	</div>
+	<div><div id="plotArea"></div></div>
+
+	<div id="templates">
+		<div class="stringSet">
+			<div><select class="packs"></select></div>
+			<div>
+				<select class="scaleLength"></select>
+				<select class="changeTuning">
+					<option>Set tuning to...</option>
+					<option>E standard</option>
+					<option>Eb standard</option>
+					<option>D standard</option>
+					<option>C# standard</option>
+					<option>C standard</option>
+				</select>
+				<input type="button" class="deleteSet" value="Delete"/>
+				<input type="button" class="moveLeft" value="&lt;"/>
+			</div>
+			<div class="rowsArea"></div>
+		</div>
+
+		<div class="stringRow">
+			<div class="stringOrd"></div>
+			<select class="gauge"></select>
+			<select class="note"></select>
+			<span class="lbs"><input type="text" class="tensionLbs" disabled value="" size="3"/> lbs</span>
+			<span class="kg"><input type="text" class="tensionKg" disabled value="" size="3"/> kg</span>
+		</div>
+	</div>
+	<div id="footer">Copyright (C) Rodrigo Cesar de Freitas Dias 2017.
+		<a href="https://github.com/rodrigocfd/string-tension-calc" target="_blank">Open source</a>
+		licensed under MIT.</a></div>
+</body>
+</html>
