@@ -29,7 +29,7 @@ function StringSet() {
 			$.each(pack.gauges, function(i) {
 				var newRow = new StringRow(i + 1);
 				newRow.setRowInfo(this, tuning.notes[i])
-					.setScaleLength(calcLength(scale.inches, i, pack.gauges.length))
+					.setScaleLength(calcMultiScaleLength(scale.inches, i, pack.gauges.length))
 					.setUnit(weightUnit);
 				newRow.getBlock().appendTo($tpl.find('.rowsArea'))
 					.hide().fadeIn(200);
@@ -46,7 +46,7 @@ function StringSet() {
 			var pack = $tpl.find('.packs :selected').data('obj');
 
 			$.each(StringRow.getAllRows($tpl), function(i) {
-				this.setScaleLength(calcLength(scale.inches, i, pack.gauges.length));
+				this.setScaleLength(calcMultiScaleLength(scale.inches, i, pack.gauges.length));
 			});
 		});
 
@@ -148,8 +148,8 @@ function StringSet() {
 		return $cmbTuning;
 	}
 
-	function calcLength(scales, num, total){
-		return scales[0] - (scales[0] - scales[1]) * (num / (total-1));
+	function calcMultiScaleLength(scales, num, totalStrings) {
+		return scales[0] - (scales[0] - scales[1]) * (num / (totalStrings - 1));
 	}
 }
 
