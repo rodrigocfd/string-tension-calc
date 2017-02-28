@@ -13,10 +13,10 @@ const SCALES = [
 	{ scale: '25"',     inches: [25, 25] },
 	{ scale: '25.5"',   inches: [25.5, 25.5] },
 	{ scale: '26.5"',   inches: [26.5, 26.5] },
-	{ scale: '25.5 - 24.625"',   inches: [25.5, 24.625] },
-	{ scale: '25.5 - 25"',   inches: [25.5, 25] },
-	{ scale: '26.5 - 25.5"',   inches: [26.5, 25.5] },
-	{ scale: '28.5 - 26.5"',   inches: [28.5, 26.5] }
+	{ scale: '24.625 - 25.5"',   inches: [24.625, 25.5] },
+	{ scale: '25 - 25.5"',   inches: [25, 25.5] },
+	{ scale: '25.5 - 26.5"',   inches: [25.5, 26.5] },
+	{ scale: '26.5 - 28.5"',   inches: [26.5, 28.5] }
 ];
 
 const TUNINGS = [
