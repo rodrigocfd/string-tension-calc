@@ -5,11 +5,22 @@
  * @see https://github.com/rodrigocfd/string-tension-calc
  */
 
+const COLORS = [ '#EDC240', '#AFD8F8', '#CB4B4B', '#4DA74D', '#9440ED',
+	'#FF158A', '#0244FE', '#804040', '#FF8000' ];
+
 const SCALES = [
 	{ scale: '24.625"', inches: 24.625 },
 	{ scale: '25"',     inches: 25     },
 	{ scale: '25.5"',   inches: 25.5   },
 	{ scale: '26.5"',   inches: 26.5   }
+];
+
+const TUNINGS = [
+	{ tuning: 'E standard',  notes: [ 'E4', 'B3', 'G3', 'D3', 'A2', 'E2', 'B1', 'F#1' ] },
+	{ tuning: 'Eb standard', notes: [ 'D#4','A#3','F#3','C#3','G#2','D#2','A#1','F1'  ] },
+	{ tuning: 'D standard',  notes: [ 'D4', 'A3', 'F3', 'C3', 'G2', 'D2', 'A1', 'E1'  ] },
+	{ tuning: 'C# standard', notes: [ 'C#4','G#3','E3', 'B2', 'F#2','C#2','G#1','D#1' ] },
+	{ tuning: 'C standard',  notes: [ 'C4', 'G3', 'D#3','A#2','F2', 'C2', 'G1', 'D1'  ] }
 ];
 
 const NOTES = [
@@ -50,32 +61,34 @@ const NOTES = [
 	{ note: 'G1',  freq:  48.9994 },
 	{ note: 'F#1', freq:  46.2493 },
 	{ note: 'F1',  freq:  43.6535 },
-	{ note: 'E1',  freq:  41.2034 }
+	{ note: 'E1',  freq:  41.2034 },
+	{ note: 'D#1', freq:  38.8909 },
+	{ note: 'D1',  freq:  36.7081 }
 ];
 
 const GAUGES = [
-	{ gauge: '.007 P', weight: 0.00001085 },
-	{ gauge: '.008 P', weight: 0.00001418 },
+	{ gauge: '.007 P',  weight: 0.00001085 },
+	{ gauge: '.008 P',  weight: 0.00001418 },
 	{ gauge: '.0085 P', weight: 0.00001601 },
-	{ gauge: '.009 P', weight: 0.00001794 },
+	{ gauge: '.009 P',  weight: 0.00001794 },
 	{ gauge: '.0095 P', weight: 0.00001999 },
-	{ gauge: '.010 P', weight: 0.00002215 },
+	{ gauge: '.010 P',  weight: 0.00002215 },
 	{ gauge: '.0105 P', weight: 0.00002442 },
-	{ gauge: '.011 P', weight: 0.0000268 },
+	{ gauge: '.011 P',  weight: 0.0000268 },
 	{ gauge: '.0115 P', weight: 0.0000293 },
-	{ gauge: '.012 P', weight: 0.0000319 },
-	{ gauge: '.013 P', weight: 0.00003744 },
+	{ gauge: '.012 P',  weight: 0.0000319 },
+	{ gauge: '.013 P',  weight: 0.00003744 },
 	{ gauge: '.0135 P', weight: 0.00004037 },
-	{ gauge: '.014 P', weight: 0.00004342 },
-	{ gauge: '.015 P', weight: 0.00004984 },
-	{ gauge: '.016 P', weight: 0.00005671 },
-	{ gauge: '.017 P', weight: 0.00006402 },
-	{ gauge: '.018 P', weight: 0.00007177 },
-	{ gauge: '.019 P', weight: 0.00007997 },
-	{ gauge: '.020 P', weight: 0.00008861 },
-	{ gauge: '.022 P', weight: 0.00010722 },
-	{ gauge: '.024 P', weight: 0.0001276 },
-	{ gauge: '.026 P', weight: 0.00014975 },
+	{ gauge: '.014 P',  weight: 0.00004342 },
+	{ gauge: '.015 P',  weight: 0.00004984 },
+	{ gauge: '.016 P',  weight: 0.00005671 },
+	{ gauge: '.017 P',  weight: 0.00006402 },
+	{ gauge: '.018 P',  weight: 0.00007177 },
+	{ gauge: '.019 P',  weight: 0.00007997 },
+	{ gauge: '.020 P',  weight: 0.00008861 },
+	{ gauge: '.022 P',  weight: 0.00010722 },
+	{ gauge: '.024 P',  weight: 0.0001276 },
+	{ gauge: '.026 P',  weight: 0.00014975 },
 
 	{ gauge: '.017 W', weight: 0.00005524 },
 	{ gauge: '.018 W', weight: 0.00006215 },
@@ -117,115 +130,30 @@ const GAUGES = [
 	{ gauge: '.080 W', weight: 0.00115011 }
 ];
 
-const PACKS = [ {
-	name: ".007 Dunlop Rev. Willy's",
-	plain: [ { gauge: '.007 P', note: 'E4' }, { gauge: '.009 P', note: 'B3' }, { gauge: '.011 P', note: 'G3' } ],
-	wound: [ { gauge: '.020 W', note: 'D3' }, { gauge: '.030 W', note: 'A2' }, { gauge: '.038 W', note: 'E2' } ]
-}, {
-	name: ".008 Dunlop Rev. Willy's",
-	plain: [ { gauge: '.008 P', note: 'E4' }, { gauge: '.010 P', note: 'B3' }, { gauge: '.012 P', note: 'G3' } ],
-	wound: [ { gauge: '.020 W', note: 'D3' }, { gauge: '.030 W', note: 'A2' }, { gauge: '.040 W', note: 'E2' } ]
-}, {
-	name: ".008 D'Addario EXL130",
-	plain: [ { gauge: '.008 P', note: 'E4' }, { gauge: '.010 P', note: 'B3' }, { gauge: '.015 P', note: 'G3' } ],
-	wound: [ { gauge: '.021 W', note: 'D3' }, { gauge: '.030 W', note: 'A2' }, { gauge: '.038 W', note: 'E2' } ]
-}, {
-	name: '.008 Ernie Ball Extra Slinky',
-	plain: [ { gauge: '.008 P', note: 'E4' }, { gauge: '.011 P', note: 'B3' }, { gauge: '.014 P', note: 'G3' } ],
-	wound: [ { gauge: '.022 W', note: 'D3' }, { gauge: '.030 W', note: 'A2' }, { gauge: '.038 W', note: 'E2' } ]
-}, {
-	name: ".009 D'Addario/Ernie Ball",
-	plain: [ { gauge: '.009 P', note: 'E4' }, { gauge: '.011 P', note: 'B3' }, { gauge: '.016 P', note: 'G3' } ],
-	wound: [ { gauge: '.024 W', note: 'D3' }, { gauge: '.032 W', note: 'A2' }, { gauge: '.042 W', note: 'E2' } ]
-}, {
-	name: ".009 D'Addario/Ernie Ball hybrid",
-	plain: [ { gauge: '.009 P', note: 'E4' }, { gauge: '.011 P', note: 'B3' }, { gauge: '.016 P', note: 'G3' } ],
-	wound: [ { gauge: '.026 W', note: 'D3' }, { gauge: '.036 W', note: 'A2' }, { gauge: '.046 W', note: 'E2' } ]
-}, {
-	name: ".009 D'Addario EXL120BT balanced",
-	plain: [ { gauge: '.009 P', note: 'E4' }, { gauge: '.012 P', note: 'B3' }, { gauge: '.015 P', note: 'G3' } ],
-	wound: [ { gauge: '.022 W', note: 'D3' }, { gauge: '.030 W', note: 'A2' }, { gauge: '.040 W', note: 'E2' } ]
-}, {
-	name: ".010 D'Addario/Ernie Ball",
-	plain: [ { gauge: '.010 P', note: 'E4' }, { gauge: '.013 P', note: 'B3' }, { gauge: '.017 P', note: 'G3' } ],
-	wound: [ { gauge: '.026 W', note: 'D3' }, { gauge: '.036 W', note: 'A2' }, { gauge: '.046 W', note: 'E2' } ]
-}, {
-	name: ".010 D'Addario/Ernie Ball hybrid",
-	plain: [ { gauge: '.010 P', note: 'E4' }, { gauge: '.013 P', note: 'B3' }, { gauge: '.017 P', note: 'G3' } ],
-	wound: [ { gauge: '.030 W', note: 'D3' }, { gauge: '.042 W', note: 'A2' }, { gauge: '.052 W', note: 'E2' } ]
-}, {
-	name: ".010 D'Addario EXL110BT balanced",
-	plain: [ { gauge: '.010 P', note: 'E4' }, { gauge: '.0135 P', note: 'B3' }, { gauge: '.017 P', note: 'G3' } ],
-	wound: [ { gauge: '.025 W', note: 'D3' }, { gauge: '.034 W', note: 'A2' }, { gauge: '.046 W', note: 'E2' } ]
-}, {
-	name: '.010 Dunlop Heavy Core Heavy',
-	plain: [ { gauge: '.010 P', note: 'E4' }, { gauge: '.013 P', note: 'B3' }, { gauge: '.017 P', note: 'G3' } ],
-	wound: [ { gauge: '.028 W', note: 'D3' }, { gauge: '.038 W', note: 'A2' }, { gauge: '.048 W', note: 'E2' } ]
-}, {
-	name: ".011 D'Addario EXL115",
-	plain: [ { gauge: '.011 P', note: 'E4' }, { gauge: '.014 P', note: 'B3' }, { gauge: '.018 P', note: 'G3' } ],
-	wound: [ { gauge: '.028 W', note: 'D3' }, { gauge: '.038 W', note: 'A2' }, { gauge: '.049 W', note: 'E2' } ]
-}, {
-	name: ".011 D'Addario EXL115BT balanced",
-	plain: [ { gauge: '.011 P', note: 'E4' }, { gauge: '.015 P', note: 'B3' }, { gauge: '.019 P', note: 'G3' } ],
-	wound: [ { gauge: '.028 W', note: 'D3' }, { gauge: '.037 W', note: 'A2' }, { gauge: '.050 W', note: 'E2' } ]
-}, {
-	name: '.011 Ernie Ball Power Slinky',
-	plain: [ { gauge: '.011 P', note: 'E4' }, { gauge: '.014 P', note: 'B3' }, { gauge: '.018 P', note: 'G3' } ],
-	wound: [ { gauge: '.028 W', note: 'D3' }, { gauge: '.038 W', note: 'A2' }, { gauge: '.048 W', note: 'E2' } ]
-}, {
-	name: '.011 Dunlop Heavy Core Heavier',
-	plain: [ { gauge: '.011 P', note: 'E4' }, { gauge: '.014 P', note: 'B3' }, { gauge: '.018 P', note: 'G3' } ],
-	wound: [ { gauge: '.028 W', note: 'D3' }, { gauge: '.038 W', note: 'A2' }, { gauge: '.050 W', note: 'E2' } ]
-}, {
-	name: ".012 D'Addario EXL145",
-	plain: [ { gauge: '.012 P', note: 'E4' }, { gauge: '.016 P', note: 'B3' }, { gauge: '.020 P', note: 'G3' } ],
-	wound: [ { gauge: '.032 W', note: 'D3' }, { gauge: '.042 W', note: 'A2' }, { gauge: '.054 W', note: 'E2' } ]
-}, {
-	name: '.012 Ernie Ball Not Even Slinky',
-	plain: [ { gauge: '.012 P', note: 'E4' }, { gauge: '.016 P', note: 'B3' }, { gauge: '.024 P', note: 'G3' } ],
-	wound: [ { gauge: '.032 W', note: 'D3' }, { gauge: '.044 W', note: 'A2' }, { gauge: '.056 W', note: 'E2' } ]
-}, {
-	name: ".009 D'Addario EXL120-7",
-	plain: [ { gauge: '.009 P', note: 'E4' }, { gauge: '.011 P', note: 'B3' }, { gauge: '.016 P', note: 'G3' } ],
-	wound: [ { gauge: '.024 W', note: 'D3' }, { gauge: '.032 W', note: 'A2' }, { gauge: '.042 W', note: 'E2' },
-		{ gauge: '.054 W', note: 'B1'} ]
-}, {
-	name: '.009 Ernie Ball Super Slinky 7',
-	plain: [ { gauge: '.009 P', note: 'E4' }, { gauge: '.011 P', note: 'B3' }, { gauge: '.016 P', note: 'G3' } ],
-	wound: [ { gauge: '.024 W', note: 'D3' }, { gauge: '.032 W', note: 'A2' }, { gauge: '.042 W', note: 'E2' },
-		{ gauge: '.052 W', note: 'B1' } ]
-}, {
-	name: ".010 D'Addario EXL110-7",
-	plain: [ { gauge: '.010 P', note: 'E4' }, { gauge: '.013 P', note: 'B3' }, { gauge: '.017 P', note: 'G3' } ],
-	wound: [ { gauge: '.026 W', note: 'D3' }, { gauge: '.036 W', note: 'A2' }, { gauge: '.046 W', note: 'E2' },
-		{ gauge: '.059 W', note: 'B1'} ]
-}, {
-	name: '.010 Ernie Ball Regular Slinky 7',
-	plain: [ { gauge: '.010 P', note: 'E4' }, { gauge: '.013 P', note: 'B3' }, { gauge: '.017 P', note: 'G3' } ],
-	wound: [ { gauge: '.026 W', note: 'D3' }, { gauge: '.036 W', note: 'A2' }, { gauge: '.046 W', note: 'E2' },
-		{ gauge: '.056 W', note: 'B1' } ]
-}, {
-	name: '.010 Dunlop Heavy Core Heavy7',
-	plain: [ { gauge: '.010 P', note: 'E4' }, { gauge: '.013 P', note: 'B3' }, { gauge: '.017 P', note: 'G3' } ],
-	wound: [ { gauge: '.028 W', note: 'D3' }, { gauge: '.038 W', note: 'A2' }, { gauge: '.048 W', note: 'E2' },
-		{ gauge: '.060 W', note: 'B1' } ]
-}, {
-	name: ".009 D'Addario EXL120-8",
-	plain: [ { gauge: '.009 P', note: 'E4' }, { gauge: '.011 P', note: 'B3' }, { gauge: '.016 P', note: 'G3' } ],
-	wound: [ { gauge: '.024 W', note: 'D3' }, { gauge: '.032 W', note: 'A2' }, { gauge: '.042 W', note: 'E2' },
-		{ gauge: '.054 W', note: 'B1'}, { gauge: '.065 W', note: 'F#1' } ]
-}, {
-	name: '.009 Ernie Ball 8-String Heavy Bottom',
-	plain: [ { gauge: '.009 P', note: 'E4' }, { gauge: '.011 P', note: 'B3' }, { gauge: '.016 P', note: 'G3' } ],
-	wound: [ { gauge: '.024 W', note: 'D3' }, { gauge: '.034 W', note: 'A2' }, { gauge: '.046 W', note: 'E2' },
-		{ gauge: '.064 W', note: 'B1'}, { gauge: '.080 W', note: 'F#1' } ]
-}, {
-	name: ".010 D'Addario/Ernie Ball 8-string",
-	plain: [ { gauge: '.010 P', note: 'E4' }, { gauge: '.013 P', note: 'B3' }, { gauge: '.017 P', note: 'G3' } ],
-	wound: [ { gauge: '.030 W', note: 'D3' }, { gauge: '.042 W', note: 'A2' }, { gauge: '.054 W', note: 'E2' },
-		{ gauge: '.064 W', note: 'B1'}, { gauge: '.074 W', note: 'F#1' } ]
-}];
-
-const COLORS = [ '#EDC240', '#AFD8F8', '#CB4B4B', '#4DA74D', '#9440ED',
-	'#FF158A', '#0244FE', '#804040', '#FF8000' ];
+const PACKS = [
+	{ gauges: [ '.007 P', '.009 P', '.011 P', '.020 W', '.030 W', '.038 W' ], name: ".007 Dunlop Rev. Willy's" },
+	{ gauges: [ '.008 P', '.010 P', '.012 P', '.020 W', '.030 W', '.040 W' ], name: ".008 Dunlop Rev. Willy's" },
+	{ gauges: [ '.008 P', '.010 P', '.015 P', '.021 W', '.030 W', '.038 W' ], name: ".008 D'Addario EXL130" },
+	{ gauges: [ '.008 P', '.011 P', '.014 P', '.022 W', '.030 W', '.038 W' ], name: '.008 Ernie Ball Extra Slinky' },
+	{ gauges: [ '.009 P', '.011 P', '.016 P', '.024 W', '.032 W', '.042 W' ], name: ".009 D'Addario/Ernie Ball" },
+	{ gauges: [ '.009 P', '.011 P', '.016 P', '.026 W', '.036 W', '.046 W' ], name: ".009 D'Addario/Ernie Ball hybrid" },
+	{ gauges: [ '.009 P', '.012 P', '.015 P', '.022 W', '.030 W', '.040 W' ], name: ".009 D'Addario EXL120BT balanced" },
+	{ gauges: [ '.010 P', '.013 P', '.017 P', '.026 W', '.036 W', '.046 W' ], name: ".010 D'Addario/Ernie Ball" },
+	{ gauges: [ '.010 P', '.013 P', '.017 P', '.030 W', '.042 W', '.052 W' ], name: ".010 D'Addario/Ernie Ball hybrid" },
+	{ gauges: [ '.010 P', '.0135 P','.017 P', '.025 W', '.034 W', '.046 W' ], name: ".010 D'Addario EXL110BT balanced" },
+	{ gauges: [ '.010 P', '.013 P', '.017 P', '.028 W', '.038 W', '.048 W' ], name: '.010 Dunlop Heavy Core Heavy' },
+	{ gauges: [ '.011 P', '.014 P', '.018 P', '.028 W', '.038 W', '.049 W' ], name: ".011 D'Addario EXL115" },
+	{ gauges: [ '.011 P', '.015 P', '.019 P', '.028 W', '.037 W', '.050 W' ], name: ".011 D'Addario EXL115BT balanced" },
+	{ gauges: [ '.011 P', '.014 P', '.018 P', '.028 W', '.038 W', '.048 W' ], name: '.011 Ernie Ball Power Slinky' },
+	{ gauges: [ '.011 P', '.014 P', '.018 P', '.028 W', '.038 W', '.050 W' ], name: '.011 Dunlop Heavy Core Heavier' },
+	{ gauges: [ '.012 P', '.016 P', '.020 P', '.032 W', '.042 W', '.054 W' ], name: ".012 D'Addario EXL145" },
+	{ gauges: [ '.012 P', '.016 P', '.024 P', '.032 W', '.044 W', '.056 W' ], name: '.012 Ernie Ball Not Even Slinky' },
+	{ gauges: [ '.009 P', '.011 P', '.016 P', '.024 W', '.032 W', '.042 W', '.054 W' ], name: ".009 D'Addario EXL120-7" },
+	{ gauges: [ '.009 P', '.011 P', '.016 P', '.024 W', '.032 W', '.042 W', '.052 W' ], name: '.009 Ernie Ball Super Slinky 7' },
+	{ gauges: [ '.010 P', '.013 P', '.017 P', '.026 W', '.036 W', '.046 W', '.059 W' ], name: ".010 D'Addario EXL110-7" },
+	{ gauges: [ '.010 P', '.013 P', '.017 P', '.026 W', '.036 W', '.046 W', '.056 W' ], name: '.010 Ernie Ball Regular Slinky 7' },
+	{ gauges: [ '.010 P', '.013 P', '.017 P', '.028 W', '.038 W', '.048 W', '.060 W' ], name: '.010 Dunlop Heavy Core Heavy7' },
+	{ gauges: [ '.009 P', '.011 P', '.016 P', '.024 W', '.032 W', '.042 W', '.054 W', '.065 W' ], name: ".009 D'Addario EXL120-8" },
+	{ gauges: [ '.009 P', '.011 P', '.016 P', '.024 W', '.034 W', '.046 W', '.064 W', '.080 W' ], name: '.009 Ernie Ball 8-String Heavy Bottom' },
+	{ gauges: [ '.010 P', '.013 P', '.017 P', '.030 W', '.042 W', '.054 W', '.064 W', '.074 W' ], name: ".010 D'Addario/Ernie Ball 8-string" }
+];

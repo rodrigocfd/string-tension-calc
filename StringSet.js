@@ -18,51 +18,41 @@ function StringSet() {
 		$tpl.data('obj', self);
 		fillComboPacks();
 		fillComboScaleLengths();
-		$tpl.find('.scaleLength option:eq(2)').prop('selected', true);
+		fillComboTunings();
 
 		$tpl.find('.packs').change(function() {
-			StringRow.deleteAllRows($tpl.find('.rowsArea'));
+			StringRow.deleteAllRows($tpl);
 			var pack = $(this).find(':selected').data('obj');
-			var ord = 1;
 			var scale = $tpl.find('.scaleLength :selected').data('obj');
+			var tuning = $tpl.find('.tuning :selected').data('obj');
 
-			$.each([ pack.plain, pack.wound ], function() {
-				$.each(this, function() {
-					var newRow = new StringRow(ord++);
-					newRow.setRowInfo(this.gauge, this.note)
-						.setScaleLength(scale.inches)
-						.setUnit(weightUnit);
-					newRow.getBlock().appendTo($tpl.find('.rowsArea'))
-						.hide().fadeIn(200);
-					newRow.onTensionChange(function() {
-						if (onTensionChangeCB) onTensionChangeCB();
-					});
+			$.each(pack.gauges, function(i) {
+				var newRow = new StringRow(i + 1);
+				newRow.setRowInfo(this, tuning.notes[i])
+					.setScaleLength(scale.inches)
+					.setUnit(weightUnit);
+				newRow.getBlock().appendTo($tpl.find('.rowsArea'))
+					.hide().fadeIn(200);
+				newRow.onTensionChange(function() {
+					if (onTensionChangeCB) onTensionChangeCB();
 				});
 			});
 
 			if (onTensionChangeCB) onTensionChangeCB();
 		});
 
-		$tpl.find('.packs option:eq(7)').prop('selected', true).trigger('change');
-
 		$tpl.find('.scaleLength').change(function() {
 			var scale = $(this).find(':selected').data('obj');
-			$tpl.find('.stringRow').each(function() {
-				var row = $(this).data('obj');
-				row.setScaleLength(scale.inches);
+			$.each(StringRow.getAllRows($tpl), function() {
+				this.setScaleLength(scale.inches);
 			});
 		});
 
-		$tpl.find('.changeTuning').change(function() {
-			var selOpt = $(this).find(':selected');
-			switch (selOpt.text()) {
-				case 'E standard':  retune(['E4', 'B3', 'G3', 'D3', 'A2', 'E2', 'B1', 'F#1']); break;
-				case 'Eb standard': retune(['D#4','A#3','F#3','C#3','G#2','D#2','A#1','F1' ]); break;
-				case 'D standard':  retune(['D4', 'A3', 'F3', 'C3', 'G2', 'D2', 'A1', 'E1' ]); break;
-				case 'C# standard': retune(['C#4','G#3','E3', 'B2', 'F#2','C#2','G#1','D#1']); break;
-				case 'C standard':  retune(['C4', 'G3', 'D#3','A#2','F2', 'C2', 'G1', 'D1' ]);
-			}
-			$(this).find('option:first').prop('selected', true);
+		$tpl.find('.tuning').change(function() {
+			var tuning = $(this).find(':selected').data('obj');
+			$.each(StringRow.getAllRows($tpl), function(i) {
+				this.setRowInfo(null, tuning.notes[i]);
+			});
 		});
 
 		$tpl.find('.deleteSet').click(function() {
@@ -77,6 +67,10 @@ function StringSet() {
 		$tpl.find('.moveLeft').click(function() {
 			if (onMoveLeftCB) onMoveLeftCB(self);
 		});
+
+		$tpl.find('.tuning option:eq(0)').prop('selected', true);
+		$tpl.find('.scaleLength option:eq(2)').prop('selected', true);
+		$tpl.find('.packs option:eq(7)').prop('selected', true).trigger('change');
 	})();
 
 	self.getBlock = function() {
@@ -90,7 +84,7 @@ function StringSet() {
 
 	self.setUnit = function(unit) {
 		weightUnit = unit;
-		$.each(StringRow.getAllRows($tpl.find('.rowsArea')), function() {
+		$.each(StringRow.getAllRows($tpl), function() {
 			this.setUnit(unit);
 		});
 		return self;
@@ -98,7 +92,7 @@ function StringSet() {
 
 	self.getTensions = function() {
 		var tensions = [];
-		$.each(StringRow.getAllRows($tpl.find('.rowsArea')), function() {
+		$.each(StringRow.getAllRows($tpl), function() {
 			tensions.push(this.getTension());
 		});
 		return tensions;
@@ -122,15 +116,14 @@ function StringSet() {
 		$.each(PACKS, function() {
 			var $newOpt = $('<option>'+this.name+'</option>');
 			$newOpt.data('obj', this);
-			var numStr = this.plain.length + this.wound.length;
-			switch (numStr) {
+			switch (this.gauges.length) {
 				case 6: $cat6.append($newOpt); break;
 				case 7: $cat7.append($newOpt); break;
 				case 8: $cat8.append($newOpt);
 			}
 		});
 
-		$tpl.find('.packs').append($cat6).append($cat7).append($cat8);
+		return $tpl.find('.packs').append($cat6).append($cat7).append($cat8);
 	}
 
 	function fillComboScaleLengths() {
@@ -140,13 +133,17 @@ function StringSet() {
 			$newOpt.data('obj', this);
 			$cmbScale.append($newOpt);
 		});
+		return $cmbScale;
 	}
 
-	function retune(notes) {
-		$tpl.find('.stringRow').each(function(i) {
-			var row = $(this).data('obj');
-			row.setRowInfo(null, notes[i]);
+	function fillComboTunings() {
+		var $cmbTuning = $tpl.find('.tuning');
+		$.each(TUNINGS, function() {
+			var $newOpt = $('<option>'+this.tuning+'</option>');
+			$newOpt.data('obj', this);
+			$cmbTuning.append($newOpt);
 		});
+		return $cmbTuning;
 	}
 }
 
