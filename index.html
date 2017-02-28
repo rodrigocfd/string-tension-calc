@@ -22,33 +22,33 @@
 	<div>
 		<h2>String Tension Calculator</h2>
 		<div id="chooseUnit">
-			<label><input type="radio" name="unit" value="kg" checked> kg</label>
-			<label><input type="radio" name="unit" value="lbs"> lbs</label>
+			<label title="Use kilogram units for weight"><input type="radio" name="unit" value="kg" checked> kg</label>
+			<label title="Use pound units for weight"><input type="radio" name="unit" value="lbs"> lbs</label>
 		</div>
 	</div>
 	<div id="setsArea">
-		<input type="button" id="newStringSet" value="New string set"/>
+		<input type="button" id="newStringSet" value="New string set" title="Create a new string set"/>
 	</div>
 	<div><div id="plotArea"></div></div>
 
 	<div id="templates">
 		<div class="stringSet">
-			<div><select class="packs"></select></div>
+			<div><select class="packs" title="Market string set to be used"></select></div>
 			<div>
-				<select class="scaleLength"></select>
-				<select class="tuning"></select>
-				<input type="button" class="deleteSet" value="Delete"/>
-				<input type="button" class="moveLeft" value="&lt;"/>
+				<select class="scaleLength" title="Scale length, in inches"></select>
+				<select class="tuning" title="Tuning to be used"></select>
+				<input type="button" class="deleteSet" value="Delete" title="Delete this string set"/>
+				<input type="button" class="moveLeft" value="&lt;" title="Move string set to the left"/>
 			</div>
 			<div class="rowsArea"></div>
 		</div>
 
 		<div class="stringRow">
 			<div class="stringOrd"></div>
-			<select class="gauge"></select>
-			<select class="note"></select>
-			<span class="lbs"><input type="text" class="tensionLbs" disabled value="" size="3"/> lbs</span>
-			<span class="kg"><input type="text" class="tensionKg" disabled value="" size="3"/> kg</span>
+			<select class="gauge" title="Gauge of string"></select>
+			<select class="note" title="Note of open string"></select>
+			<span class="lbs" title="Weight of string, in pound units"><input type="text" class="tensionLbs" disabled value="" size="3"/> lbs</span>
+			<span class="kg" title="Weight of string, in kilogram units"><input type="text" class="tensionKg" disabled value="" size="3"/> kg</span>
 		</div>
 	</div>
 	<div id="footer">Copyright (C) Rodrigo Cesar de Freitas Dias 2017.
