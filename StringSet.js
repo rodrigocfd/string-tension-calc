@@ -111,35 +111,22 @@ function StringSet() {
 	};
 
 	function fillComboPacks() {
-		var $cat6 = $('<optgroup label="6 strings"></optgroup>');
-		var $cat7 = $('<optgroup label="7 strings"></optgroup>');
-		var $cat8 = $('<optgroup label="8 strings"></optgroup>');
-
 		$.each(PACKS, function() {
 			var $newOpt = $('<option>'+this.name+'</option>');
 			$newOpt.data('obj', this);
-			switch (this.gauges.length) {
-				case 6: $cat6.append($newOpt); break;
-				case 7: $cat7.append($newOpt); break;
-				case 8: $cat8.append($newOpt);
-			}
+			$tpl.find('.pack'+this.gauges.length).append($newOpt);
 		});
-
-		return $tpl.find('.packs').append($cat6).append($cat7).append($cat8);
+		return $tpl.find('.packs');
 	}
 
 	function fillComboScaleLengths() {
-		var $catS = $('<optgroup label="Simple"></optgroup>');
-		var $catM = $('<optgroup label="Multi-scale"></optgroup>');
-
 		$.each(SCALES, function() {
 			var $newOpt = $('<option>'+this.scale+'</option>');
 			$newOpt.data('obj', this);
-			(this.inches[0] == this.inches[1] ? $catS : $catM)
-				.append($newOpt);
+			var simpleOrMulti = (this.inches[0] == this.inches[1]) ? 'S' : 'M';
+			$tpl.find('.scale'+simpleOrMulti).append($newOpt);
 		});
-
-		return $tpl.find('.scaleLength').append($catS).append($catM);
+		return $tpl.find('.scaleLength');
 	}
 
 	function fillComboTunings() {
