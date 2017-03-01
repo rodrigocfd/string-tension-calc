@@ -24,12 +24,17 @@ function StringRow(_stringNo) {
 		fillComboGauges();
 		fillComboNotes();
 
-		$tpl.find('.gauge, .note').change(function() {
+		$tpl.find('.gauge').change(function() {
 			var $cmb = $(this);
-			var selOpt = $cmb.find(':selected').data('obj');
-			selOpt.gauge ?
-				$cmb.toggleClass('modified', selOpt.gauge !== packDefinedGauge) :
-				$cmb.toggleClass('modified', selOpt.note !== packDefinedNote);
+			$cmb.toggleClass('modified',
+				$cmb.find(':selected').text() !== packDefinedGauge);
+			calcTension();
+		});
+
+		$tpl.find('.note').change(function() {
+			var $cmb = $(this);
+			$cmb.toggleClass('modified',
+				$cmb.find(':selected').data('obj').note !== packDefinedNote);
 			calcTension();
 		});
 	})(_stringNo);

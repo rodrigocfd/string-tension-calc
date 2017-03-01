@@ -129,13 +129,17 @@ function StringSet() {
 	}
 
 	function fillComboScaleLengths() {
-		var $cmbScale = $tpl.find('.scaleLength');
+		var $catS = $('<optgroup label="Simple"></optgroup>');
+		var $catM = $('<optgroup label="Multi-scale"></optgroup>');
+
 		$.each(SCALES, function() {
 			var $newOpt = $('<option>'+this.scale+'</option>');
 			$newOpt.data('obj', this);
-			$cmbScale.append($newOpt);
+			(this.inches[0] == this.inches[1] ? $catS : $catM)
+				.append($newOpt);
 		});
-		return $cmbScale;
+
+		return $tpl.find('.scaleLength').append($catS).append($catM);
 	}
 
 	function fillComboTunings() {
