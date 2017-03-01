@@ -72,7 +72,7 @@ function StringSet() {
 
 		$tpl.find('.tuning option:eq(0)').prop('selected', true);
 		$tpl.find('.scaleLength option:eq(2)').prop('selected', true);
-		$tpl.find('.packs option:eq(9)').prop('selected', true).trigger('change');
+		$tpl.find('.packs option:eq(10)').prop('selected', true).trigger('change');
 	})();
 
 	self.getBlock = function() {

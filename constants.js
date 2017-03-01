@@ -143,6 +143,7 @@ const PACKS = [
 	{ gauges: [ '.008 P', '.010 P', '.012 P', '.020 W', '.030 W', '.040 W' ], name: ".008 Dunlop Rev. Willy's" },
 	{ gauges: [ '.008 P', '.010 P', '.015 P', '.021 W', '.030 W', '.038 W' ], name: ".008 D'Addario EXL130" },
 	{ gauges: [ '.008 P', '.011 P', '.014 P', '.022 W', '.030 W', '.038 W' ], name: '.008 Ernie Ball Extra Slinky' },
+	{ gauges: [ '.008 P', '.011 P', '.014 P', '.022 W', '.032 W', '.046 W' ], name: '.008 Fender Yngwie Malmsteen' },
 	{ gauges: [ '.0085 P','.0105 P','.015 P', '.022 W', '.032 W', '.039 W' ], name: ".0085 D'Addario EXL130+" },
 	{ gauges: [ '.009 P', '.011 P', '.016 P', '.024 W', '.032 W', '.042 W' ], name: ".009 D'Addario/Ernie Ball" },
 	{ gauges: [ '.009 P', '.011 P', '.016 P', '.026 W', '.036 W', '.046 W' ], name: ".009 D'Addario/Ernie Ball hybrid" },
@@ -152,6 +153,7 @@ const PACKS = [
 	{ gauges: [ '.010 P', '.013 P', '.017 P', '.030 W', '.042 W', '.052 W' ], name: ".010 D'Addario/Ernie Ball hybrid" },
 	{ gauges: [ '.010 P', '.0135 P','.017 P', '.025 W', '.034 W', '.046 W' ], name: ".010 D'Addario EXL110BT balanced" },
 	{ gauges: [ '.010 P', '.013 P', '.017 P', '.028 W', '.038 W', '.048 W' ], name: '.010 Dunlop Heavy Core Heavy' },
+	{ gauges: [ '.010 P', '.013 P', '.017 P', '.036 W', '.052 W', '.060 W' ], name: '.010 Dunlop Zakk Wylde' },
 	{ gauges: [ '.0105 P','.0135 P','.018 P', '.028 W', '.038 W', '.048 W' ], name: ".0105 D'Addario EXL110+" },
 	{ gauges: [ '.011 P', '.014 P', '.018 P', '.028 W', '.038 W', '.049 W' ], name: ".011 D'Addario EXL115" },
 	{ gauges: [ '.011 P', '.015 P', '.019 P', '.028 W', '.037 W', '.050 W' ], name: ".011 D'Addario EXL115BT balanced" },
@@ -166,6 +168,6 @@ const PACKS = [
 	{ gauges: [ '.010 P', '.013 P', '.017 P', '.028 W', '.038 W', '.048 W', '.060 W' ], name: '.010 Dunlop Heavy Core Heavy7' },
 	{ gauges: [ '.009 P', '.011 P', '.016 P', '.024 W', '.032 W', '.042 W', '.054 W', '.065 W' ], name: ".009 D'Addario EXL120-8" },
 	{ gauges: [ '.009 P', '.011 P', '.016 P', '.024 W', '.034 W', '.046 W', '.064 W', '.080 W' ], name: '.009 Ernie Ball 8-String Heavy Bottom' },
-	{ gauges: [ '.009 P', '.012 P', '.015 P', '.022 W', '.030 W', '.042 W', '.056 W', '.084 W' ], name: '.009 Strandberg Optimized 8-string' },
+	{ gauges: [ '.009 P', '.012 P', '.015 P', '.022 W', '.030 W', '.042 W', '.056 W', '.084 W' ], name: '.009 Strandberg Optimized' },
 	{ gauges: [ '.010 P', '.013 P', '.017 P', '.030 W', '.042 W', '.054 W', '.064 W', '.074 W' ], name: ".010 D'Addario/Ernie Ball 8-string" }
 ];
