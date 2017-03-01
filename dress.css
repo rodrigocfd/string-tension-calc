@@ -89,10 +89,11 @@ h2 {
 }
 
 .stringRow .note {
-	width: 5.6em;
+	width: 5.8em;
 }
 
 .stringRow .tensionLbs, .stringRow .tensionKg {
 	text-align: right;
 	padding-right: 3px;
+	width: 3.5em;
 }

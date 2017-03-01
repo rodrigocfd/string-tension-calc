@@ -35,12 +35,12 @@
 		<div class="stringSet">
 			<div>
 				<select class="packs" title="Market string set to be used"></select>
-				<input type="button" class="moveLeft" value="&lt;" title="Move string set to the left"/>
+				<input type="button" class="deleteSet" value="x" title="Delete this string set"/>
 			</div>
 			<div>
 				<select class="scaleLength" title="Scale length, in inches"></select>
 				<select class="tuning" title="Tuning to be used"></select>
-				<input type="button" class="deleteSet" value="Delete" title="Delete this string set"/>
+				<input type="button" class="moveLeft" value="&lArr;" title="Move string set to the left"/>
 			</div>
 			<div class="rowsArea"></div>
 		</div>
@@ -49,8 +49,8 @@
 			<div class="stringOrd"></div>
 			<select class="gauge" title="Gauge of string"></select>
 			<select class="note" title="Note of open string"></select>
-			<span class="lbs" title="Weight of string, in pound units"><input type="text" class="tensionLbs" disabled value="" size="3"/> lbs</span>
-			<span class="kg" title="Weight of string, in kilogram units"><input type="text" class="tensionKg" disabled value="" size="3"/> kg</span>
+			<span class="lbs" title="Weight of string, in pound units"><input type="text" class="tensionLbs" disabled value=""/> lbs</span>
+			<span class="kg" title="Weight of string, in kilogram units"><input type="text" class="tensionKg" disabled value=""/> kg</span>
 		</div>
 	</div>
 	<div id="footer">Copyright (C) Rodrigo Cesar de Freitas Dias 2017.
