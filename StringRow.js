@@ -55,7 +55,7 @@ function StringRow(_stringNo) {
 			$('.gauge').removeClass('modified');
 			$tpl.find('.gauge option').each(function() {
 				var $opt = $(this);
-				if ($opt.data('obj').gauge == gauge) {
+				if ($opt.text() == gauge) {
 					$opt.prop('selected', true);
 					return false;
 				}
@@ -83,9 +83,17 @@ function StringRow(_stringNo) {
 	};
 
 	self.getTension = function() {
-		var gauge = $tpl.find('.gauge :selected').data('obj');
+		var gauge = $tpl.find('.gauge :selected').text();
 		var note = $tpl.find('.note :selected').data('obj');
-		return gauge.weight * Math.pow(2 * scaleLen * note.freq, 2) / 386.088;
+		var fGauge = parseFloat(gauge.substr(0, gauge.length - 2));
+
+		var coefs = (gauge[gauge.length - 1] == 'P') ?
+			[ -.000176520934, .0840206843, -16.01839853, 1656.456428,
+				-96731.24564, 3248319.241, -58293798.41, 432468921.1 ] :
+			[ -.002123403683, .4863557681, -46.19498733, 2403.599196,
+				-74026.84724, 1389623.565, -15576312.23, 95696503.28, -247760614.2 ];
+
+		return poly(fGauge, coefs) * Math.pow(2 * scaleLen * note.freq, 2) / 386.4;
 	};
 
 	self.onTensionChange = function(callback) {
@@ -98,9 +106,8 @@ function StringRow(_stringNo) {
 		var $wounds = $('<optgroup label="Wound"></optgroup>');
 
 		$.each(GAUGES, function() {
-			var $newOpt = $('<option>'+this.gauge+'</option>');
-			$newOpt.data('obj', this);
-			$newOpt.appendTo(this.gauge[this.gauge.length - 1] === 'P' ?
+			var $newOpt = $('<option>'+this+'</option>');
+			$newOpt.appendTo(this[this.length - 1] == 'P' ?
 				$plains : $wounds);
 		});
 
@@ -127,9 +134,17 @@ function StringRow(_stringNo) {
 			case 5: addEntries(19, 25); break;
 			case 6: addEntries(24, 30); break;
 			case 7: addEntries(29, 35); break;
-			case 8: addEntries(34, 39);
+			case 8: addEntries(34, NOTES.length - 1);
 		}
 		return $cmbNote;
+	}
+
+	function poly(x, args) {
+		var res = 0;
+		$.each(args, function(i) {
+			res += this * Math.pow(x, i);
+		});
+		return res;
 	}
 
 	function calcTension() {
