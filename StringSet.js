@@ -10,7 +10,6 @@ function StringSet() {
 	var self = this;
 	var $tpl = null;
 	var onTensionChangeCB = null;
-	var onMoveLeftCB = null;
 	var weightUnit = 'kg';
 
 	(function Ctor() {
@@ -67,7 +66,12 @@ function StringSet() {
 		});
 
 		$tpl.find('.moveLeft').click(function() {
-			if (onMoveLeftCB) onMoveLeftCB(self);
+			if ($tpl.index() === 0) {
+				alert('First string set cannot be moved left.');
+			} else {
+				$tpl.insertBefore($tpl.prev());
+				if (onTensionChangeCB) onTensionChangeCB();
+			}
 		});
 
 		$tpl.find('.tuning option:eq(0)').prop('selected', true);
@@ -102,11 +106,6 @@ function StringSet() {
 
 	self.onTensionChange = function(callback) {
 		onTensionChangeCB = callback;
-		return self;
-	};
-
-	self.onMoveLeft = function(callback) {
-		onMoveLeftCB = callback;
 		return self;
 	};
 

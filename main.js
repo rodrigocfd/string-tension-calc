@@ -18,15 +18,7 @@ $(document).ready(function() {
 		var newSet = new StringSet();
 		newSet.getBlock().insertBefore('#newStringSet')
 			.hide().fadeIn(200);
-		newSet.onTensionChange(updatePlot)
-			.onMoveLeft(function(sset) {
-				if (sset.getBlock().index() === 0) {
-					alert('First string set cannot be moved left.');
-				} else {
-					sset.getBlock().insertBefore(sset.getBlock().prev());
-					updatePlot();
-				}
-			});
+		newSet.onTensionChange(updatePlot);
 		$('[name=unit]:checked').trigger('change');
 	});
 });
