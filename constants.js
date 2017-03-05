@@ -12,7 +12,7 @@ const SCALES = [
 	{ scale: '24.625"', inches: [24.625, 24.625] },
 	{ scale: '25"',     inches: [25,     25] },
 	{ scale: '25.4"',   inches: [25.4,   25.4] },
-	{ scale: '25.5"',   inches: [25.5,   25.5] },
+	{ scale: '25.5"',   inches: [25.5,   25.5], defaultSel: true },
 	{ scale: '26.5"',   inches: [26.5,   26.5] },
 	{ scale: '27"',     inches: [27,     27] },
 	{ scale: '28"',     inches: [28,     28] },
@@ -30,7 +30,7 @@ const SCALES = [
 ];
 
 const TUNINGS = [
-	{ tuning: 'E standard',  notes: [ 'E4', 'B3', 'G3', 'D3', 'A2', 'E2', 'B1', 'F#1' ] },
+	{ tuning: 'E standard',  notes: [ 'E4', 'B3', 'G3', 'D3', 'A2', 'E2', 'B1', 'F#1' ], defaultSel: true },
 	{ tuning: 'Eb standard', notes: [ 'D#4','A#3','F#3','C#3','G#2','D#2','A#1','F1'  ] },
 	{ tuning: 'D standard',  notes: [ 'D4', 'A3', 'F3', 'C3', 'G2', 'D2', 'A1', 'E1'  ] },
 	{ tuning: 'C# standard', notes: [ 'C#4','G#3','E3', 'B2', 'F#2','C#2','G#1','D#1' ] },
@@ -156,7 +156,7 @@ const PACKS = [
 	{ gauges: [ '.009 P', '.011 P', '.016 P', '.026 W', '.036 W', '.046 W' ], name: ".009 D'Addario / Ernie Ball hybrid" },
 	{ gauges: [ '.009 P', '.012 P', '.015 P', '.022 W', '.030 W', '.040 W' ], name: ".009 D'Addario EXL120BT balanced" },
 	{ gauges: [ '.0095 P','.0115 P','.016 P', '.024 W', '.034 W', '.044 W' ], name: ".0095 D'Addario EXL120+" },
-	{ gauges: [ '.010 P', '.013 P', '.017 P', '.026 W', '.036 W', '.046 W' ], name: ".010 D'Addario / Ernie Ball" },
+	{ gauges: [ '.010 P', '.013 P', '.017 P', '.026 W', '.036 W', '.046 W' ], name: ".010 D'Addario / Ernie Ball", defaultSel: true },
 	{ gauges: [ '.010 P', '.013 P', '.017 P', '.030 W', '.042 W', '.052 W' ], name: ".010 D'Addario / Ernie Ball hybrid" },
 	{ gauges: [ '.010 P', '.0135 P','.017 P', '.025 W', '.034 W', '.046 W' ], name: ".010 D'Addario EXL110BT balanced" },
 	{ gauges: [ '.010 P', '.013 P', '.017 P', '.028 W', '.038 W', '.048 W' ], name: '.010 Dunlop Heavy Core Heavy' },

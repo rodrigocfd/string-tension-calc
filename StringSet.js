@@ -74,9 +74,7 @@ function StringSet() {
 			}
 		});
 
-		$tpl.find('.tuning option:eq(0)').prop('selected', true);
-		$tpl.find('.scaleLength option:eq(3)').prop('selected', true);
-		$tpl.find('.packs option:eq(10)').prop('selected', true).trigger('change');
+		setDefaultValues();
 	})();
 
 	self.getBlock = function() {
@@ -136,6 +134,19 @@ function StringSet() {
 			$cmbTuning.append($newOpt);
 		});
 		return $cmbTuning;
+	}
+
+	function setDefaultValues() {
+		$.each(['.tuning', '.scaleLength', '.packs'], function() {
+			$tpl.find(this+' option').each(function() {
+				var $opt = $(this);
+				if ($opt.data('obj').defaultSel) {
+					$opt.prop('selected', true);
+					return false;
+				}
+			});
+		});
+		$tpl.find('.packs').trigger('change');
 	}
 
 	function calcMultiScaleLength(scales, num, totalStrings) {
