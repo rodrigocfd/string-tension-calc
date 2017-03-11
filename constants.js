@@ -16,6 +16,8 @@ const SCALES = [
 	{ scale: '26.5"',   inches: [26.5,   26.5] },
 	{ scale: '27"',     inches: [27,     27] },
 	{ scale: '28"',     inches: [28,     28] },
+	{ scale: '28.625"', inches: [28.625, 28.625] },
+	{ scale: '30"',     inches: [30,     30] },
 	{ scale: '24.625 &ndash; 25.5"', inches: [24.625, 25.5] },
 	{ scale: '25 &ndash; 25.5"',     inches: [25,     25.5] },
 	{ scale: '25 &ndash; 26"',       inches: [25,     26] },
