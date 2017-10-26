@@ -5,159 +5,157 @@
  * @see https://github.com/rodrigocfd/string-tension-calc
  */
 
-function StringSet() {
+class StringSet {
+	constructor() {
+		this.$tpl = $('#templates .stringSet').clone();
+		this.$tpl.data('obj', this);
 
-	var self = this;
-	var $tpl = null;
-	var onTensionChangeCB = null;
-	var weightUnit = 'kg';
+		this.weightUnit = 'kg';
+		this.onTensionChangeCB = null;
 
-	(function Ctor() {
-		$tpl = $('#templates .stringSet').clone();
-		$tpl.data('obj', self);
-		fillComboPacks();
-		fillComboScaleLengths();
-		fillComboTunings();
+		this.fillComboPacks();
+		this.fillComboScaleLengths();
+		this.fillComboTunings();
 
-		$tpl.find('.packs').change(function() {
-			StringRow.deleteAllRows($tpl);
-			var pack = $(this).find(':selected').data('obj');
-			var scale = $tpl.find('.scaleLength :selected').data('obj');
-			var tuning = $tpl.find('.tuning :selected').data('obj');
+		this.$tpl.find('.packs').change(ev => {
+			StringRow.deleteAllRows(this.$tpl);
+			let pack = $(ev.currentTarget).find(':selected').data('obj');
+			let scale = this.$tpl.find('.scaleLength :selected').data('obj');
+			let tuning = this.$tpl.find('.tuning :selected').data('obj');
 
-			$.each(pack.gauges, function(i) {
-				var newRow = new StringRow(i + 1);
-				newRow.setRowInfo(this, tuning.notes[i])
-					.setScaleLength(calcMultiScaleLength(scale.inches, i, pack.gauges.length))
-					.setUnit(weightUnit);
-				newRow.getBlock().appendTo($tpl.find('.rowsArea'))
+			$.each(pack.gauges, (i, gau) => {
+				let newRow = new StringRow(i + 1);
+				newRow.setRowInfo(gau, tuning.notes[i])
+					.setScaleLength(StringSet.calcMultiScaleLength(scale.inches, i, pack.gauges.length))
+					.setUnit(this.weightUnit);
+				newRow.getBlock().appendTo(this.$tpl.find('.rowsArea'))
 					.hide().fadeIn(200);
-				newRow.onTensionChange(function() {
-					if (onTensionChangeCB) onTensionChangeCB();
+				newRow.onTensionChange(() => {
+					if (this.onTensionChangeCB) this.onTensionChangeCB();
 				});
 			});
 
-			if (onTensionChangeCB) onTensionChangeCB();
+			if (this.onTensionChangeCB) this.onTensionChangeCB();
 		});
 
-		$tpl.find('.scaleLength').change(function() {
-			var scale = $(this).find(':selected').data('obj');
-			var pack = $tpl.find('.packs :selected').data('obj');
+		this.$tpl.find('.scaleLength').change(ev => {
+			let scale = $(ev.currentTarget).find(':selected').data('obj');
+			let pack = this.$tpl.find('.packs :selected').data('obj');
 
-			$.each(StringRow.getAllRows($tpl), function(i) {
-				this.setScaleLength(calcMultiScaleLength(scale.inches, i, pack.gauges.length));
+			$.each(StringRow.getAllRows(this.$tpl), (i, row) => {
+				row.setScaleLength(StringSet.calcMultiScaleLength(scale.inches, i, pack.gauges.length));
 			});
 		});
 
-		$tpl.find('.tuning').change(function() {
-			var tuning = $(this).find(':selected').data('obj');
-			$.each(StringRow.getAllRows($tpl), function(i) {
-				this.setRowInfo(null, tuning.notes[i]);
+		this.$tpl.find('.tuning').change(ev => {
+			let tuning = $(ev.currentTarget).find(':selected').data('obj');
+			$.each(StringRow.getAllRows(this.$tpl), (i, row) => {
+				row.setRowInfo(null, tuning.notes[i]);
 			});
 		});
 
-		$tpl.find('.deleteSet').click(function() {
+		this.$tpl.find('.deleteSet').click(() => {
 			if (confirm('Delete this set?')) {
-				$tpl.fadeOut(200, function() {
-					$tpl.remove();
-					if (onTensionChangeCB) onTensionChangeCB();
+				this.$tpl.fadeOut(200, () => {
+					this.$tpl.remove();
+					if (this.onTensionChangeCB) this.onTensionChangeCB();
 				});
 			}
 		});
 
-		$tpl.find('.moveLeft').click(function() {
-			if ($tpl.index() === 0) {
+		this.$tpl.find('.moveLeft').click(() => {
+			if (this.$tpl.index() === 0) {
 				alert('First string set cannot be moved left.');
 			} else {
-				$tpl.insertBefore($tpl.prev());
-				if (onTensionChangeCB) onTensionChangeCB();
+				this.$tpl.insertBefore(this.$tpl.prev());
+				if (this.onTensionChangeCB) this.onTensionChangeCB();
 			}
 		});
 
-		setDefaultValues();
-	})();
+		this.setDefaultValues();
+	}
 
-	self.getBlock = function() {
-		return $tpl;
-	};
+	getBlock() {
+		return this.$tpl;
+	}
 
-	self.setColor = function(color) {
-		$tpl.css('border-top', '4px solid '+color);
-		return self;
-	};
+	setColor(color) {
+		this.$tpl.css('border-top', `4px solid ${color}`);
+		return this;
+	}
 
-	self.setUnit = function(unit) {
-		weightUnit = unit;
-		$.each(StringRow.getAllRows($tpl), function() {
-			this.setUnit(unit);
-		});
-		return self;
-	};
+	setUnit(unit) {
+		this.weightUnit = unit;
+		for (let row of StringRow.getAllRows(this.$tpl)) {
+			row.setUnit(unit);
+		}
+		return this;
+	}
 
-	self.getTensions = function() {
-		var tensions = [];
-		$.each(StringRow.getAllRows($tpl), function() {
-			tensions.push(this.getTension());
-		});
+	getTensions() {
+		let tensions = [];
+		for (let row of StringRow.getAllRows(this.$tpl)) {
+			tensions.push(row.getTension());
+		}
 		return tensions;
-	};
-
-	self.onTensionChange = function(callback) {
-		onTensionChangeCB = callback;
-		return self;
-	};
-
-	function fillComboPacks() {
-		$.each(PACKS, function() {
-			var $newOpt = $('<option>'+this.name+'</option>');
-			$newOpt.data('obj', this);
-			$tpl.find('.pack'+this.gauges.length).append($newOpt);
-		});
-		return $tpl.find('.packs');
 	}
 
-	function fillComboScaleLengths() {
-		$.each(SCALES, function() {
-			var $newOpt = $('<option>'+this.scale+'</option>');
-			$newOpt.data('obj', this);
-			var simpleOrMulti = (this.inches[0] == this.inches[1]) ? 'S' : 'M';
-			$tpl.find('.scale'+simpleOrMulti).append($newOpt);
-		});
-		return $tpl.find('.scaleLength');
+	onTensionChange(callback) {
+		this.onTensionChangeCB = callback;
+		return this;
 	}
 
-	function fillComboTunings() {
-		var $cmbTuning = $tpl.find('.tuning');
-		$.each(TUNINGS, function() {
-			var $newOpt = $('<option>'+this.tuning+'</option>');
-			$newOpt.data('obj', this);
+	fillComboPacks() {
+		for (const pac of PACKS) {
+			let $newOpt = $(`<option>${pac.name}</option>`);
+			$newOpt.data('obj', pac);
+			this.$tpl.find(`.pack${pac.gauges.length}`).append($newOpt);
+		}
+		return this.$tpl.find('.packs');
+	}
+
+	fillComboScaleLengths() {
+		for (const sca of SCALES) {
+			let $newOpt = $(`<option>${sca.scale}</option>`);
+			$newOpt.data('obj', sca);
+			let simpleOrMulti = (sca.inches[0] == sca.inches[1]) ? 'S' : 'M';
+			this.$tpl.find(`.scale${simpleOrMulti}`).append($newOpt);
+		}
+		return this.$tpl.find('.scaleLength');
+	}
+
+	fillComboTunings() {
+		let $cmbTuning = this.$tpl.find('.tuning');
+		for (const tun of TUNINGS) {
+			let $newOpt = $(`<option>${tun.tuning}</option>`);
+			$newOpt.data('obj', tun);
 			$cmbTuning.append($newOpt);
-		});
+		}
 		return $cmbTuning;
 	}
 
-	function setDefaultValues() {
-		$.each(['.tuning', '.scaleLength', '.packs'], function() {
-			$tpl.find(this+' option').each(function() {
-				var $opt = $(this);
+	setDefaultValues() {
+		for (const selec of ['.tuning', '.scaleLength', '.packs']) {
+			this.$tpl.find(`${selec} option`).each((i, elem) => {
+				let $opt = $(elem);
 				if ($opt.data('obj').defaultSel) {
 					$opt.prop('selected', true);
 					return false;
 				}
 			});
-		});
-		$tpl.find('.packs').trigger('change');
+		}
+		this.$tpl.find('.packs').trigger('change');
 	}
 
-	function calcMultiScaleLength(scales, num, totalStrings) {
+	static calcMultiScaleLength(scales, num, totalStrings) {
 		return scales[0] - (scales[0] - scales[1]) * (num / (totalStrings - 1));
 	}
-}
 
-StringSet.getAllSets = function(container) {
-	var sets = [];
-	$(container).find('.stringSet').each(function() {
-		sets.push($(this).data('obj'));
-	});
-	return sets;
-};
+	static getAllSets(container) {
+		let sets = [];
+		$(container).find('.stringSet').each((i, elem) => {
+			sets.push($(elem).data('obj'));
+		});
+		return sets;
+	}
+}

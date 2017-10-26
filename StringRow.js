@@ -5,61 +5,58 @@
  * @see https://github.com/rodrigocfd/string-tension-calc
  */
 
-function StringRow(_stringNo) {
+class StringRow {
+	constructor(stringNo) {
+		this.$tpl = $('#templates .stringRow').clone();
+		this.$tpl.data('obj', this);
 
-	var self = this;
-	var $tpl = null;
-	var onTensionChangeCB = null;
-	var stringNo = 0;
-	var scaleLen = 0;
-	var packDefinedGauge = null;
-	var packDefinedNote = null;
+		this.stringNo = stringNo;
+		this.$tpl.find('.stringOrd').text([ 'E','B','G','D','A','E','B','F#' ][this.stringNo - 1]);
 
-	(function Ctor(_stringNo) {
-		$tpl = $('#templates .stringRow').clone();
-		$tpl.data('obj', self);
+		this.scaleLen = 0;
+		this.packDefinedGauge = null;
+		this.packDefinedNote = null;
+		this.onTensionChangeCB = null;
 
-		stringNo = _stringNo;
-		$tpl.find('.stringOrd').text([ 'E','B','G','D','A','E','B','F#' ][stringNo - 1]);
-		fillComboGauges();
-		fillComboNotes();
+		this.fillComboGauges();
+		this.fillComboNotes();
 
-		$tpl.find('.gauge').change(function() {
-			var $cmb = $(this);
+		this.$tpl.find('.gauge').change(ev => {
+			let $cmb = $(ev.currentTarget);
 			$cmb.toggleClass('modified',
-				$cmb.find(':selected').text() !== packDefinedGauge);
-			calcTension();
+				$cmb.find(':selected').text() !== this.packDefinedGauge);
+			this.calcTension();
 		});
 
-		$tpl.find('.note').change(function() {
-			var $cmb = $(this);
+		this.$tpl.find('.note').change(ev => {
+			let $cmb = $(ev.currentTarget);
 			$cmb.toggleClass('modified',
-				$cmb.find(':selected').data('obj').note !== packDefinedNote);
-			calcTension();
+				$cmb.find(':selected').data('obj').note !== this.packDefinedNote);
+			this.calcTension();
 		});
-	})(_stringNo);
+	}
 
-	self.appendHtmlTo = function(selector) {
-		$tpl.appendTo(selector).hide().fadeIn(200);
-		return self;
-	};
+	appendHtmlTo(selector) {
+		this.$tpl.appendTo(selector).hide().fadeIn(200);
+		return this;
+	}
 
-	self.getBlock = function() {
-		return $tpl;
-	};
+	getBlock() {
+		return this.$tpl;
+	}
 
-	self.setUnit = function(unit) {
-		$tpl.find('.lbs').toggle(unit === 'lbs');
-		$tpl.find('.kg').toggle(unit === 'kg');
-		return self;
-	};
+	setUnit(unit) {
+		this.$tpl.find('.lbs').toggle(unit === 'lbs');
+		this.$tpl.find('.kg').toggle(unit === 'kg');
+		return this;
+	}
 
-	self.setRowInfo = function(gauge, note) {
+	setRowInfo(gauge, note) {
 		if (gauge) {
-			packDefinedGauge = gauge;
+			this.packDefinedGauge = gauge;
 			$('.gauge').removeClass('modified');
-			$tpl.find('.gauge option').each(function() {
-				var $opt = $(this);
+			this.$tpl.find('.gauge option').each((idx, elem) => {
+				let $opt = $(elem);
 				if ($opt.text() == gauge) {
 					$opt.prop('selected', true);
 					return false;
@@ -67,71 +64,71 @@ function StringRow(_stringNo) {
 			});
 		}
 		if (note) {
-			packDefinedNote = note;
+			this.packDefinedNote = note;
 			$('.note').removeClass('modified');
-			$tpl.find('.note option').each(function() {
-				var $opt = $(this);
+			this.$tpl.find('.note option').each((i, elem) => {
+				let $opt = $(elem);
 				if ($opt.data('obj').note == note) {
 					$opt.prop('selected', true);
 					return false;
 				}
 			});
 		}
-		calcTension();
-		return self;
-	};
+		this.calcTension();
+		return this;
+	}
 
-	self.setScaleLength = function(scaleLength) {
-		scaleLen = scaleLength;
-		calcTension();
-		return self;
-	};
+	setScaleLength(scaleLength) {
+		this.scaleLen = scaleLength;
+		this.calcTension();
+		return this;
+	}
 
-	self.getTension = function() {
-		var gauge = $tpl.find('.gauge :selected').text();
-		var note = $tpl.find('.note :selected').data('obj');
-		var fGauge = parseFloat(gauge.substr(0, gauge.length - 2));
+	getTension() {
+		let gauge = this.$tpl.find('.gauge :selected').text();
+		let note = this.$tpl.find('.note :selected').data('obj');
+		let fGauge = parseFloat(gauge.substr(0, gauge.length - 2));
 
-		var coefs = (gauge[gauge.length - 1] == 'P') ?
+		let coefs = (gauge[gauge.length - 1] == 'P') ?
 			[ -.000176520934, .0840206843, -16.01839853, 1656.456428,
 				-96731.24564, 3248319.241, -58293798.41, 432468921.1 ] :
 			[ -.002123403683, .4863557681, -46.19498733, 2403.599196,
 				-74026.84724, 1389623.565, -15576312.23, 95696503.28, -247760614.2 ];
 
-		return poly(fGauge, coefs) * Math.pow(2 * scaleLen * note.freq, 2) / 386.4;
-	};
+		return this.poly(fGauge, coefs) * Math.pow(2 * this.scaleLen * note.freq, 2) / 386.4;
+	}
 
-	self.onTensionChange = function(callback) {
-		onTensionChangeCB = callback;
-		return self;
-	};
+	onTensionChange(callback) {
+		this.onTensionChangeCB = callback;
+		return this;
+	}
 
-	function fillComboGauges() {
-		var $plains = $('<optgroup label="Plain"></optgroup>');
-		var $wounds = $('<optgroup label="Wound"></optgroup>');
+	fillComboGauges() {
+		let $plains = $('<optgroup label="Plain"></optgroup>');
+		let $wounds = $('<optgroup label="Wound"></optgroup>');
 
-		$.each(GAUGES, function() {
-			var $newOpt = $('<option>'+this+'</option>');
-			$newOpt.appendTo(this[this.length - 1] == 'P' ?
+		$.each(GAUGES, (i, gau) => {
+			let $newOpt = $('<option>'+gau+'</option>');
+			$newOpt.appendTo(gau[gau.length - 1] == 'P' ?
 				$plains : $wounds);
 		});
 
-		return $tpl.find('.gauge').append($plains).append($wounds);
+		return this.$tpl.find('.gauge').append($plains).append($wounds);
 	}
 
-	function fillComboNotes() {
-		var $cmbNote = $tpl.find('.note');
+	fillComboNotes() {
+		let $cmbNote = this.$tpl.find('.note');
 
-		var addEntries = function(idxFrom, idxTo) {
-			var suffixes = [ '+1','std','-1','-2','-3','-4','-5' ]
-			for (var i = idxFrom; i <= idxTo; ++i) {
-				var $newOpt = $('<option>'+NOTES[i].note+' ('+suffixes[i - idxFrom]+')</option>');
+		let addEntries = (idxFrom, idxTo) => {
+			let suffixes = [ '+1','std','-1','-2','-3','-4','-5' ]
+			for (let i = idxFrom; i <= idxTo; ++i) {
+				let $newOpt = $(`<option>${NOTES[i].note} (${suffixes[i - idxFrom]})</option>`);
 				$newOpt.data('obj', NOTES[i]);
 				$cmbNote.append($newOpt);
 			}
 		};
 
-		switch (stringNo) {
+		switch (this.stringNo) {
 			case 1: addEntries( 0,  6); break;
 			case 2: addEntries( 5, 11); break;
 			case 3: addEntries( 9, 15); break;
@@ -144,29 +141,29 @@ function StringRow(_stringNo) {
 		return $cmbNote;
 	}
 
-	function poly(x, args) {
-		var res = 0;
-		$.each(args, function(i) {
-			res += this * Math.pow(x, i);
+	poly(x, args) {
+		let res = 0;
+		$.each(args, (i, arg) => {
+			res += arg * Math.pow(x, i);
 		});
 		return res;
 	}
 
-	function calcTension() {
-		$tpl.find('.tensionLbs').val(self.getTension().toFixed(2));
-		$tpl.find('.tensionKg').val((self.getTension() * .453592).toFixed(2));
-		if (onTensionChangeCB) onTensionChangeCB();
+	calcTension() {
+		this.$tpl.find('.tensionLbs').val(this.getTension().toFixed(2));
+		this.$tpl.find('.tensionKg').val((this.getTension() * .453592).toFixed(2));
+		if (this.onTensionChangeCB) this.onTensionChangeCB();
+	}
+
+	static getAllRows(container) {
+		let rows = [];
+		$(container).find('.stringRow').each((i, elem) => {
+			rows.push($(elem).data('obj'));
+		});
+		return rows;
+	}
+
+	static deleteAllRows(container) {
+		$(container).find('.stringRow').remove();
 	}
 }
-
-StringRow.getAllRows = function(container) {
-	var rows = [];
-	$(container).find('.stringRow').each(function() {
-		rows.push($(this).data('obj'));
-	});
-	return rows;
-};
-
-StringRow.deleteAllRows = function(container) {
-	$(container).find('.stringRow').remove();
-};

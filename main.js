@@ -5,17 +5,17 @@
  * @see https://github.com/rodrigocfd/string-tension-calc
  */
 
-$(document).ready(function() {
-	$('[name=unit]').change(function() {
-		var unit = $(this).val();
-		$.each(StringSet.getAllSets('#setsArea'), function() {
-			this.setUnit(unit);
-		});
+$(document).ready(() => {
+	$('[name=unit]').change(ev => {
+		let unit = $(ev.currentTarget).val();
+		for (let sset of StringSet.getAllSets('#setsArea')) {
+			sset.setUnit(unit);
+		}
 		updatePlot();
 	});
 
-	$('#newStringSet').focus().click(function() {
-		var newSet = new StringSet();
+	$('#newStringSet').focus().click(() => {
+		let newSet = new StringSet();
 		newSet.getBlock().insertBefore('#newStringSet')
 			.hide().fadeIn(200);
 		newSet.onTensionChange(updatePlot);
@@ -24,16 +24,15 @@ $(document).ready(function() {
 });
 
 function updatePlot() {
-	var tensionSeries = [];
-	$.each(StringSet.getAllSets('#setsArea'), function(i) {
-		this.setColor(COLORS[i % COLORS.length]);
-		var series = {
+	let tensionSeries = [];
+	$.each(StringSet.getAllSets('#setsArea'), (i, setArea) => {
+		setArea.setColor(COLORS[i % COLORS.length]);
+		let series = {
 			color: COLORS[i % COLORS.length],
 			points: { radius: 6 },
 			data: []
 		};
-		$.each(this.getTensions(), function(j) {
-			var tension = this;
+		$.each(setArea.getTensions(), (j, tension) => {
 			if ($('[name=unit]:checked').val() === 'kg') tension *= .453592;
 			series.data.push([ j, tension ]);
 		});
@@ -41,9 +40,9 @@ function updatePlot() {
 	});
 
 	if (tensionSeries.length) {
-		var xTicks = [];
-		$.each([ 'E','B','G','D','A','E','(B)','(F#)' ], function(i) {
-			xTicks.push([ i, this ]);
+		let xTicks = [];
+		$.each([ 'E','B','G','D','A','E','(B)','(F#)' ], (i, ciph) => {
+			xTicks.push([ i, ciph ]);
 		});
 
 		$('#plotArea').hide().fadeIn(200);

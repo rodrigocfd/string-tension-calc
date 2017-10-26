@@ -82,7 +82,7 @@ const NOTES = [
 	{ note: 'D1',  freq:  36.7081 }
 ];
 
-var GAUGES = [
+const GAUGES = [
 	'.007 P',
 	'.008 P',
 	'.0085 P',
