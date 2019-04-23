@@ -17,6 +17,7 @@ const SCALES = [
 	{ scale: '27"',     inches: [27,     27] },
 	{ scale: '28"',     inches: [28,     28] },
 	{ scale: '28.625"', inches: [28.625, 28.625] },
+	{ scale: '29.4"',   inches: [29.4,   29.4] },
 	{ scale: '30"',     inches: [30,     30] },
 	{ scale: '24.625 &ndash; 25.5"', inches: [24.625, 25.5] },
 	{ scale: '25 &ndash; 25.5"',     inches: [25,     25.5] },
@@ -24,11 +25,18 @@ const SCALES = [
 	{ scale: '25.4 &ndash; 27"',     inches: [25.4,   27] },
 	{ scale: '25.5 &ndash; 26.25"',  inches: [25.5,   26.25] },
 	{ scale: '25.5 &ndash; 26.5"',   inches: [25.5,   26.5] },
+	{ scale: '25.5 &ndash; 27"',     inches: [25.5,   27] },
+	{ scale: '25.5 &ndash; 27.26"',  inches: [25.5,   27.26] },
 	{ scale: '25.5 &ndash; 27.5"',   inches: [25.5,   27.5] },
 	{ scale: '25.5 &ndash; 27.8"',   inches: [25.5,   27.8] },
 	{ scale: '25.5 &ndash; 28.2"',   inches: [25.5,   28.2] },
+	{ scale: '25.5 &ndash; 28.625"', inches: [25.5,   28.625] },
 	{ scale: '26 &ndash; 28"',       inches: [26,     28] },
-	{ scale: '26.5 &ndash; 28.5"',   inches: [26.5,   28.5] }
+	{ scale: '26 &ndash; 27.5"',     inches: [26,     27.5] },
+	{ scale: '26.5 &ndash; 28"',     inches: [26.5,   28] },
+	{ scale: '26.5 &ndash; 28.5"',   inches: [26.5,   28.5] },
+	{ scale: '27 &ndash; 28.625"',   inches: [27,     28.625] },
+	{ scale: '27 &ndash; 30"',       inches: [27,     30] }
 ];
 
 const TUNINGS = [
