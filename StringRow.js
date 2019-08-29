@@ -107,11 +107,11 @@ class StringRow {
 		let $plains = $('<optgroup label="Plain"></optgroup>');
 		let $wounds = $('<optgroup label="Wound"></optgroup>');
 
-		$.each(GAUGES, (i, gau) => {
+		for (let gau of GAUGES) {
 			let $newOpt = $('<option>'+gau+'</option>');
 			$newOpt.appendTo(gau[gau.length - 1] == 'P' ?
 				$plains : $wounds);
-		});
+		}
 
 		return this.$tpl.find('.gauge').append($plains).append($wounds);
 	}
@@ -143,7 +143,7 @@ class StringRow {
 
 	poly(x, args) {
 		let res = 0;
-		$.each(args, (i, arg) => {
+		args.forEach((arg, i) => {
 			res += arg * Math.pow(x, i);
 		});
 		return res;

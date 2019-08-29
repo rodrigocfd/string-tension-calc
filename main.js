@@ -25,24 +25,24 @@ $(document).ready(() => {
 
 function updatePlot() {
 	let tensionSeries = [];
-	$.each(StringSet.getAllSets('#setsArea'), (i, setArea) => {
+	StringSet.getAllSets('#setsArea').forEach((setArea, i) => {
 		setArea.setColor(COLORS[i % COLORS.length]);
 		let series = {
 			color: COLORS[i % COLORS.length],
-			points: { radius: 6 },
+			points: {radius: 6},
 			data: []
 		};
-		$.each(setArea.getTensions(), (j, tension) => {
+		setArea.getTensions().forEach((tension, j) => {
 			if ($('[name=unit]:checked').val() === 'kg') tension *= .453592;
-			series.data.push([ j, tension ]);
+			series.data.push([j, tension]);
 		});
 		tensionSeries.push(series);
 	});
 
 	if (tensionSeries.length) {
 		let xTicks = [];
-		$.each([ 'E','B','G','D','A','E','(B)','(F#)' ], (i, ciph) => {
-			xTicks.push([ i, ciph ]);
+		['E','B','G','D','A','E','(B)','(F#)'].forEach((ciph, i) => {
+			xTicks.push([i, ciph]);
 		});
 
 		$('#plotArea').hide().fadeIn(200);

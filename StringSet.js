@@ -23,7 +23,7 @@ class StringSet {
 			let scale = this.$tpl.find('.scaleLength :selected').data('obj');
 			let tuning = this.$tpl.find('.tuning :selected').data('obj');
 
-			$.each(pack.gauges, (i, gau) => {
+			pack.gauges.forEach((gau, i) => {
 				let newRow = new StringRow(i + 1);
 				newRow.setRowInfo(gau, tuning.notes[i])
 					.setScaleLength(StringSet.calcMultiScaleLength(scale.inches, i, pack.gauges.length))
@@ -42,14 +42,14 @@ class StringSet {
 			let scale = $(ev.currentTarget).find(':selected').data('obj');
 			let pack = this.$tpl.find('.packs :selected').data('obj');
 
-			$.each(StringRow.getAllRows(this.$tpl), (i, row) => {
+			StringRow.getAllRows(this.$tpl).forEach((row, i) => {
 				row.setScaleLength(StringSet.calcMultiScaleLength(scale.inches, i, pack.gauges.length));
 			});
 		});
 
 		this.$tpl.find('.tuning').on('change', ev => {
 			let tuning = $(ev.currentTarget).find(':selected').data('obj');
-			$.each(StringRow.getAllRows(this.$tpl), (i, row) => {
+			StringRow.getAllRows(this.$tpl).forEach((row, i) => {
 				row.setRowInfo(null, tuning.notes[i]);
 			});
 		});
