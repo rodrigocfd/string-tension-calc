@@ -6,7 +6,7 @@
  */
 
 $(document).ready(() => {
-	$('[name=unit]').change(ev => {
+	$('[name=unit]').on('change', ev => {
 		let unit = $(ev.currentTarget).val();
 		for (let sset of StringSet.getAllSets('#setsArea')) {
 			sset.setUnit(unit);
@@ -14,7 +14,7 @@ $(document).ready(() => {
 		updatePlot();
 	});
 
-	$('#newStringSet').focus().click(() => {
+	$('#newStringSet').focus().on('click', () => {
 		let newSet = new StringSet();
 		newSet.getBlock().insertBefore('#newStringSet')
 			.hide().fadeIn(200);

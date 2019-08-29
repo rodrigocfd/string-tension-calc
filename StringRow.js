@@ -21,14 +21,14 @@ class StringRow {
 		this.fillComboGauges();
 		this.fillComboNotes();
 
-		this.$tpl.find('.gauge').change(ev => {
+		this.$tpl.find('.gauge').on('change', ev => {
 			let $cmb = $(ev.currentTarget);
 			$cmb.toggleClass('modified',
 				$cmb.find(':selected').text() !== this.packDefinedGauge);
 			this.calcTension();
 		});
 
-		this.$tpl.find('.note').change(ev => {
+		this.$tpl.find('.note').on('change', ev => {
 			let $cmb = $(ev.currentTarget);
 			$cmb.toggleClass('modified',
 				$cmb.find(':selected').data('obj').note !== this.packDefinedNote);

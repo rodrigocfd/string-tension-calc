@@ -17,7 +17,7 @@ class StringSet {
 		this.fillComboScaleLengths();
 		this.fillComboTunings();
 
-		this.$tpl.find('.packs').change(ev => {
+		this.$tpl.find('.packs').on('change', ev => {
 			StringRow.deleteAllRows(this.$tpl);
 			let pack = $(ev.currentTarget).find(':selected').data('obj');
 			let scale = this.$tpl.find('.scaleLength :selected').data('obj');
@@ -38,7 +38,7 @@ class StringSet {
 			if (this.onTensionChangeCB) this.onTensionChangeCB();
 		});
 
-		this.$tpl.find('.scaleLength').change(ev => {
+		this.$tpl.find('.scaleLength').on('change', ev => {
 			let scale = $(ev.currentTarget).find(':selected').data('obj');
 			let pack = this.$tpl.find('.packs :selected').data('obj');
 
@@ -47,14 +47,14 @@ class StringSet {
 			});
 		});
 
-		this.$tpl.find('.tuning').change(ev => {
+		this.$tpl.find('.tuning').on('change', ev => {
 			let tuning = $(ev.currentTarget).find(':selected').data('obj');
 			$.each(StringRow.getAllRows(this.$tpl), (i, row) => {
 				row.setRowInfo(null, tuning.notes[i]);
 			});
 		});
 
-		this.$tpl.find('.deleteSet').click(() => {
+		this.$tpl.find('.deleteSet').on('click', () => {
 			if (confirm('Delete this set?')) {
 				this.$tpl.fadeOut(200, () => {
 					this.$tpl.remove();
@@ -63,7 +63,7 @@ class StringSet {
 			}
 		});
 
-		this.$tpl.find('.moveLeft').click(() => {
+		this.$tpl.find('.moveLeft').on('click', () => {
 			if (this.$tpl.index() === 0) {
 				alert('First string set cannot be moved left.');
 			} else {
