@@ -51,9 +51,9 @@ function updatePlot() {
 				borderColor: '#999',
 				borderWidth: 1
 			},
-			lines: { show: true, lineWidth: 2 },
-			points: { show: true, lineWidth: 3 },
-			xaxis: { ticks: xTicks }
+			lines: {show: true, lineWidth: 2},
+			points: {show: true, lineWidth: 3},
+			xaxis: {ticks: xTicks}
 		});
 	} else {
 		$('#plotArea').fadeOut(200);

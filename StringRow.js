@@ -11,7 +11,7 @@ class StringRow {
 		this.$tpl.data('obj', this);
 
 		this.stringNo = stringNo;
-		this.$tpl.find('.stringOrd').text([ 'E','B','G','D','A','E','B','F#' ][this.stringNo - 1]);
+		this.$tpl.find('.stringOrd').text(['E','B','G','D','A','E','B','F#'][this.stringNo - 1]);
 
 		this.scaleLen = 0;
 		this.packDefinedGauge = null;
@@ -90,10 +90,10 @@ class StringRow {
 		let fGauge = parseFloat(gauge.substr(0, gauge.length - 2));
 
 		let coefs = (gauge[gauge.length - 1] == 'P') ?
-			[ -.000176520934, .0840206843, -16.01839853, 1656.456428,
-				-96731.24564, 3248319.241, -58293798.41, 432468921.1 ] :
-			[ -.002123403683, .4863557681, -46.19498733, 2403.599196,
-				-74026.84724, 1389623.565, -15576312.23, 95696503.28, -247760614.2 ];
+			[-.000176520934, .0840206843, -16.01839853, 1656.456428,
+				-96731.24564, 3248319.241, -58293798.41, 432468921.1] :
+			[-.002123403683, .4863557681, -46.19498733, 2403.599196,
+				-74026.84724, 1389623.565, -15576312.23, 95696503.28, -247760614.2];
 
 		return this.poly(fGauge, coefs) * Math.pow(2 * this.scaleLen * note.freq, 2) / 386.4;
 	}
@@ -120,7 +120,7 @@ class StringRow {
 		let $cmbNote = this.$tpl.find('.note');
 
 		let addEntries = (idxFrom, idxTo) => {
-			let suffixes = [ '+1','std','-1','-2','-3','-4','-5' ]
+			let suffixes = ['+1','std','-1','-2','-3','-4','-5']
 			for (let i = idxFrom; i <= idxTo; ++i) {
 				let $newOpt = $(`<option>${NOTES[i].note} (${suffixes[i - idxFrom]})</option>`);
 				$newOpt.data('obj', NOTES[i]);
