@@ -42,6 +42,7 @@ const SCALES = [
 
 const TUNINGS = [
 	{tuning: 'E standard',  notes: ['E4', 'B3', 'G3', 'D3', 'A2', 'E2', 'B1', 'F#1'], defaultSel: true},
+	{tuning: 'E drop E 8',  notes: ['E4', 'B3', 'G3', 'D3', 'A2', 'E2', 'B1', 'E1' ]},
 	{tuning: 'Eb standard', notes: ['D#4','A#3','F#3','C#3','G#2','D#2','A#1','F1' ]},
 	{tuning: 'D standard',  notes: ['D4', 'A3', 'F3', 'C3', 'G2', 'D2', 'A1', 'E1' ]},
 	{tuning: 'C# standard', notes: ['C#4','G#3','E3', 'B2', 'F#2','C#2','G#1','D#1']},
@@ -192,8 +193,11 @@ const PACKS = [
 	{gauges: ['.010 P', '.013 P', '.017 P', '.026 W', '.036 W', '.046 W', '.059 W'], name: ".010 D'Addario EXL110-7"},
 	{gauges: ['.010 P', '.013 P', '.017 P', '.026 W', '.036 W', '.046 W', '.056 W'], name: '.010 Ernie Ball Regular Slinky 7'},
 	{gauges: ['.010 P', '.013 P', '.017 P', '.028 W', '.038 W', '.048 W', '.060 W'], name: '.010 Dunlop Heavy Core Heavy7'},
-	{gauges: ['.009 P', '.011 P', '.016 P', '.024 W', '.032 W', '.042 W', '.054 W', '.065 W'], name: ".009 D'Addario EXL120-8"},
-	{gauges: ['.009 P', '.011 P', '.016 P', '.024 W', '.034 W', '.046 W', '.064 W', '.080 W'], name: '.009 Ernie Ball 8-String Heavy Bottom'},
+	{gauges: ['.009 P', '.011 P', '.016 P', '.024 W', '.032 W', '.042 W', '.054 W', '.065 W'], name: ".009 D'Addario EXL120-8 / Ibanez IEGS8"},
+	{gauges: ['.009 P', '.011 P', '.016 P', '.026 W', '.036 W', '.046 W', '.052 W', '.070 W'], name: ".009 Ibanez IEGS82"},
+	{gauges: ['.009 P', '.012 P', '.016 P', '.024 W', '.032 W', '.044 W', '.060 W', '.080 W'], name: ".009 D'Addario NYXL0980"},
+	{gauges: ['.009 P', '.011 P', '.016 P', '.024 W', '.034 W', '.046 W', '.064 W', '.080 W'], name: '.009 Ernie Ball 2624 Skinny Top Heavy Bottom'},
 	{gauges: ['.009 P', '.012 P', '.015 P', '.022 W', '.030 W', '.042 W', '.056 W', '.084 W'], name: '.009 Strandberg Optimized'},
-	{gauges: ['.010 P', '.013 P', '.017 P', '.030 W', '.042 W', '.054 W', '.064 W', '.074 W'], name: ".010 D'Addario/Ernie Ball 8-string"}
+	{gauges: ['.010 P', '.013 P', '.017 P', '.030 W', '.042 W', '.054 W', '.064 W', '.074 W'], name: ".010 D'Addario NYXL1074 / Ernie Ball 2625"},
+	{gauges: ['.010 P', '.013 P', '.017 P', '.030 W', '.044 W', '.052 W', '.062 W', '.080 W'], name: ".010 GHS Boomers 8 Thin n Thick 10-80"}
 ];
