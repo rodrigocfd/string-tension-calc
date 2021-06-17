@@ -45,7 +45,9 @@ const TUNINGS = [
 	{tuning: 'Eb standard', notes: ['D#4','A#3','F#3','C#3','G#2','D#2','A#1','F1' ]},
 	{tuning: 'D standard',  notes: ['D4', 'A3', 'F3', 'C3', 'G2', 'D2', 'A1', 'E1' ]},
 	{tuning: 'C# standard', notes: ['C#4','G#3','E3', 'B2', 'F#2','C#2','G#1','D#1']},
-	{tuning: 'C standard',  notes: ['C4', 'G3', 'D#3','A#2','F2', 'C2', 'G1', 'D1' ]}
+	{tuning: 'C standard',  notes: ['C4', 'G3', 'D#3','A#2','F2', 'C2', 'G1', 'D1' ]},
+	{tuning: 'B standard',  notes: ['B3', 'F#3', 'D3','A2','E2', 'B1', 'G1', 'C#1' ]},
+	{tuning: 'A standard',  notes: ['A3', 'E3', 'C3','G2','D2', 'A1', 'F1', 'B0' ]}
 ];
 
 const NOTES = [
