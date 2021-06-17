@@ -120,7 +120,7 @@ class StringRow {
 		let $cmbNote = this.$tpl.find('.note');
 
 		let addEntries = (idxFrom, idxTo) => {
-			let suffixes = ['+1','std','-1','-2','-3','-4','-5']
+			let suffixes = ['+1','std','-1','-2','-3','-4','-5','-6', '-7', '-8', '-9', '-10', '-11']
 			for (let i = idxFrom; i <= idxTo; ++i) {
 				let $newOpt = $(`<option>${NOTES[i].note} (${suffixes[i - idxFrom]})</option>`);
 				$newOpt.data('obj', NOTES[i]);
@@ -129,13 +129,13 @@ class StringRow {
 		};
 
 		switch (this.stringNo) {
-			case 1: addEntries( 0,  6); break;
-			case 2: addEntries( 5, 11); break;
-			case 3: addEntries( 9, 15); break;
-			case 4: addEntries(14, 20); break;
-			case 5: addEntries(19, 25); break;
-			case 6: addEntries(24, 30); break;
-			case 7: addEntries(29, 35); break;
+			case 1: addEntries( 0,  8); break;
+			case 2: addEntries( 5, 13); break;
+			case 3: addEntries( 9, 17); break;
+			case 4: addEntries(14, 22); break;
+			case 5: addEntries(19, 27); break;
+			case 6: addEntries(24, 34); break;
+			case 7: addEntries(29, 37); break;
 			case 8: addEntries(34, NOTES.length - 1);
 		}
 		return $cmbNote;
