@@ -1,0 +1,27 @@
+{
+	"name": "string-tension-calc",
+	"private": true,
+	"version": "2.0.0",
+	"author": {
+		"name": "Rodrigo César de Freitas Dias",
+		"email": "rcesar@gmail.com"
+	},
+	"license": "MIT",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "vue-tsc && vite build",
+		"preview": "vite preview"
+	},
+	"dependencies": {
+		"vue": "^3.3.4"
+	},
+	"devDependencies": {
+		"@types/node": "^20.2.3",
+		"@vitejs/plugin-vue": "^4.2.3",
+		"sass": "^1.62.1",
+		"typescript": "^5.0.4",
+		"vite": "^4.3.8",
+		"vue-tsc": "^1.6.5"
+	}
+}
