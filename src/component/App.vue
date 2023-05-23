@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import store from '@/model/store';
 import GuitarList from './GuitarList.vue';
+import LineChart from './LineChart.vue';
 import Unit from './Unit.vue';
 </script>
 
@@ -11,6 +12,7 @@ import Unit from './Unit.vue';
 		<button @click="() => store.addNew()">New guitar</button>
 	</header>
 	<GuitarList />
+	<LineChart />
 </template>
 
 <style module="m" lang="scss">
