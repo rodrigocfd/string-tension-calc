@@ -15,13 +15,12 @@ const store = {
 
 	guitars: computed((): IGuitar[] => data.guitars),
 	addNew(): void {
-		const packName = c.DEFAULT_PACKS.find(p => p.numStrings === c.DEFAULT_NUM_STRINGS)!.packName;
 		data.guitars.push({
 			_key: genKey(),
 			scale: {mode: 'normal', lengthHi: 25, lengthLo: 25},
-			packName,
+			packName: c.DEFAULT_PACK_NAME,
 			tuningName: c.DEFAULT_TUNING_NAME,
-			strings: genStrings(packName, c.DEFAULT_TUNING_NAME),
+			strings: genStrings(c.DEFAULT_PACK_NAME, c.DEFAULT_TUNING_NAME),
 		});
 	},
 	moveLeft(ss: IGuitar) {

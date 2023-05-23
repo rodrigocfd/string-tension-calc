@@ -1,4 +1,4 @@
-import {IDefaultPack, INumStrings, IPitchesForString, ITuningName} from './types';
+import {IPackName, IPitchesForString, ITuningName} from './types';
 
 export const GAUGES = [
 	'.007 P',
@@ -197,13 +197,7 @@ export const UNITS = [
 	'lbs',
 ] as const;
 
-export const DEFAULT_NUM_STRINGS: INumStrings = 6;
-
-export const DEFAULT_PACKS: IDefaultPack[] = [
-	{numStrings: 6, packName: ".010 D'Addario / Ernie Ball"},
-	{numStrings: 7, packName: ".010 D'Addario EXL110-7"},
-	{numStrings: 8, packName: ".010 D'Addario/Ernie Ball 8-string"},
-];
+export const DEFAULT_PACK_NAME: IPackName = ".010 D'Addario / Ernie Ball";
 
 export const DEFAULT_TUNING_NAME: ITuningName = 'E standard';
 
