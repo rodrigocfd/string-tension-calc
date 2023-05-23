@@ -34,6 +34,10 @@ const store = {
 		data.guitars[idx] = data.guitars[idx - 1];
 		data.guitars[idx - 1] = tmp;
 	},
+	changePack(guitar: IGuitar, name: IPackName): void {
+		guitar.packName = name;
+		guitar.strings = genStrings(name, guitar.tuningName);
+	},
 };
 
 export default store;
