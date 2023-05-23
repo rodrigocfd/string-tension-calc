@@ -14,7 +14,7 @@ const props = defineProps<{
 			<div>Guitar #{{props.index + 1}}</div>
 
 			<button @click="() => store.remove(props.guitar)">Remove</button>
-
+			<button @click="() => store.moveLeft(props.guitar)" v-if="props.index !== 0">⇐</button>
 		</div>
 	</div>
 </template>
