@@ -10,6 +10,7 @@ export default defineConfig({
 			replacement: resolve(__dirname, 'src'),
 		}],
 	},
+	base: '/string-tension-calc',
 	server: {
 		port: 8080,
 	},

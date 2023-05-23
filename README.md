@@ -2,7 +2,7 @@
 
 Available for online use here:
 
-https://rodrigocfd.github.io/string-tension-calc/
+https://rodrigocfd.github.io/string-tension-calc
 
 ## License
 
