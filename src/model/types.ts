@@ -27,7 +27,7 @@ export interface IGuitar {
 export interface IString {
 	_key: number;
 	gauge: IGauge;
-	pitchNote: IPitchNote;
+	note: IPitchNote;
 }
 
 export interface IPitchesForString {

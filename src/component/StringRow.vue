@@ -3,6 +3,7 @@ import {computed} from 'vue';
 import {IGuitar, IString} from '@/model/types';
 import * as c from '@/model/consts';
 import Gauge from './Gauge.vue';
+import Pitch from './Pitch.vue';
 
 const props = defineProps<{
 	index: number;
@@ -14,13 +15,20 @@ const modifGauge = computed((): boolean => {
 	const pack = c.PACKS.find(p => p.name === props.guitar.packName)!;
 	return pack.gauges[props.index] === props.str.gauge;
 });
+const modifNote = computed((): boolean => {
+	const tuning = c.TUNINGS.find(t => t.name === props.guitar.tuningName)!;
+	return tuning.notes[props.index] === props.str.note;
+});
 </script>
 
 <template>
 	<div :class="m.stringRow">
 		<div>{{props.index + 1}}</div>
-		<div :class="modifGauge ? m.modifGauge : m.origGauge">
+		<div :class="modifGauge ? m.modifVal : m.origVal">
 			<Gauge v-model:gauge="props.str.gauge" />
+		</div>
+		<div :class="modifNote ? m.modifVal : m.origVal">
+			<Pitch :stringIndex="props.index" v-model:note="props.str.note" />
 		</div>
 
 	</div>
@@ -37,11 +45,11 @@ const modifGauge = computed((): boolean => {
 				text-align: right;
 			}
 		}
-		.origGauge {
+		.origVal {
 			border: 1px solid red;
 			padding: 1px;
 		}
-		.modifGauge {
+		.modifVal {
 			border: 1px solid white;
 			padding: 1px;
 		}

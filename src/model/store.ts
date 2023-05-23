@@ -1,6 +1,11 @@
 import {computed, reactive} from 'vue';
-import {IGuitar, IPackName, IString, ITuningName, IUnit} from './types';
+import {IGuitar, IPackName, ITuningName, IUnit} from './types';
 import * as c from './consts';
+
+let curKey = 0;
+function genKey(): number {
+	return curKey++;
+}
 
 const data = reactive({
 	unit: 'kg' as IUnit,
@@ -21,7 +26,13 @@ const store = {
 			scale: {mode: 'normal', lengthHi: 25, lengthLo: 25},
 			packName,
 			tuningName: c.DEFAULT_TUNING_NAME,
-			strings: genStrings(packName, c.DEFAULT_TUNING_NAME),
+			strings: c.PACKS.find(pack => pack.name === packName)!
+				.gauges.map((gauge, idxStr) => ({
+					_key: genKey(),
+					gauge,
+					note: c.TUNINGS.find(tuning => tuning.name === c.DEFAULT_TUNING_NAME)!
+						.notes[idxStr],
+				})),
 		});
 	},
 	remove(guitar: IGuitar): void {
@@ -36,25 +47,14 @@ const store = {
 	},
 	changePack(guitar: IGuitar, name: IPackName): void {
 		guitar.packName = name;
-		guitar.strings = genStrings(name, guitar.tuningName);
+		const pack = c.PACKS.find(p => p.name === name)!;
+		guitar.strings.forEach((str, idxStr) => str.gauge = pack.gauges[idxStr]);
+	},
+	changeTuning(guitar: IGuitar, name: ITuningName): void {
+		guitar.tuningName = name;
+		const tuning = c.TUNINGS.find(t => t.name === name)!;
+		guitar.strings.forEach((str, idxStr) => str.note = tuning.notes[idxStr]);
 	},
 };
 
 export default store;
-
-//------------------------------------------------------------------------------
-
-let curKey = 0;
-function genKey(): number {
-	return curKey++;
-}
-
-function genStrings(packName: IPackName, tuningName: ITuningName): IString[] {
-	return c.PACKS.find(pack => pack.name === packName)!
-		.gauges.map((gauge, idxStr) => ({
-			_key: genKey(),
-			gauge,
-			pitchNote: c.TUNINGS.find(tuning => tuning.name === tuningName)!
-				.notes[idxStr],
-		}));
-}

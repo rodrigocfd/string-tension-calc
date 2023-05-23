@@ -4,6 +4,7 @@ import store from '@/model/store';
 import Pack from './Pack.vue';
 import Scale from './Scale.vue';
 import StringRow from './StringRow.vue';
+import Tuning from './Tuning.vue';
 
 const props = defineProps<{
 	index: number;
@@ -15,7 +16,6 @@ const props = defineProps<{
 	<div :class="[m.guitarBox, m['color' + (props.index % 7)]]">
 		<div :class="m.topRow">
 			<div>Guitar #{{props.index + 1}}</div>
-
 			<button @click="() => store.remove(props.guitar)">Remove</button>
 			<button @click="() => store.moveLeft(props.guitar)" v-if="props.index !== 0">⇐</button>
 		</div>
@@ -24,8 +24,10 @@ const props = defineProps<{
 			<Pack :packName="props.guitar.packName"
 				@update:packName="name => store.changePack(props.guitar, name)" />
 		</div>
-
-
+		<div>
+			<Tuning :tuningName="props.guitar.tuningName"
+				@update:tuningName="name => store.changeTuning(props.guitar, name)" />
+		</div>
 		<div>
 			<div v-for="(str, idx) of props.guitar.strings" :key="str._key">
 				<StringRow :index="idx" :str="str" :guitar="props.guitar" />
