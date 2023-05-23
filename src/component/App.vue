@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import store from '@/model/store';
+import GuitarList from './GuitarList.vue';
 import Unit from './Unit.vue';
 </script>
 
@@ -6,7 +8,9 @@ import Unit from './Unit.vue';
 	<header :class="m.header">
 		<h1>String Tension Calculator</h1>
 		<Unit />
+		<button @click="() => store.addNew()">New guitar</button>
 	</header>
+	<GuitarList />
 </template>
 
 <style module="m" lang="scss">

@@ -1,4 +1,4 @@
-import {reactive} from 'vue';
+import {computed, reactive} from 'vue';
 import {IGuitar, IPackName, IString, ITuningName, IUnit} from './types';
 import * as c from './consts';
 
@@ -8,16 +8,12 @@ const data = reactive({
 });
 
 const store = {
-	get unit(): IUnit {
-		return data.unit;
-	},
+	unit: computed((): IUnit => data.unit),
 	setUnit(unit: IUnit): void {
 		data.unit = unit;
 	},
 
-	get guitars(): IGuitar[] {
-		return data.guitars;
-	},
+	guitars: computed((): IGuitar[] => data.guitars),
 	addNew(): void {
 		const packName = c.DEFAULT_PACKS.find(p => p.numStrings === c.DEFAULT_NUM_STRINGS)!.packName;
 		data.guitars.push({
