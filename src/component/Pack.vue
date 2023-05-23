@@ -29,7 +29,7 @@ c.PACKS.forEach(defPack => {
 
 <template>
 	<select v-model="currentPackName">
-		<optgroup v-for="group in packsByNumStrings" :key="group.num" :label="group.num + ' strings'">
+		<optgroup v-for="group of packsByNumStrings" :key="group.num" :label="group.num + ' strings'">
 			<option v-for="packName of group.packNames" :key="packName">
 				{{packName}}
 			</option>

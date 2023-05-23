@@ -26,7 +26,7 @@ const props = defineProps<{
 
 
 	<div>
-		<div v-for="(str, idx) in props.guitar.strings" :key="str._key">
+		<div v-for="(str, idx) of props.guitar.strings" :key="str._key">
 			<StringRow :index="idx"
 				:str="str"
 				:numStrings="(props.guitar.strings.length as INumStrings)"

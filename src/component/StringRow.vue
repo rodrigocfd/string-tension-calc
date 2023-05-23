@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {INumStrings, IScale, IString} from '@/model/types';
+import Gauge from './Gauge.vue';
 
 const props = defineProps<{
 	index: number;
@@ -12,6 +13,7 @@ const props = defineProps<{
 <template>
 	<div :class="m.stringRow">
 		<div>{{props.index + 1}}</div>
+		<div><Gauge v-model:gauge="props.str.gauge" /></div>
 
 	</div>
 </template>
