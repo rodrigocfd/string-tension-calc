@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import {computed} from 'vue';
 import {IGuitar, IString} from '@/model/types';
+import store from '@/model/store';
+import {calcTension} from '@/model/funcs';
 import * as c from '@/model/consts';
 import Gauge from './Gauge.vue';
 import Pitch from './Pitch.vue';
@@ -19,6 +21,11 @@ const modifNote = computed((): boolean => {
 	const tuning = c.TUNINGS.find(t => t.name === props.guitar.tuningName)!;
 	return tuning.notes[props.index] === props.str.note;
 });
+
+const tension = computed((): number =>
+	calcTension(props.index, props.guitar.strings.length,
+		props.str, props.guitar.scale, store.unit.value)
+);
 </script>
 
 <template>
@@ -30,7 +37,10 @@ const modifNote = computed((): boolean => {
 		<div :class="modifNote ? m.modifVal : m.origVal">
 			<Pitch :stringIndex="props.index" v-model:note="props.str.note" />
 		</div>
-
+		<div>
+			<input type="text" :class="m.tension" :value="tension.toFixed(2)" disabled />
+			{{store.unit.value}}
+		</div>
 	</div>
 </template>
 
