@@ -15,9 +15,12 @@ const props = defineProps<{
 <template>
 	<div :class="[m.guitarBox, m['color' + (props.index % 7)]]">
 		<div :class="m.topRow">
-			<div>Guitar #{{props.index + 1}}</div>
-			<button @click="() => store.remove(props.guitar)">Remove</button>
-			<button @click="() => store.moveLeft(props.guitar)" v-if="props.index !== 0">⇐</button>
+			<div :class="m.name">Guitar #{{props.index + 1}}</div>
+			<div :class="m.topButtons">
+				<button @click="() => store.moveLeft(props.guitar)"
+					v-if="props.index !== 0" title="Move left">⇐</button>
+				<button @click="() => store.remove(props.guitar)" title="Remove">✕</button>
+			</div>
 		</div>
 		<div><Scale v-model:scale="props.guitar.scale" /></div>
 		<div>
@@ -62,6 +65,14 @@ const props = defineProps<{
 			display: flex;
 			gap: 6px;
 			align-items: baseline;
+			justify-content: space-between;
+			.name {
+				font-size: 115%;
+			}
+			.topButtons {
+				display: flex;
+				gap: 6px;
+			}
 		}
 	}
 </style>

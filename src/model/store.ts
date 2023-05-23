@@ -24,15 +24,15 @@ const store = {
 			strings: genStrings(packName, c.DEFAULT_TUNING_NAME),
 		});
 	},
-	remove(guitar: IGuitar): void {
-		const idx = data.guitars.findIndex(g => g._key === guitar._key);
-		data.guitars.splice(idx, 1);
-	},
 	moveLeft(ss: IGuitar) {
 		const idx = data.guitars.findIndex(g => g._key === ss._key);
 		const tmp = data.guitars[idx];
 		data.guitars[idx] = data.guitars[idx - 1];
 		data.guitars[idx - 1] = tmp;
+	},
+	remove(guitar: IGuitar): void {
+		const idx = data.guitars.findIndex(g => g._key === guitar._key);
+		data.guitars.splice(idx, 1);
 	},
 	changePack(guitar: IGuitar, name: IPackName): void {
 		guitar.packName = name;
