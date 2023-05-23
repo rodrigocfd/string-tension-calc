@@ -29,7 +29,7 @@ c.GAUGES.forEach(gauge => {
 <template>
 	<select v-model="currentGauge">
 		<optgroup v-for="kind of gaugesByKind" :key="kind.kind" :label="kind.label">
-			<option v-for="gauge of kind.gauges" :key="gauge">
+			<option v-for="gauge of kind.gauges" :key="gauge" :value="gauge">
 				{{gauge}}
 			</option>
 		</optgroup>

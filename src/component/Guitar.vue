@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import {IGuitar, INumStrings} from '@/model/types';
+import {IGuitar} from '@/model/types';
 import store from '@/model/store';
 import Pack from './Pack.vue';
+import Scale from './Scale.vue';
 import StringRow from './StringRow.vue';
 
 const props = defineProps<{
@@ -18,17 +19,17 @@ const props = defineProps<{
 			<button @click="() => store.remove(props.guitar)">Remove</button>
 			<button @click="() => store.moveLeft(props.guitar)" v-if="props.index !== 0">⇐</button>
 		</div>
-	</div>
+		<div><Scale v-model:scale="props.guitar.scale" /></div>
+		<div>
+			<Pack :packName="props.guitar.packName"
+				@update:packName="name => store.changePack(props.guitar, name)" />
+		</div>
 
-	<div>
-		<Pack :packName="props.guitar.packName"
-			@update:packName="name => store.changePack(props.guitar, name)" />
-	</div>
 
-
-	<div>
-		<div v-for="(str, idx) of props.guitar.strings" :key="str._key">
-			<StringRow :index="idx" :str="str" :guitar="props.guitar" />
+		<div>
+			<div v-for="(str, idx) of props.guitar.strings" :key="str._key">
+				<StringRow :index="idx" :str="str" :guitar="props.guitar" />
+			</div>
 		</div>
 	</div>
 </template>
