@@ -7,9 +7,14 @@ import Unit from './Unit.vue';
 
 <template>
 	<header :class="m.header">
-		<h1>String Tension Calculator</h1>
-		<Unit />
-		<button @click="() => store.addNew()">New guitar</button>
+		<h1 :class="m.title">String Tension Calculator</h1>
+		<div :class="m.topButtons">
+			<Unit />
+			<button :class="m.add" @click="() => store.addNew()">New guitar</button>
+		</div>
+		<a :class="m.repo" href="https://github.com/rodrigocfd/string-tension-calc">
+			<img src="/github.svg" />
+		</a>
 	</header>
 	<GuitarList />
 	<LineChart />
@@ -21,16 +26,35 @@ import Unit from './Unit.vue';
 		font-size: 11pt;
 	}
 	.header {
-		margin-bottom: 10px;
-		& > * {
-			display: inline-block;
-		}
-		& > h1 {
+		display: flex;
+		align-items: baseline;
+		.title {
 			font-size: 16pt;
 			margin: 0 18px 12px 0;
 		}
-		& > button {
-			margin-left: 12px;
+		.topButtons {
+			display: flex;
+			@media (max-width: 480px) {
+				flex-direction: column;
+				gap: 6px;
+			}
+			.add {
+				margin-left: 12px;
+				white-space: nowrap;
+			}
+		}
+		.repo {
+			align-self: center;
+			&:hover {
+				transform: scale(1.1);
+			}
+			&:active {
+				transform: scale(1.2);
+			}
+			& > img {
+				width: 22px;
+				padding-left: 10px;
+			}
 		}
 	}
 </style>
