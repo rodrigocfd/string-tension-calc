@@ -4,16 +4,16 @@ import {INumStrings, IPackName} from '@/model/types';
 import * as c from '@/model/consts';
 
 const props = defineProps<{
-	name: IPackName;
+	packName: IPackName;
 }>();
 
 const emit = defineEmits<{
-	change: [name: IPackName],
+	'update:packName': [name: IPackName],
 }>();
 
 const currentPackName = computed({
-	get: (): IPackName => props.name,
-	set: (name: IPackName): void => emit('change', name),
+	get: (): IPackName => props.packName,
+	set: (name: IPackName): void => emit('update:packName', name),
 });
 
 const packsByNumStrings: {num: INumStrings, packNames: IPackName[]}[] = [

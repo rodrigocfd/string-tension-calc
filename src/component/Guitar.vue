@@ -21,16 +21,14 @@ const props = defineProps<{
 	</div>
 
 	<div>
-		<Pack :name="props.guitar.packName" @change="name => store.changePack(props.guitar, name)" />
+		<Pack :packName="props.guitar.packName"
+			@update:packName="name => store.changePack(props.guitar, name)" />
 	</div>
 
 
 	<div>
 		<div v-for="(str, idx) of props.guitar.strings" :key="str._key">
-			<StringRow :index="idx"
-				:str="str"
-				:numStrings="(props.guitar.strings.length as INumStrings)"
-				:scale="props.guitar.scale" />
+			<StringRow :index="idx" :str="str" :guitar="props.guitar" />
 		</div>
 	</div>
 </template>
