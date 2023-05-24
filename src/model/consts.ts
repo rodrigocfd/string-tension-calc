@@ -187,6 +187,7 @@ export const TUNINGS = [
 	{name: 'C standard',  notes: ['C4', 'G3', 'D#3','A#2','F2', 'C2', 'G1', 'D1' ]},
 	{name: 'B standard',  notes: ['B3', 'F#3','D3', 'A2', 'E2', 'B1', 'F#1','C#1']},
 	{name: 'Bb standard', notes: ['A#3','F3', 'C#3','G#2','D#2','A#1','F1', 'C1' ]},
+	{name: 'A standard',  notes: ['A3', 'E3', 'C3', 'G2', 'D2', 'A1', 'E1', 'B0' ]},
 
 	{name: 'Drop D',  notes: ['E4', 'B3', 'G3', 'D3', 'A2', 'D2', 'A1', 'E1' ]},
 	{name: 'Drop C#', notes: ['D#4','A#3','F#3','C#3','G#2','C#2','G#1','D#1']},
