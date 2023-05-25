@@ -30,7 +30,7 @@ export function calcTension(
 	const effScaleLen = effectiveScaleLength(stringIndex, numStrings, scale);
 
 	let tension = polynomialGauge(gauge, isPlain) * Math.pow(2 * effScaleLen * freq, 2) / 386.4;
-	if (unit === 'kg') tension *= .453592;
+	if (unit === 'kg/cm') tension *= .17858;
 
 	return tension;
 };

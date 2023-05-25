@@ -196,8 +196,8 @@ export const TUNINGS = [
 ] as const;
 
 export const UNITS = [
-	'kg',
-	'lbs',
+	'kg/cm',
+	'lb/in',
 ] as const;
 
 export const DEFAULT_PACK_NAME: IPackName = ".010 D'Addario / Ernie Ball";

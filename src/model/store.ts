@@ -3,7 +3,7 @@ import {IGuitar, IPackName, IString, ITuningName, IUnit} from './types';
 import * as c from './consts';
 
 const data = reactive({
-	unit: 'kg' as IUnit,
+	unit: 'kg/cm' as IUnit,
 	guitars: [] as IGuitar[],
 });
 
