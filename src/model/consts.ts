@@ -1,4 +1,4 @@
-import {IPackName, IPitchesForString, ITuningName} from './types';
+import {IPackName, IPitchesForString, IScale, ITuningName} from './types';
 
 export const GAUGES = [
 	'.007 P',
@@ -202,6 +202,12 @@ export const UNITS = [
 ] as const;
 
 export const DEFAULT_PACK_NAME: IPackName = ".010 D'Addario / Ernie Ball";
+
+export const DEFAULT_SCALE: IScale = {
+	mode: 'normal',
+	lengthHi: 25.5,
+	lengthLo: 25.5,
+};
 
 export const DEFAULT_TUNING_NAME: ITuningName = 'E standard';
 

@@ -17,7 +17,7 @@ const store = {
 	addNew(): void {
 		data.guitars.push({
 			_key: genKey(),
-			scale: {mode: 'normal', lengthHi: 25, lengthLo: 25},
+			scale: c.DEFAULT_SCALE,
 			packName: c.DEFAULT_PACK_NAME,
 			tuningName: c.DEFAULT_TUNING_NAME,
 			strings: genStrings(c.DEFAULT_PACK_NAME, c.DEFAULT_TUNING_NAME),
