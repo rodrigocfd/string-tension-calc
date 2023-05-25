@@ -7,7 +7,7 @@ https://rodrigocfd.github.io/string-tension-calc
 ## Features
 
 * Compares string tension of multiple guitars at once;
-* Calculates tension in kg or lbs;
+* Calculates tension in kg/cm, lb/in or Newton;
 * Plots a line chart comparing the tensions;
 * Supports 6, 7 and 8 string guitars;
 * Supports multi-scale guitars (fanned frets);
