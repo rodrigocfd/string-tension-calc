@@ -28,6 +28,7 @@ export interface IString {
 	_key: number;
 	gauge: IGauge;
 	note: INote;
+	tension: number;
 }
 
 export interface IPitchesForString {

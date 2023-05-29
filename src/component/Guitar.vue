@@ -23,7 +23,10 @@ const props = defineProps<{
 				<button @click="() => store.remove(props.guitar)" title="Remove">✕</button>
 			</div>
 		</div>
-		<div><Scale v-model:scale="props.guitar.scale" /></div>
+		<div>
+			<Scale :scale="props.guitar.scale"
+				@update:scale="s => store.changeScale(props.guitar, s)" />
+		</div>
 		<div>
 			<Pack :packName="props.guitar.packName"
 				@update:packName="name => store.changePack(props.guitar, name)" />

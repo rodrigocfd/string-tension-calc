@@ -2,7 +2,6 @@
 import {onMounted, ref, watch} from 'vue';
 import {Chart} from 'chart.js/auto';
 import store from '@/model/store';
-import {calcTension} from '@/model/funcs';
 
 const canvas = ref<HTMLCanvasElement | null>(null);
 let chart: Chart<"line", number[], string> | null = null;
@@ -30,9 +29,7 @@ watch([store.guitars, store.unit], ([gtrs, unit], [prevGtrs, prevUnit]) => {
 
 	chart!.data.datasets = gtrs.map((gtr, gtrIdx) => ({
 		label: 'Guitar #' + (gtrIdx + 1),
-		data: gtr.strings.map((str, strIdx) =>
-			calcTension(strIdx, gtr.strings.length, str.gauge, str.note, gtr.scale, store.unit.value),
-		),
+		data: gtr.strings.map(str => str.tension),
 		tension: .1,
 		pointRadius: 8,
 		pointHoverRadius: 6,

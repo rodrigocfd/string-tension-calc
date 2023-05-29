@@ -2,7 +2,6 @@
 import {computed} from 'vue';
 import {IGuitar, IString} from '@/model/types';
 import store from '@/model/store';
-import {calcTension} from '@/model/funcs';
 import * as c from '@/model/consts';
 import Gauge from './Gauge.vue';
 import Pitch from './Pitch.vue';
@@ -13,32 +12,30 @@ const props = defineProps<{
 	guitar: IGuitar;
 }>();
 
-const modifGauge = computed((): boolean => {
+const isModifGauge = computed((): boolean => {
 	const pack = c.PACKS.find(p => p.name === props.guitar.packName)!;
 	return pack.gauges[props.strIndex] === props.str.gauge;
 });
-const modifNote = computed((): boolean => {
+const isModifNote = computed((): boolean => {
 	const tuning = c.TUNINGS.find(t => t.name === props.guitar.tuningName)!;
 	return tuning.notes[props.strIndex] === props.str.note;
 });
-
-const tension = computed((): number =>
-	calcTension(props.strIndex, props.guitar.strings.length,
-		props.str.gauge, props.str.note, props.guitar.scale, store.unit.value)
-);
 </script>
 
 <template>
 	<div :class="m.stringRow">
 		<div>{{props.strIndex + 1}}</div>
-		<div :class="modifGauge ? m.modifVal : m.origVal">
-			<Gauge v-model:gauge="props.str.gauge" />
+		<div :class="isModifGauge ? m.modifVal : m.origVal">
+			<Gauge :gauge="props.str.gauge"
+				@update:gauge="g => store.changeGauge(props.guitar, props.str, g)" />
 		</div>
-		<div :class="modifNote ? m.modifVal : m.origVal">
-			<Pitch :stringIndex="props.strIndex" v-model:note="props.str.note" />
+		<div :class="isModifNote ? m.modifVal : m.origVal">
+			<Pitch :stringIndex="props.strIndex"
+				:note="props.str.note"
+				@update:note="n => store.changeNote(props.guitar, props.str, n)" />
 		</div>
 		<div>
-			<input type="text" :class="m.tension" :value="tension.toFixed(2)" disabled />
+			<input type="text" :class="m.tension" :value="props.str.tension.toFixed(2)" disabled />
 			{{store.unit.value}}
 		</div>
 	</div>

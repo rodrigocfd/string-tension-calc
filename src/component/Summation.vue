@@ -2,7 +2,6 @@
 import {computed} from 'vue';
 import {IGuitar} from '@/model/types';
 import store from '@/model/store';
-import {calcTension} from '@/model/funcs';
 
 const props = defineProps<{
 	guitarIndex: number;
@@ -10,10 +9,7 @@ const props = defineProps<{
 }>();
 
 const sum = computed(() =>
-	props.guitar.strings.reduce((acum, str) =>
-		acum + calcTension(props.guitarIndex, props.guitar.strings.length,
-			str.gauge, str.note, props.guitar.scale, store.unit.value),
-		0)
+	props.guitar.strings.reduce((acum, str) => acum + str.tension, 0),
 );
 </script>
 
