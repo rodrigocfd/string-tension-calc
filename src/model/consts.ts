@@ -156,6 +156,7 @@ export const PITCHES = [
 	{note: 'C1',  freq:  32.7032},
 	{note: 'B0',  freq:  30.8677},
 	{note: 'A#0', freq:  29.1352},
+	{note: 'A0',  freq:  27.5   },
 ] as const;
 
 export const SCALE_MODES = [
@@ -195,6 +196,7 @@ export const TUNINGS = [
 	{name: 'Bb standard', notes: ['A#3','F3', 'C#3','G#2','D#2','A#1','F1', 'C1' ]},
 	{name: 'A standard',  notes: ['A3', 'E3', 'C3', 'G2', 'D2', 'A1', 'E1', 'B0' ]},
 	{name: 'Ab standard', notes: ['G#3','D#3','B2', 'F#2','C#2','G#1','D#1','A#0']},
+	{name: 'G standard',  notes: ['G3', 'D3', 'A#2','F2', 'C2', 'G1', 'D1', 'A0' ]},
 
 	{name: 'Drop D',  notes: ['E4', 'B3', 'G3', 'D3', 'A2', 'D2', 'A1', 'E1' ]},
 	{name: 'Drop C#', notes: ['D#4','A#3','F#3','C#3','G#2','C#2','G#1','D#1']},
@@ -231,6 +233,7 @@ export const PITCHES_FOR_STRING: IPitchesForString[] = [{
 		{note: 'A#3', descr: '−6'},
 		{note: 'A3',  descr: '−7'},
 		{note: 'G#3', descr: '−8'},
+		{note: 'G3',  descr: '−9'},
 	],
 }, {
 	stringIndex: 1,
@@ -245,6 +248,7 @@ export const PITCHES_FOR_STRING: IPitchesForString[] = [{
 		{note: 'F3',  descr: '−6'},
 		{note: 'E3',  descr: '−7'},
 		{note: 'D#3', descr: '−8'},
+		{note: 'D3',  descr: '−9'},
 	],
 }, {
 	stringIndex: 2,
@@ -259,6 +263,7 @@ export const PITCHES_FOR_STRING: IPitchesForString[] = [{
 		{note: 'C#3', descr: '−6'},
 		{note: 'C3',  descr: '−7'},
 		{note: 'B2',  descr: '−8'},
+		{note: 'A#2', descr: '−9'},
 	],
 }, {
 	stringIndex: 3,
@@ -273,6 +278,7 @@ export const PITCHES_FOR_STRING: IPitchesForString[] = [{
 		{note: 'G#2', descr: '−6'},
 		{note: 'G2',  descr: '−7'},
 		{note: 'F#2', descr: '−8'},
+		{note: 'F2',  descr: '−9'},
 	],
 }, {
 	stringIndex: 4,
@@ -287,6 +293,7 @@ export const PITCHES_FOR_STRING: IPitchesForString[] = [{
 		{note: 'D#2', descr: '−6'},
 		{note: 'D2',  descr: '−7'},
 		{note: 'C#2', descr: '−8'},
+		{note: 'C2',  descr: '−9'},
 	],
 }, {
 	stringIndex: 5,
@@ -301,6 +308,7 @@ export const PITCHES_FOR_STRING: IPitchesForString[] = [{
 		{note: 'A#1', descr: '−6'},
 		{note: 'A1',  descr: '−7'},
 		{note: 'G#1', descr: '−8'},
+		{note: 'G1',  descr: '−9'},
 	],
 }, {
 	stringIndex: 6,
@@ -315,6 +323,7 @@ export const PITCHES_FOR_STRING: IPitchesForString[] = [{
 		{note: 'F1',  descr: '−6'},
 		{note: 'E1',  descr: '−7'},
 		{note: 'D#1', descr: '−8'},
+		{note: 'D1',  descr: '−9'},
 	],
 }, {
 	stringIndex: 7,
@@ -329,5 +338,6 @@ export const PITCHES_FOR_STRING: IPitchesForString[] = [{
 		{note: 'C1',  descr: '−6'},
 		{note: 'B0',  descr: '−7'},
 		{note: 'A#0', descr: '−8'},
+		{note: 'A0',  descr: '−9'},
 	],
 }];
