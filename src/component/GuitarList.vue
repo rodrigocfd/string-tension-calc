@@ -6,7 +6,7 @@ import Guitar from './Guitar.vue';
 <template>
 	<transition-group name="sets" tag="div" :class="m.arena">
 		<div v-for="(guitar, idx) of store.guitars.value" :key="guitar._key">
-			<Guitar :index="idx" :guitar="guitar" />
+			<Guitar :guitarIndex="idx" :guitar="guitar" />
 		</div>
 	</transition-group>
 </template>

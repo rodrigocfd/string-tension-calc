@@ -4,21 +4,22 @@ import store from '@/model/store';
 import Pack from './Pack.vue';
 import Scale from './Scale.vue';
 import StringRow from './StringRow.vue';
+import Summation from './Summation.vue';
 import Tuning from './Tuning.vue';
 
 const props = defineProps<{
-	index: number;
+	guitarIndex: number;
 	guitar: IGuitar;
 }>();
 </script>
 
 <template>
-	<div :class="[m.guitarBox, m['color' + (props.index % 7)]]">
+	<div :class="[m.guitarBox, m['color' + (props.guitarIndex % 7)]]">
 		<div :class="m.topRow">
-			<div :class="m.name">Guitar #{{props.index + 1}}</div>
+			<div :class="m.name">Guitar #{{props.guitarIndex + 1}}</div>
 			<div :class="m.topButtons">
 				<button @click="() => store.moveLeft(props.guitar)"
-					v-if="props.index !== 0" title="Move left">⇐</button>
+					v-if="props.guitarIndex !== 0" title="Move left">⇐</button>
 				<button @click="() => store.remove(props.guitar)" title="Remove">✕</button>
 			</div>
 		</div>
@@ -27,13 +28,14 @@ const props = defineProps<{
 			<Pack :packName="props.guitar.packName"
 				@update:packName="name => store.changePack(props.guitar, name)" />
 		</div>
-		<div>
+		<div :class="m.tuningSum">
 			<Tuning :tuningName="props.guitar.tuningName"
 				@update:tuningName="name => store.changeTuning(props.guitar, name)" />
+			<Summation :guitarIndex="props.guitarIndex" :guitar="props.guitar" />
 		</div>
 		<div>
 			<div v-for="(str, idx) of props.guitar.strings" :key="str._key">
-				<StringRow :index="idx" :str="str" :guitar="props.guitar" />
+				<StringRow :strIndex="idx" :str="str" :guitar="props.guitar" />
 			</div>
 		</div>
 	</div>
@@ -73,6 +75,11 @@ const props = defineProps<{
 				display: flex;
 				gap: 6px;
 			}
+		}
+		.tuningSum {
+			display: flex;
+			justify-content: space-between;
+			padding-right: 9px;
 		}
 	}
 </style>

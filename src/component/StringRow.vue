@@ -8,34 +8,34 @@ import Gauge from './Gauge.vue';
 import Pitch from './Pitch.vue';
 
 const props = defineProps<{
-	index: number;
+	strIndex: number;
 	str: IString;
 	guitar: IGuitar;
 }>();
 
 const modifGauge = computed((): boolean => {
 	const pack = c.PACKS.find(p => p.name === props.guitar.packName)!;
-	return pack.gauges[props.index] === props.str.gauge;
+	return pack.gauges[props.strIndex] === props.str.gauge;
 });
 const modifNote = computed((): boolean => {
 	const tuning = c.TUNINGS.find(t => t.name === props.guitar.tuningName)!;
-	return tuning.notes[props.index] === props.str.note;
+	return tuning.notes[props.strIndex] === props.str.note;
 });
 
 const tension = computed((): number =>
-	calcTension(props.index, props.guitar.strings.length,
+	calcTension(props.strIndex, props.guitar.strings.length,
 		props.str, props.guitar.scale, store.unit.value)
 );
 </script>
 
 <template>
 	<div :class="m.stringRow">
-		<div>{{props.index + 1}}</div>
+		<div>{{props.strIndex + 1}}</div>
 		<div :class="modifGauge ? m.modifVal : m.origVal">
 			<Gauge v-model:gauge="props.str.gauge" />
 		</div>
 		<div :class="modifNote ? m.modifVal : m.origVal">
-			<Pitch :stringIndex="props.index" v-model:note="props.str.note" />
+			<Pitch :stringIndex="props.strIndex" v-model:note="props.str.note" />
 		</div>
 		<div>
 			<input type="text" :class="m.tension" :value="tension.toFixed(2)" disabled />
