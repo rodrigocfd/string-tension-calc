@@ -1,20 +1,20 @@
 <script setup lang="ts">
 import {computed} from 'vue';
-import {IPitchNote} from '@/model/types';
+import {INote} from '@/model/types';
 import * as c from '@/model/consts';
 
 const props = defineProps<{
 	stringIndex: number;
-	note: IPitchNote;
+	note: INote;
 }>();
 
 const emit = defineEmits<{
-	'update:note': [note: IPitchNote];
+	'update:note': [note: INote];
 }>();
 
 const currentNote = computed({
-	get: (): IPitchNote => props.note,
-	set: (note: IPitchNote): void => emit('update:note', note),
+	get: (): INote => props.note,
+	set: (note: INote): void => emit('update:note', note),
 });
 
 const pitches = c.PITCHES_FOR_STRING

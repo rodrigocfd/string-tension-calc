@@ -12,7 +12,7 @@ const props = defineProps<{
 const sum = computed(() =>
 	props.guitar.strings.reduce((acum, str) =>
 		acum + calcTension(props.guitarIndex, props.guitar.strings.length,
-			str, props.guitar.scale, store.unit.value),
+			str.gauge, str.note, props.guitar.scale, store.unit.value),
 		0)
 );
 </script>

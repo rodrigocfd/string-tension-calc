@@ -24,7 +24,7 @@ const modifNote = computed((): boolean => {
 
 const tension = computed((): number =>
 	calcTension(props.strIndex, props.guitar.strings.length,
-		props.str, props.guitar.scale, store.unit.value)
+		props.str.gauge, props.str.note, props.guitar.scale, store.unit.value)
 );
 </script>
 

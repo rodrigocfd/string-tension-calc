@@ -1,4 +1,4 @@
-import {IScale, IString, IUnit} from './types';
+import {IGauge, INote, IScale, IUnit} from './types';
 import * as c from './consts';
 
 function effectiveScaleLength(
@@ -20,16 +20,16 @@ function polynomialGauge(gauge: number, isPlain: boolean): number {
 }
 
 export function calcTension(
-	stringIndex: number, numStrings: number, theString: IString,
+	stringIndex: number, numStrings: number, gauge: IGauge, note: INote,
 	scale: IScale, unit: IUnit): number
 {
-	const gaugeStr = theString.gauge;
-	const gauge = parseFloat(gaugeStr.slice(0, -2));
+	const gaugeStr = gauge;
+	const gaugeFloat = parseFloat(gaugeStr.slice(0, -2));
 	const isPlain = gaugeStr.endsWith('P');
-	const freq = c.PITCHES.find(p => p.note === theString.note)!.freq;
+	const freq = c.PITCHES.find(p => p.note === note)!.freq;
 	const effScaleLen = effectiveScaleLength(stringIndex, numStrings, scale);
 
-	let tension = polynomialGauge(gauge, isPlain) * Math.pow(2 * effScaleLen * freq, 2) / 386.4;
+	let tension = polynomialGauge(gaugeFloat, isPlain) * Math.pow(2 * effScaleLen * freq, 2) / 386.4;
 
 	if (unit === 'kg/cm') tension *= .17858;
 	else if (unit === 'N') tension *= 4.44822;

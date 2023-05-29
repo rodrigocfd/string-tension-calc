@@ -31,7 +31,7 @@ watch([store.guitars, store.unit], ([gtrs, unit], [prevGtrs, prevUnit]) => {
 	chart!.data.datasets = gtrs.map((gtr, gtrIdx) => ({
 		label: 'Guitar #' + (gtrIdx + 1),
 		data: gtr.strings.map((str, strIdx) =>
-			calcTension(strIdx, gtr.strings.length, str, gtr.scale, store.unit.value),
+			calcTension(strIdx, gtr.strings.length, str.gauge, str.note, gtr.scale, store.unit.value),
 		),
 		tension: .1,
 		pointRadius: 8,

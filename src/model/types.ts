@@ -1,10 +1,10 @@
 import * as c from './consts';
 
 export type IGauge = typeof c.GAUGES[number];
+export type INote = typeof c.PITCHES[number]['note'];
 export type INumStrings = typeof c.NUM_STRINGS[number];
 export type IPack = typeof c.PACKS[number];
 export type IPackName = typeof c.PACKS[number]['name'];
-export type IPitchNote = typeof c.PITCHES[number]['note'];
 export type IScaleLength = typeof c.SCALE_LENGTHS[number];
 export type IScaleMode = typeof c.SCALE_MODES[number];
 export type IStringIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
@@ -27,13 +27,13 @@ export interface IGuitar {
 export interface IString {
 	_key: number;
 	gauge: IGauge;
-	note: IPitchNote;
+	note: INote;
 }
 
 export interface IPitchesForString {
 	stringIndex: IStringIndex;
 	pitches: {
-		note: IPitchNote;
+		note: INote;
 		descr: string;
 	}[],
 }
