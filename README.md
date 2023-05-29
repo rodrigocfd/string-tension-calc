@@ -16,6 +16,8 @@ https://rodrigocfd.github.io/string-tension-calc
 * Provides several pre-configured tunings;
 * Allows customization of tunings.
 
+Unit weights taken from [D'Addario catalog](https://www.daddario.com/globalassets/pdfs/accessories/tension_chart_13934.pdf).
+
 ## License
 
 Licensed under [MIT license](https://opensource.org/licenses/MIT), see [LICENSE.md](LICENSE.md) for details.
