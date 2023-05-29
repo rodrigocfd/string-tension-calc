@@ -14,6 +14,13 @@ onMounted(() => {
 			labels: [],
 			datasets: [],
 		},
+		options: {
+			scales: {
+				y: {
+					min: 0,
+				},
+			},
+		},
 	});
 });
 
