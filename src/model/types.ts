@@ -9,7 +9,7 @@ export type IScaleLength = typeof c.SCALE_LENGTHS[number];
 export type IScaleMode = typeof c.SCALE_MODES[number];
 export type IStringIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
 export type ITuningName = typeof c.TUNINGS[number]['name'];
-export type IUnit = typeof c.UNITS[number];
+export type IUnit = typeof c.UNITS[number]['name'];
 
 export interface IDefaultPack {
 	numStrings: INumStrings;

@@ -12,8 +12,8 @@ const currentUnit = computed({
 
 <template>
 	<select v-model="currentUnit">
-		<option v-for="unit of c.UNITS" :key="unit" :value="unit">
-			unit: {{unit}}
+		<option v-for="unit of c.UNITS" :key="unit.name" :value="unit.name">
+			unit: {{unit.name}}
 		</option>
 	</select>
 </template>

@@ -31,8 +31,6 @@ export function calcTension(
 
 	let tension = polynomialGauge(gaugeFloat, isPlain) * Math.pow(2 * effScaleLen * freq, 2) / 386.4;
 
-	if (unit === 'kg/cm') tension *= .17858;
-	else if (unit === 'N') tension *= 4.44822;
-
-	return tension;
+	const unitInfo = c.UNITS.find(u => u.name === unit)!;
+	return tension * unitInfo.lbFactor;
 };
