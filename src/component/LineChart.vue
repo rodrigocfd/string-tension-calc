@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {onMounted, ref, watch} from 'vue';
+import {onMounted, ref, toRaw, watch} from 'vue';
 import {Chart} from 'chart.js/auto';
 import store from '@/model/store';
 import * as c from '@/model/consts';
@@ -26,11 +26,14 @@ onMounted(() => {
 
 watch([store.guitars, store.unit], ([gtrs, unit], [prevGtrs, prevUnit]) => {
 	const maxNumStrs = Math.max(...gtrs.map(gtr => gtr.strings.length));
-	chart!.data.labels = c.STRING_NAMES.slice(0, maxNumStrs);
+	chart!.data.labels = c.STRING_NAMES.slice(0, maxNumStrs).reverse();
 
 	chart!.data.datasets = gtrs.map((gtr, gtrIdx) => ({
 		label: 'Guitar #' + (gtrIdx + 1),
-		data: gtr.strings.map(str => str.tension),
+		data: [
+			...Array(maxNumStrs - gtr.strings.length).fill(NaN),
+			...[...toRaw(gtr.strings)].reverse().map(str => str.tension),
+		],
 		tension: .1,
 		pointRadius: 8,
 		pointHoverRadius: 6,
