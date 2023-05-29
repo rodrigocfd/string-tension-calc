@@ -179,6 +179,10 @@ export const SCALE_LENGTHS = [
 	30,
 ] as const;
 
+export const STRING_NAMES = [
+	'1 E', '2 B', '3 G', '4 D', '5 A', '6 E', '7 B', '8 F#'
+];
+
 export const TUNINGS = [
 	{name: 'F standard',  notes: ['F4', 'C4', 'G#3','D#3','A#2','F2', 'C2', 'G1' ]},
 	{name: 'E standard',  notes: ['E4', 'B3', 'G3', 'D3', 'A2', 'E2', 'B1', 'F#1']},

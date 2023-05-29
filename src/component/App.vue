@@ -23,7 +23,7 @@ import Unit from './Unit.vue';
 <style module="m" lang="scss">
 	* {
 		font-family: 'Segoe UI', sans-serif;
-		font-size: 11pt;
+		font-size: 10pt;
 	}
 	.header {
 		display: flex;

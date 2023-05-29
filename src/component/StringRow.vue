@@ -24,7 +24,7 @@ const isModifNote = computed((): boolean => {
 
 <template>
 	<div :class="m.stringRow">
-		<div>{{props.strIndex + 1}}</div>
+		<div :class="m.strName">{{c.STRING_NAMES[props.strIndex]}}</div>
 		<div :class="isModifGauge ? m.modifVal : m.origVal">
 			<Gauge :gauge="props.str.gauge"
 				@update:gauge="g => store.changeGauge(props.guitar, props.str, g)" />
@@ -51,6 +51,9 @@ const isModifNote = computed((): boolean => {
 				width: 3.5em;
 				text-align: right;
 			}
+		}
+		.strName {
+			width: 26px;
 		}
 		.origVal {
 			border: 1px solid red;

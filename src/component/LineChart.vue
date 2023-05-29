@@ -2,6 +2,7 @@
 import {onMounted, ref, watch} from 'vue';
 import {Chart} from 'chart.js/auto';
 import store from '@/model/store';
+import * as c from '@/model/consts';
 
 const canvas = ref<HTMLCanvasElement | null>(null);
 let chart: Chart<"line", number[], string> | null = null;
@@ -25,7 +26,7 @@ onMounted(() => {
 
 watch([store.guitars, store.unit], ([gtrs, unit], [prevGtrs, prevUnit]) => {
 	const maxNumStrs = Math.max(...gtrs.map(gtr => gtr.strings.length));
-	chart!.data.labels = ['E', 'B', 'G', 'D', 'A', 'E', 'B', 'F#'].slice(0, maxNumStrs);
+	chart!.data.labels = c.STRING_NAMES.slice(0, maxNumStrs);
 
 	chart!.data.datasets = gtrs.map((gtr, gtrIdx) => ({
 		label: 'Guitar #' + (gtrIdx + 1),
