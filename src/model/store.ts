@@ -55,7 +55,10 @@ export const useStore = create(
 				const guitars = [...state.guitars];
 				const ourGtr = guitars.find(g => g._key === guitar._key)!;
 				ourGtr.scale = scale;
-				ourGtr.strings = genStrings(ourGtr.packName, ourGtr.tuningName, scale, state.unit);
+				ourGtr.strings.forEach((str, strIdx) =>
+					str.tension = calcTension(strIdx, ourGtr.strings.length,
+						str.gauge, str.note, scale, state.unit),
+				);
 				return {guitars};
 			});
 		},
