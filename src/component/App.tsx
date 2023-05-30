@@ -11,7 +11,7 @@ function App() {
 
 			</DivTopButtons>
 			<LnkRepo href="https://github.com/rodrigocfd/string-tension-calc">
-				<img src="github.svg" />
+				<img src="/github.svg" />
 			</LnkRepo>
 		</Header>
 		<GuitarList />
