@@ -18,12 +18,14 @@
 	},
 	"dependencies": {
 		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react-dom": "^18.2.0",
+		"styled-components": "^5.3.11"
 	},
 	"devDependencies": {
 		"@types/node": "^20.2.5",
 		"@types/react": "^18.2.7",
 		"@types/react-dom": "^18.2.4",
+		"@types/styled-components": "^5.1.26",
 		"@vitejs/plugin-react": "^4.0.0",
 		"gh-pages": "^5.0.0",
 		"typescript": "^5.0.4",
