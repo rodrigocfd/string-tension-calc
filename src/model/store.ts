@@ -25,6 +25,21 @@ export const useStore = create(
 				}],
 			}));
 		},
+		moveLeft(guitar: IGuitar): void {
+			set(state => {
+				const guitars = [...state.guitars];
+				const idx = guitars.findIndex(g => g._key === guitar._key)!;
+				const tmp = guitars[idx];
+				guitars[idx] = guitars[idx - 1];
+				guitars[idx - 1] = tmp;
+				return {guitars};
+			});
+		},
+		remove(guitar: IGuitar): void {
+			set(state => ({
+				guitars: state.guitars.filter(g => g._key !== guitar._key),
+			}));
+		},
 	})),
 );
 
