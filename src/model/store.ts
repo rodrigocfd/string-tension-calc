@@ -59,6 +59,15 @@ export const useStore = create(
 				return {guitars};
 			});
 		},
+		changePack(guitar: IGuitar, name: IPackName): void {
+			set(state => {
+				const guitars = [...state.guitars];
+				const ourGtr = guitars.find(g => g._key === guitar._key)!;
+				ourGtr.packName = name;
+				ourGtr.strings = genStrings(name, ourGtr.tuningName, ourGtr.scale, state.unit);
+				return {guitars};
+			});
+		},
 	})),
 );
 

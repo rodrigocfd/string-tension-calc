@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import {IGuitar} from '@/model/types';
 import {useStore} from '@/model/store';
+import Pack from './Pack';
 import Scale from './Scale';
 import StringRow from './StringRow';
 
@@ -13,6 +14,7 @@ function Guitar(props: Props) {
 	const moveLeft = useStore(s => s.moveLeft);
 	const remove = useStore(s => s.remove);
 	const changeScale = useStore(s => s.changeScale);
+	const changePack = useStore(s => s.changePack);
 
 	return <DivGuitarBox gtrIdx={props.guitarIndex % 7}>
 		<DivTopRow>
@@ -26,6 +28,9 @@ function Guitar(props: Props) {
 		</DivTopRow>
 		<div>
 			<Scale scale={props.guitar.scale} onChange={s => changeScale(props.guitar, s)} />
+		</div>
+		<div>
+			<Pack packName={props.guitar.packName} onChange={p => changePack(props.guitar, p)} />
 		</div>
 
 		<div>
