@@ -37,16 +37,15 @@ function Scale(props: Props) {
 				</option>
 			)}
 		</select>
-		to <SelectLo ref={cmbLenLo}
-			value={props.scale.lengthLo}
-			onChange={change}
-			show={props.scale.mode === 'multi'}>
-			{c.SCALE_LENGTHS.map(len =>
-				<option key={len} value={len}>
-					{len}''
-				</option>
-			)}
-		</SelectLo>
+		<DivLengthLo show={props.scale.mode === 'multi'}>
+			to <select ref={cmbLenLo} value={props.scale.lengthLo} onChange={change}>
+				{c.SCALE_LENGTHS.map(len =>
+					<option key={len} value={len}>
+						{len}''
+					</option>
+				)}
+			</select>
+		</DivLengthLo>
 	</DivScaleRow>;
 }
 
@@ -56,6 +55,6 @@ const DivScaleRow = styled.div`
 	display: flex;
 	gap: 6px;
 `;
-const SelectLo = styled.select<{show: boolean}>`
+const DivLengthLo = styled.div<{show: boolean}>`
 	display: ${p => p.show ? '' : 'none'};
 `;

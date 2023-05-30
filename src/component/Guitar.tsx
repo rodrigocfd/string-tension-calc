@@ -14,7 +14,7 @@ function Guitar(props: Props) {
 	const remove = useStore(s => s.remove);
 	const changeScale = useStore(s => s.changeScale);
 
-	return <div>
+	return <DivGuitarBox gtrIdx={props.guitarIndex % 7}>
 		<DivTopRow>
 			<DivName>Guitar #{props.guitarIndex + 1}</DivName>
 			<DivTopButtons>
@@ -33,11 +33,26 @@ function Guitar(props: Props) {
 				<StringRow key={s._key} strIndex={strIdx} str={s} guitar={props.guitar} />
 			)}
 		</div>
-	</div>;
+	</DivGuitarBox>;
 }
 
 export default Guitar;
 
+const DivGuitarBox = styled.div<{gtrIdx: number}>`
+	--color0: #36a2eb;
+	--color1: #ff6384;
+	--color2: #ff9f40;
+	--color3: #ffcd56;
+	--color4: #4bc0c0;
+	--color5: #9966ff;
+	--color6: #c9cbcf;
+	padding: 2px 1px;
+	border: 1px solid #ddd;
+	border-top: 4px solid var(--color${p => p.gtrIdx});
+	& > div {
+		padding: 3px 6px;
+	}
+`;
 const DivTopRow = styled.div`
 	display: flex;
 	gap: 6px;
