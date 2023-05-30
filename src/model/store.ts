@@ -11,7 +11,17 @@ export const useStore = create(
 	},
 	(set, get) => ({
 		setUnit(unit: IUnit): void {
-			set(state => ({unit}));
+			set(state => ({
+				unit,
+				guitars: state.guitars.map(g => ({
+					...g,
+					strings: g.strings.map((s, strIdx) => ({
+						...s,
+						tension: calcTension(strIdx, g.strings.length,
+							s.gauge, s.note, g.scale, unit),
+					})),
+				})),
+			}));
 		},
 
 		addNew(): void {

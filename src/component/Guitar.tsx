@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import {IGuitar} from '@/model/types';
 import {useStore} from '@/model/store';
+import StringRow from './StringRow';
 
 interface Props {
 	guitarIndex: number;
@@ -22,6 +23,11 @@ function Guitar(props: Props) {
 			</DivTopButtons>
 		</DivTopRow>
 
+		<div>
+			{props.guitar.strings.map((s, strIdx) =>
+				<StringRow key={s._key} strIndex={strIdx} str={s} guitar={props.guitar} />
+			)}
+		</div>
 	</div>;
 }
 
