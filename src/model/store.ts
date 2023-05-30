@@ -50,6 +50,15 @@ export const useStore = create(
 				guitars: state.guitars.filter(g => g._key !== guitar._key),
 			}));
 		},
+		changeScale(guitar: IGuitar, scale: IScale): void {
+			set(state => {
+				const guitars = [...state.guitars];
+				const ourGtr = guitars.find(g => g._key === guitar._key)!;
+				ourGtr.scale = scale;
+				ourGtr.strings = genStrings(ourGtr.packName, ourGtr.tuningName, scale, state.unit);
+				return {guitars};
+			});
+		},
 	})),
 );
 

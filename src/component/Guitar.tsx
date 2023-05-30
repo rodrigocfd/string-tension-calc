@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import {IGuitar} from '@/model/types';
 import {useStore} from '@/model/store';
+import Scale from './Scale';
 import StringRow from './StringRow';
 
 interface Props {
@@ -11,6 +12,7 @@ interface Props {
 function Guitar(props: Props) {
 	const moveLeft = useStore(s => s.moveLeft);
 	const remove = useStore(s => s.remove);
+	const changeScale = useStore(s => s.changeScale);
 
 	return <div>
 		<DivTopRow>
@@ -22,6 +24,9 @@ function Guitar(props: Props) {
 				<button onClick={() => remove(props.guitar)} title='Remove'>✕</button>
 			</DivTopButtons>
 		</DivTopRow>
+		<div>
+			<Scale scale={props.guitar.scale} onChange={s => changeScale(props.guitar, s)} />
+		</div>
 
 		<div>
 			{props.guitar.strings.map((s, strIdx) =>
