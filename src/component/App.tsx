@@ -1,14 +1,17 @@
 import styled from 'styled-components';
+import {useStore} from '@/model/store';
 import GuitarList from './GuitarList';
 import Unit from './Unit';
 
 function App() {
+	const addNew = useStore(s => s.addNew);
+
 	return <>
 		<Header>
 			<h1>String Tension Calculator</h1>
 			<DivTopButtons>
 				<Unit />
-
+				<BtnAddNew onClick={() => addNew()}>New guitar</BtnAddNew>
 			</DivTopButtons>
 			<LnkRepo href="https://github.com/rodrigocfd/string-tension-calc">
 				<img src="/github.svg" />
@@ -34,6 +37,10 @@ const DivTopButtons = styled.div`
 		flex-direction: column;
 		gap: 6px;
 	}
+`;
+const BtnAddNew = styled.button`
+	margin-left: 12px;
+	white-space: nowrap;
 `;
 const LnkRepo = styled.a`
 	align-self: center;
