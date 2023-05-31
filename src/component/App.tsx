@@ -2,11 +2,13 @@ import styled from 'styled-components';
 import {useStore} from '@/model/store';
 import GuitarList from './GuitarList';
 import Unit from './Unit';
+import GlobalStyle from './globalStyle';
 
 function App() {
 	const addNew = useStore(s => s.addNew);
 
 	return <>
+		<GlobalStyle />
 		<Header>
 			<h1>String Tension Calculator</h1>
 			<DivTopButtons>
