@@ -1,6 +1,6 @@
 import {create} from 'zustand';
 import {combine} from 'zustand/middleware';
-import {IGuitar, IPackName, IScale, IString, ITuningName, IUnit} from './types';
+import {IGauge, IGuitar, IPackName, IScale, IString, ITuningName, IUnit} from './types';
 import {calcTension} from './funcs';
 import * as c from './consts';
 
@@ -77,6 +77,19 @@ export const useStore = create(
 				const ourGtr = guitars.find(g => g._key === guitar._key)!;
 				ourGtr.tuningName = name;
 				ourGtr.strings = genStrings(ourGtr.packName, name, ourGtr.scale, state.unit);
+				return {guitars};
+			});
+		},
+		changeGauge(guitar: IGuitar, str: IString, gauge: IGauge): void {
+			set(state => {
+				const guitars = [...state.guitars];
+				const ourGtr = guitars.find(g => g._key === guitar._key)!;
+				const strings = [...ourGtr.strings];
+				const strIdx = strings.findIndex(s => s._key === str._key);
+				const ourStr = strings[strIdx];
+				ourStr.gauge = gauge;
+				ourStr.tension = calcTension(strIdx, guitar.strings.length,
+					gauge, ourStr.note, guitar.scale, state.unit);
 				return {guitars};
 			});
 		},
