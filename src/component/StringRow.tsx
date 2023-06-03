@@ -1,3 +1,4 @@
+import {useMemo} from 'react';
 import styled from 'styled-components';
 import {IGuitar, IString} from '@/model/types';
 import {useStore} from '@/model/store';
@@ -14,11 +15,16 @@ function StringRow(props: Props) {
 	const unit = useStore(s => s.unit);
 	const changeGauge = useStore(s => s.changeGauge);
 
+	const isModifGauge = useMemo(() => {
+		const pack = c.PACKS.find(p => p.name === props.guitar.packName)!;
+		return pack.gauges[props.strIndex] !== props.str.gauge;
+	}, [props.guitar.packName, props.strIndex, props.str.gauge]);
+
 	return <DivStringRow>
 		<DivStrName>{c.STRING_NAMES[props.strIndex]}</DivStrName>
-		<div>
+		<DivModif modif={isModifGauge}>
 			<Gauge gauge={props.str.gauge} onChange={g => changeGauge(props.guitar, props.str, g)} />
-		</div>
+		</DivModif>
 
 		<div>
 			<InputTension type='text' value={props.str.tension.toFixed(2)} disabled /> {unit}
@@ -41,4 +47,8 @@ const DivStrName = styled.div`
 const InputTension = styled.input`
 	width: 3.5em;
 	text-align: right;
+`;
+const DivModif = styled.div<{modif: boolean}>`
+	border: 1px solid ${p => p.modif ? 'red' : 'white'};
+	padding: 1px;
 `;
