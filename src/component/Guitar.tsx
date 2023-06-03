@@ -4,6 +4,7 @@ import {useStore} from '@/model/store';
 import Pack from './Pack';
 import Scale from './Scale';
 import StringRow from './StringRow';
+import Tuning from './Tuning';
 
 interface Props {
 	guitarIndex: number;
@@ -15,6 +16,7 @@ function Guitar(props: Props) {
 	const remove = useStore(s => s.remove);
 	const changeScale = useStore(s => s.changeScale);
 	const changePack = useStore(s => s.changePack);
+	const changeTuning = useStore(s => s.changeTuning);
 
 	return <DivGuitarBox gtrIdx={props.guitarIndex % 7}>
 		<DivTopRow>
@@ -32,7 +34,9 @@ function Guitar(props: Props) {
 		<div>
 			<Pack packName={props.guitar.packName} onChange={p => changePack(props.guitar, p)} />
 		</div>
-
+		<div>
+			<Tuning tuningName={props.guitar.tuningName} onChange={t => changeTuning(props.guitar, t)} />
+		</div>
 		<div>
 			{props.guitar.strings.map((s, strIdx) =>
 				<StringRow key={s._key} strIndex={strIdx} str={s} guitar={props.guitar} />

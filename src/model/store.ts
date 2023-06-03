@@ -71,6 +71,15 @@ export const useStore = create(
 				return {guitars};
 			});
 		},
+		changeTuning(guitar: IGuitar, name: ITuningName): void {
+			set(state => {
+				const guitars = [...state.guitars];
+				const ourGtr = guitars.find(g => g._key === guitar._key)!;
+				ourGtr.tuningName = name;
+				ourGtr.strings = genStrings(ourGtr.packName, name, ourGtr.scale, state.unit);
+				return {guitars};
+			});
+		},
 	})),
 );
 
