@@ -3,7 +3,7 @@ import {createRoot} from 'react-dom/client';
 import App from './component/App.tsx';
 
 createRoot(document.getElementById('app') as HTMLElement).render(
-	// <StrictMode>
+	<StrictMode>
 		<App />
-	// </StrictMode>,
+	</StrictMode>,
 );
