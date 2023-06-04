@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import {useStore} from '@/model/store';
 import GuitarList from './GuitarList';
+import LineChart from './LineChart';
 import Unit from './Unit';
 import GlobalStyle from './globalStyle';
 
@@ -20,6 +21,7 @@ function App() {
 			</LnkRepo>
 		</Header>
 		<GuitarList />
+		<LineChart />
 	</>;
 }
 
