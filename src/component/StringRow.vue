@@ -4,7 +4,7 @@ import {IGuitar, IString} from '@/model/types';
 import store from '@/model/store';
 import * as c from '@/model/consts';
 import Gauge from './Gauge.vue';
-import Pitch from './Pitch.vue';
+import Note from './Note.vue';
 
 const props = defineProps<{
 	strIndex: number;
@@ -30,7 +30,7 @@ const isModifNote = computed((): boolean => {
 				@update:gauge="g => store.changeGauge(props.guitar, props.str, g)" />
 		</div>
 		<div :class="isModifNote ? m.modifVal : m.origVal">
-			<Pitch :stringIndex="props.strIndex"
+			<Note :stringIndex="props.strIndex"
 				:note="props.str.note"
 				@update:note="n => store.changeNote(props.guitar, props.str, n)" />
 		</div>
