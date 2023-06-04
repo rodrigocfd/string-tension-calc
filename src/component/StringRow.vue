@@ -14,11 +14,11 @@ const props = defineProps<{
 
 const isModifGauge = computed((): boolean => {
 	const pack = c.PACKS.find(p => p.name === props.guitar.packName)!;
-	return pack.gauges[props.strIndex] === props.str.gauge;
+	return pack.gauges[props.strIndex] !== props.str.gauge;
 });
 const isModifNote = computed((): boolean => {
 	const tuning = c.TUNINGS.find(t => t.name === props.guitar.tuningName)!;
-	return tuning.notes[props.strIndex] === props.str.note;
+	return tuning.notes[props.strIndex] !== props.str.note;
 });
 </script>
 
@@ -56,11 +56,11 @@ const isModifNote = computed((): boolean => {
 			width: 26px;
 		}
 		.origVal {
-			border: 1px solid red;
+			border: 1px solid white;
 			padding: 1px;
 		}
 		.modifVal {
-			border: 1px solid white;
+			border: 1px solid red;
 			padding: 1px;
 		}
 	}

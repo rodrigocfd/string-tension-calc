@@ -4,7 +4,6 @@ import {IGuitar} from '@/model/types';
 import store from '@/model/store';
 
 const props = defineProps<{
-	guitarIndex: number;
 	guitar: IGuitar;
 }>();
 

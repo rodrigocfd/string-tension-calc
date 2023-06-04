@@ -5,7 +5,7 @@ import store from '@/model/store';
 import * as c from '@/model/consts';
 
 const canvas = ref<HTMLCanvasElement | null>(null);
-let chart: Chart<"line", number[], string> | null = null;
+let chart: Chart<'line', number[], string> | null = null;
 
 onMounted(() => {
 	chart = new Chart(canvas.value!, {
@@ -46,7 +46,7 @@ watch([store.guitars, store.unit], ([gtrs, unit], [prevGtrs, prevUnit]) => {
 
 <template>
 	<div :class="m.chart" v-show="store.guitars.value.length > 0">
-		<canvas ref="canvas"></canvas>
+		<canvas ref="canvas" />
 	</div>
 </template>
 
