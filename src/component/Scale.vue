@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref} from 'vue';
+import {computed, ref} from 'vue';
 import {IScale, IScaleLength, IScaleMode} from '@/model/types';
 import * as c from '@/model/consts';
 
@@ -12,16 +12,18 @@ const emit = defineEmits<{
 }>();
 
 const cmbMode = ref<HTMLSelectElement | null>(null);
-const cmbLenHi = ref<HTMLSelectElement | null>(null);
 const cmbLenLo = ref<HTMLSelectElement | null>(null);
+const cmbLenHi = ref<HTMLSelectElement | null>(null);
+
+const isMulti = computed(() => props.scale.mode === 'multi');
 
 function changed(): void {
 	const mode = cmbMode.value!.value as IScaleMode;
-	const lengthHi = parseFloat(cmbLenHi.value!.value) as IScaleLength;
-	const lengthLo = (mode === 'normal')
-		? lengthHi
-		: parseFloat(cmbLenLo.value!.value) as IScaleLength;
-	emit('update:scale', {mode, lengthHi, lengthLo});
+	const lengthLo = parseFloat(cmbLenLo.value!.value) as IScaleLength;
+	const lengthHi = (mode === 'normal')
+		? lengthLo
+		: parseFloat(cmbLenHi.value!.value) as IScaleLength;
+	emit('update:scale', {mode, lengthLo, lengthHi});
 }
 </script>
 
@@ -32,18 +34,22 @@ function changed(): void {
 				{{mode}}
 			</option>
 		</select>
-		<select :value="props.scale.lengthHi" @change="changed" ref="cmbLenHi">
+
+		<select :value="props.scale.lengthLo" @change="changed" ref="cmbLenLo">
 			<option v-for="len of c.SCALE_LENGTHS" :key="len" :value="len">
 				{{len}}''
 			</option>
 		</select>
-		<div v-show="props.scale.mode == 'multi'">
-			to <select :value="props.scale.lengthLo" @change="changed" ref="cmbLenLo">
-				<option v-for="len of c.SCALE_LENGTHS" :key="len" :value="len">
-					{{len}}''
-				</option>
-			</select>
-		</div>
+		<div v-show="isMulti">(low)</div>
+
+		<div v-show="isMulti">to</div>
+
+		<select v-show="isMulti" :value="props.scale.lengthHi" @change="changed" ref="cmbLenHi">
+			<option v-for="len of c.SCALE_LENGTHS" :key="len" :value="len">
+				{{len}}''
+			</option>
+		</select>
+		<div v-show="isMulti">(high)</div>
 	</div>
 </template>
 
@@ -51,5 +57,6 @@ function changed(): void {
 	.scaleRow {
 		display: flex;
 		gap: 6px;
+		align-items: baseline;
 	}
 </style>
