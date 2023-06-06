@@ -1,5 +1,6 @@
 import {ChangeEvent, useRef} from 'react';
 import styled from 'styled-components';
+
 import {IScale, IScaleMode, IScaleLength} from '@/model/types';
 import * as c from '@/model/consts';
 

@@ -1,4 +1,5 @@
 import {useMemo} from 'react';
+
 import {INote} from '@/model/types';
 import * as c from '@/model/consts';
 

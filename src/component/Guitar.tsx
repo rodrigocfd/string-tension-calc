@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import {IGuitar} from '@/model/types';
 import {useStore} from '@/model/store';
 import Pack from './Pack';

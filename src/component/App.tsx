@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import {useStore} from '@/model/store';
 import GuitarList from './GuitarList';
 import LineChart from './LineChart';
@@ -16,8 +17,8 @@ function App() {
 				<Unit />
 				<BtnAddNew onClick={() => addNew()}>New guitar</BtnAddNew>
 			</DivTopButtons>
-			<LnkRepo href="https://github.com/rodrigocfd/string-tension-calc">
-				<img src="/github.svg" />
+			<LnkRepo href='https://github.com/rodrigocfd/string-tension-calc'>
+				<img src='/github.svg' />
 			</LnkRepo>
 		</Header>
 		<GuitarList />

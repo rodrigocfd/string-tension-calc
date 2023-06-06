@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import {useStore} from '@/model/store';
 import Guitar from './Guitar';
 
