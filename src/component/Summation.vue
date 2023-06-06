@@ -8,7 +8,7 @@ const props = defineProps<{
 }>();
 
 const sum = computed(() =>
-	props.guitar.strings.reduce((acum, str) => acum + str.tension, 0),
+	props.guitar.strings.reduce((accum, str) => accum + str.tension, 0),
 );
 </script>
 
