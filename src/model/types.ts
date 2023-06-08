@@ -41,6 +41,6 @@ export interface IPitchesForString {
 
 export interface IScale {
 	mode: IScaleMode;
-	lengthHi: IScaleLength;
 	lengthLo: IScaleLength;
+	lengthHi: IScaleLength;
 }
