@@ -4,7 +4,7 @@ import {useStore} from '@/model/store';
 import GuitarList from './GuitarList';
 import LineChart from './LineChart';
 import Unit from './Unit';
-import GlobalStyle from './globalStyle';
+import GlobalStyle from './global.css';
 
 function App() {
 	const addNew = useStore(s => s.addNew);
