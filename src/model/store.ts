@@ -99,7 +99,13 @@ function genKey(): number {
 	return curKey++;
 }
 
-function genStrings(packName: IPackName, tuningName: ITuningName, scale: IScale, unit: IUnit): IString[] {
+function genStrings(
+	packName: IPackName,
+	tuningName: ITuningName,
+	scale: IScale,
+	unit: IUnit,
+): IString[]
+{
 	const pack = c.PACKS.find(pack => pack.name === packName)!;
 	return pack.gauges.map((gauge, strIdx) => {
 		const tuning = c.TUNINGS.find(tuning => tuning.name === tuningName)!;

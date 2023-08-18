@@ -40,18 +40,18 @@ function Scale(props: Props) {
 				</option>
 			)}
 		</select>
-		<DivShowHide show={isMulti}>(low)</DivShowHide>
+		<DivShowHide $show={isMulti}>(low)</DivShowHide>
 
-		<DivShowHide show={isMulti}>to</DivShowHide>
+		<DivShowHide $show={isMulti}>to</DivShowHide>
 
-		<SelectShowHide show={isMulti} ref={cmbLenHi} value={props.scale.lengthHi} onChange={change}>
+		<SelectShowHide $show={isMulti} ref={cmbLenHi} value={props.scale.lengthHi} onChange={change}>
 			{c.SCALE_LENGTHS.map(len =>
 				<option key={len} value={len}>
 					{len}''
 				</option>
 			)}
 		</SelectShowHide>
-		<DivShowHide show={isMulti}>(high)</DivShowHide>
+		<DivShowHide $show={isMulti}>(high)</DivShowHide>
 	</DivScaleRow>;
 }
 
@@ -62,9 +62,9 @@ const DivScaleRow = styled.div`
 	gap: 6px;
 	align-items: baseline;
 `;
-const DivShowHide = styled.div<{show: boolean}>`
-	display: ${p => p.show ? '' : 'none'};
+const DivShowHide = styled.div<{$show: boolean}>`
+	display: ${p => p.$show ? '' : 'none'};
 `;
-const SelectShowHide = styled.select<{show: boolean}>`
-	display: ${p => p.show ? '' : 'none'};
+const SelectShowHide = styled.select<{$show: boolean}>`
+	display: ${p => p.$show ? '' : 'none'};
 `;

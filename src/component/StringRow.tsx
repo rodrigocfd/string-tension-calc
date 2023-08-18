@@ -30,10 +30,10 @@ function StringRow(props: Props) {
 
 	return <DivStringRow>
 		<DivStrName>{c.STRING_NAMES[props.strIndex]}</DivStrName>
-		<DivModif modif={isModifGauge}>
+		<DivModif $modif={isModifGauge}>
 			<Gauge gauge={props.str.gauge} onChange={g => changeGauge(props.guitar, props.str, g)} />
 		</DivModif>
-		<DivModif modif={isModifNote}>
+		<DivModif $modif={isModifNote}>
 			<Note strIndex={props.strIndex}
 				note={props.str.note}
 				onChange={n => changeNote(props.guitar, props.str, n)} />
@@ -60,7 +60,7 @@ const InputTension = styled.input`
 	width: 3.5em;
 	text-align: right;
 `;
-const DivModif = styled.div<{modif: boolean}>`
-	border: 1px solid ${p => p.modif ? 'red' : 'white'};
+const DivModif = styled.div<{$modif: boolean}>`
+	border: 1px solid ${p => p.$modif ? 'red' : 'white'};
 	padding: 1px;
 `;
