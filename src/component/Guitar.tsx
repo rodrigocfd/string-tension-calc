@@ -1,3 +1,4 @@
+import {memo} from 'react';
 import styled from 'styled-components';
 
 import {IGuitar} from '@/model/types';
@@ -48,7 +49,7 @@ function Guitar(props: Props) {
 	</DivGuitarBox>;
 }
 
-export default Guitar;
+export default memo(Guitar);
 
 const DivGuitarBox = styled.div<{$gtrIdx: number}>`
 	--color0: #36a2eb;
