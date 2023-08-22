@@ -17,7 +17,7 @@ export interface IDefaultPack {
 }
 
 export interface IGuitar {
-	_key: number;
+	_id: number;
 	scale: IScale;
 	packName: IPackName;
 	tuningName: ITuningName;
@@ -25,7 +25,7 @@ export interface IGuitar {
 }
 
 export interface IString {
-	_key: number;
+	_id: number;
 	gauge: IGauge;
 	note: INote;
 	tension: number;

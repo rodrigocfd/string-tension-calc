@@ -43,7 +43,7 @@ function Guitar(props: Props) {
 		</DivTuningSum>
 		<div>
 			{props.guitar.strings.map((s, strIdx) =>
-				<StringRow key={s._key} strIndex={strIdx} str={s} guitar={props.guitar} />
+				<StringRow key={s._id} strIndex={strIdx} str={s} guitar={props.guitar} />
 			)}
 		</div>
 	</DivGuitarBox>;

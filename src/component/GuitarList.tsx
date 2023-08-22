@@ -8,7 +8,7 @@ function GuitarList() {
 
 	return <div>
 		{guitars.map((g, gtrIdx) =>
-			<DivGtrBlock key={g._key}>
+			<DivGtrBlock key={g._id}>
 				<Guitar guitarIndex={gtrIdx} guitar={g} />
 			</DivGtrBlock>
 		)}
