@@ -5,7 +5,7 @@ import {Chart} from 'chart.js/auto';
 import {useStore} from '@/model/store';
 import * as c from '@/model/consts';
 
-function LineChart() {
+export default function LineChart() {
 	const unit = useStore(s => s.unit);
 	const guitars = useStore(s => s.guitars);
 	const canvas = useRef<HTMLCanvasElement | null>(null);
@@ -54,8 +54,6 @@ function LineChart() {
 		}
 	</>;
 }
-
-export default LineChart;
 
 const DivChart = styled.div`
 	max-width: 100vw;

@@ -9,7 +9,7 @@ interface Props {
 	onChange(note: INote): void;
 }
 
-function Note(props: Props) {
+export default function Note(props: Props) {
 	const pitches = useMemo(
 		() => c.PITCHES_FOR_STRING.find(p => p.stringIndex === props.strIndex)!.pitches,
 	[props.strIndex]);
@@ -22,5 +22,3 @@ function Note(props: Props) {
 		)}
 	</select>;
 }
-
-export default Note;

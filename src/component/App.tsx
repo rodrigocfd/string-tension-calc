@@ -6,7 +6,7 @@ import LineChart from './LineChart';
 import Unit from './Unit';
 import GlobalStyle from './global.css';
 
-function App() {
+export default function App() {
 	const addNew = useStore(s => s.addNew);
 
 	return <>
@@ -25,8 +25,6 @@ function App() {
 		<LineChart />
 	</>;
 }
-
-export default App;
 
 const Header = styled.header`
 	display: flex;

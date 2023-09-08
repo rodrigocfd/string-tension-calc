@@ -15,7 +15,7 @@ c.GAUGES.forEach(gauge => {
 		.gauges.push(gauge);
 });
 
-function Gauge(props: Props) {
+export default function Gauge(props: Props) {
 	return <select value={props.gauge} onChange={e => props.onChange(e.target.value as IGauge)}>
 		{gaugesByKind.map(group =>
 			<optgroup key={group.kind} label={group.label}>
@@ -28,5 +28,3 @@ function Gauge(props: Props) {
 		)}
 	</select>;
 }
-
-export default Gauge;

@@ -13,7 +13,7 @@ interface Props {
 	guitar: IGuitar;
 }
 
-function StringRow(props: Props) {
+export default function StringRow(props: Props) {
 	const unit = useStore(s => s.unit);
 	const changeGauge = useStore(s => s.changeGauge);
 	const changeNote = useStore(s => s.changeNote);
@@ -43,8 +43,6 @@ function StringRow(props: Props) {
 		</div>
 	</DivStringRow>;
 }
-
-export default StringRow;
 
 const DivStringRow = styled.div`
 	display: flex;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import {useStore} from '@/model/store';
 import Guitar from './Guitar';
 
-function GuitarList() {
+export default function GuitarList() {
 	const guitars = useStore(s => s.guitars);
 
 	return <div>
@@ -14,8 +14,6 @@ function GuitarList() {
 		)}
 	</div>;
 }
-
-export default GuitarList;
 
 const DivGtrBlock = styled.div`
 	display: inline-block;

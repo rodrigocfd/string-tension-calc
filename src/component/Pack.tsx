@@ -16,7 +16,7 @@ c.PACKS.forEach(defPack => {
 		.packNames.push(defPack.name);
 });
 
-function Pack(props: Props) {
+export default function Pack(props: Props) {
 	return <select value={props.packName} onChange={e => props.onChange(e.target.value as IPackName)}>
 		{packsByNumStrings.map(group =>
 			<optgroup key={group.num} label={group.num +  ' strings'}>
@@ -29,5 +29,3 @@ function Pack(props: Props) {
 		)}
 	</select>;
 }
-
-export default Pack;

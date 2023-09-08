@@ -16,7 +16,7 @@ c.TUNINGS.forEach(defTuning => {
 		.tuningNames.push(defTuning.name);
 });
 
-function Tuning(props: Props) {
+export default function Tuning(props: Props) {
 	return <select value={props.tuningName} onChange={e => props.onChange(e.target.value as ITuningName)}>
 		{tuningsByKind.map(group =>
 			<optgroup key={group.kind} label={group.kind}>
@@ -29,5 +29,3 @@ function Tuning(props: Props) {
 		)}
 	</select>;
 }
-
-export default Tuning;

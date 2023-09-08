@@ -2,7 +2,7 @@ import {useStore} from '@/model/store';
 import {IUnit} from '@/model/types';
 import * as c from '@/model/consts';
 
-function Unit() {
+export default function Unit() {
 	const unit = useStore(s => s.unit);
 	const setUnit = useStore(s => s.setUnit);
 
@@ -14,5 +14,3 @@ function Unit() {
 		)}
 	</select>;
 }
-
-export default Unit;

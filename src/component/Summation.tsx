@@ -7,7 +7,7 @@ interface Props {
 	guitar: IGuitar;
 }
 
-function Summation(props: Props) {
+export default function Summation(props: Props) {
 	const unit = useStore(s => s.unit);
 	const sum = props.guitar.strings.reduce((accum, str) => accum + str.tension, 0);
 
@@ -15,8 +15,6 @@ function Summation(props: Props) {
 		∑ <InputTension type='text' value={sum.toFixed(2)} disabled /> {unit}
 	</div>;
 }
-
-export default Summation;
 
 const InputTension = styled.input`
 	width: 3.5em;

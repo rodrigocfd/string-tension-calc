@@ -9,7 +9,7 @@ interface Props {
 	onChange(scale: IScale): void;
 }
 
-function Scale(props: Props) {
+export default function Scale(props: Props) {
 	const cmbMode = useRef<HTMLSelectElement| null>(null);
 	const cmbLenLo = useRef<HTMLSelectElement| null>(null);
 	const cmbLenHi = useRef<HTMLSelectElement| null>(null);
@@ -54,8 +54,6 @@ function Scale(props: Props) {
 		<DivShowHide $show={isMulti}>(high)</DivShowHide>
 	</DivScaleRow>;
 }
-
-export default Scale;
 
 const DivScaleRow = styled.div`
 	display: flex;

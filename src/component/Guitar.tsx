@@ -14,7 +14,7 @@ interface Props {
 	guitar: IGuitar;
 }
 
-function Guitar(props: Props) {
+export default function Guitar(props: Props) {
 	const moveLeft = useStore(s => s.moveLeft);
 	const remove = useStore(s => s.remove);
 	const changeScale = useStore(s => s.changeScale);
@@ -48,8 +48,6 @@ function Guitar(props: Props) {
 		</div>
 	</DivGuitarBox>;
 }
-
-export default memo(Guitar);
 
 const DivGuitarBox = styled.div<{$gtrIdx: number}>`
 	--color0: #36a2eb;
