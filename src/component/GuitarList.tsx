@@ -1,18 +1,24 @@
-import AnimateMount from '@/model/AnimateMount';
+import {animated, useTransition} from '@react-spring/web';
 import {useStore} from '@/model/store';
 import Guitar from './Guitar';
 import s from '@/component-styles/GuitarList.module.scss';
 
 export default function GuitarList() {
 	const guitars = useStore(s => s.guitars);
+	const trans = useTransition(guitars, {
+		from: {opacity: 0, transform: 'translateY(-100px)'},
+		enter: {opacity: 1, transform: 'translateY(0)'},
+		leave: {opacity: 0, transform: 'translateY(-100px)'},
+		config: {
+			duration: 200,
+		},
+	});
 
 	return <div>
-		{guitars.map((g, gtrIdx) =>
-			<AnimateMount clsTrans={s.animate} key={g._id}>
-				<div className={s.gtrBlock}>
-					<Guitar guitarIndex={gtrIdx} guitar={g} />
-				</div>
-			</AnimateMount>
+		{trans((style, g, state, gtrIdx) =>
+			<animated.div className={s.gtrBlock} style={style}>
+				<Guitar guitarIndex={gtrIdx} guitar={g} />
+			</animated.div>
 		)}
 	</div>;
 }
