@@ -1,11 +1,10 @@
 import {useMemo} from 'react';
-import styled from 'styled-components';
-
 import {IGuitar, IString} from '@/model/types';
 import {useStore} from '@/model/store';
 import * as c from '@/model/consts';
 import Gauge from './Gauge';
 import Note from './Note';
+import s from '@/component-styles/StringRow.module.scss';
 
 interface Props {
 	strIndex: number;
@@ -28,37 +27,24 @@ export default function StringRow(props: Props) {
 		return tuning.notes[props.strIndex] !== props.str.note;
 	}, [props.guitar.tuningName, props.strIndex, props.str.note]);
 
-	return <DivStringRow>
-		<DivStrName>{c.STRING_NAMES[props.strIndex]}</DivStrName>
-		<DivModif $modif={isModifGauge}>
+	const clsModifGauge = [s.modif, isModifGauge ? s.yes : s.no].join(' ');
+	const clsModifNote  = [s.modif, isModifNote  ? s.yes : s.no].join(' ');
+
+	return <div className={s.strRow}>
+		<div className={s.strName}>{c.STRING_NAMES[props.strIndex]}</div>
+		<div className={clsModifGauge}>
 			<Gauge gauge={props.str.gauge} onChange={g => changeGauge(props.guitar, props.str, g)} />
-		</DivModif>
-		<DivModif $modif={isModifNote}>
+		</div>
+		<div className={clsModifNote}>
 			<Note strIndex={props.strIndex}
 				note={props.str.note}
 				onChange={n => changeNote(props.guitar, props.str, n)} />
-		</DivModif>
-		<div>
-			<InputTension type='text' value={props.str.tension.toFixed(2)} disabled /> {unit}
 		</div>
-	</DivStringRow>;
+		<div>
+			<input className={s.tension}
+				type='text'
+				value={props.str.tension.toFixed(2)}
+				disabled /> {unit}
+		</div>
+	</div>;
 }
-
-const DivStringRow = styled.div`
-	display: flex;
-	align-items: baseline;
-	& > div {
-		margin: 2px 3px;
-	}
-`;
-const DivStrName = styled.div`
-	width: 26px;
-`;
-const InputTension = styled.input`
-	width: 3.5em;
-	text-align: right;
-`;
-const DivModif = styled.div<{$modif: boolean}>`
-	border: 1px solid ${p => p.$modif ? 'red' : 'white'};
-	padding: 1px;
-`;

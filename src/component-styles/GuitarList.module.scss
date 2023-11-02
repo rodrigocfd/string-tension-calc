@@ -1,0 +1,13 @@
+.gtrBlock {
+	display: inline-block;
+	vertical-align: top;
+	margin: 0 10px 10px 0;
+
+	transition: transform .4s, opacity .4s;
+	transform: translateY(-100px);
+	opacity: 0;
+	&.animate {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}

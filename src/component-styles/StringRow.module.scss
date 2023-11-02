@@ -1,0 +1,23 @@
+.strRow {
+	display: flex;
+	align-items: baseline;
+	& > div {
+		margin: 2px 3px;
+	}
+	.strName {
+		width: 26px;
+	}
+	.modif {
+		padding: 1px;
+		&.yes {
+			border: 1px solid red;
+		}
+		&.no {
+			border: 1px solid white;
+		}
+	}
+	.tension {
+		width: 3.5em;
+		text-align: right;
+	}
+}

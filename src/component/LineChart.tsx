@@ -1,9 +1,8 @@
 import {useEffect, useRef, useState} from 'react';
-import styled from 'styled-components';
 import {Chart} from 'chart.js/auto';
-
 import {useStore} from '@/model/store';
 import * as c from '@/model/consts';
+import s from '@/component-styles/LineChart.module.scss';
 
 export default function LineChart() {
 	const unit = useStore(s => s.unit);
@@ -48,14 +47,9 @@ export default function LineChart() {
 
 	return <>
 		{guitars.length > 0 &&
-			<DivChart>
+			<div className={s.chart}>
 				<canvas ref={canvas} />
-			</DivChart>
+			</div>
 		}
 	</>;
 }
-
-const DivChart = styled.div`
-	max-width: 100vw;
-	max-height: 240px;
-`;

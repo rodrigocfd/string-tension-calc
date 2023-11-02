@@ -1,0 +1,40 @@
+$colors: (
+	0: #36a2eb,
+	1: #ff6384,
+	2: #ff9f40,
+	3: #ffcd56,
+	4: #4bc0c0,
+	5: #9966ff,
+	6: #c9cbcf,
+);
+@each $idx, $color in $colors {
+	.gtrColor#{$idx} {
+		border-top: 4px solid $color;
+	}
+}
+
+.gtrBox {
+	padding: 2px 1px;
+	border: 1px solid #ddd;
+	& > div {
+		padding: 3px 6px;
+	}
+	.topRow {
+		display: flex;
+		gap: 6px;
+		align-items: baseline;
+		justify-content: space-between;
+		.name {
+			font-size: 115%;
+		}
+		.topBtns {
+			display: flex;
+			gap: 6px;
+		}
+	}
+	.tuningSum {
+		display: flex;
+		justify-content: space-between;
+		padding-right: 9px;
+	}
+}

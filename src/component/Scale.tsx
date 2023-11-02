@@ -1,8 +1,7 @@
 import {ChangeEvent, useRef} from 'react';
-import styled from 'styled-components';
-
 import {IScale, IScaleMode, IScaleLength} from '@/model/types';
 import * as c from '@/model/consts';
+import s from '@/component-styles/Scale.module.scss';
 
 interface Props {
 	scale: IScale;
@@ -24,7 +23,7 @@ export default function Scale(props: Props) {
 		props.onChange({mode, lengthLo, lengthHi});
 	}
 
-	return <DivScaleRow>
+	return <div className={s.scaleRow}>
 		<select ref={cmbMode} value={props.scale.mode} onChange={change}>
 			{c.SCALE_MODES.map(mode =>
 				<option key={mode} value={mode}>
@@ -40,29 +39,20 @@ export default function Scale(props: Props) {
 				</option>
 			)}
 		</select>
-		<DivShowHide $show={isMulti}>(low)</DivShowHide>
+		<div style={{display: isMulti ? '' : 'none'}}>(low)</div>
 
-		<DivShowHide $show={isMulti}>to</DivShowHide>
+		<div style={{display: isMulti ? '' : 'none'}}>to</div>
 
-		<SelectShowHide $show={isMulti} ref={cmbLenHi} value={props.scale.lengthHi} onChange={change}>
+		<select style={{display: isMulti ? '' : 'none'}}
+			ref={cmbLenHi}
+			value={props.scale.lengthHi}
+			onChange={change}>
 			{c.SCALE_LENGTHS.map(len =>
 				<option key={len} value={len}>
 					{len}''
 				</option>
 			)}
-		</SelectShowHide>
-		<DivShowHide $show={isMulti}>(high)</DivShowHide>
-	</DivScaleRow>;
+		</select>
+		<div style={{display: isMulti ? '' : 'none'}}>(high)</div>
+	</div>;
 }
-
-const DivScaleRow = styled.div`
-	display: flex;
-	gap: 6px;
-	align-items: baseline;
-`;
-const DivShowHide = styled.div<{$show: boolean}>`
-	display: ${p => p.$show ? '' : 'none'};
-`;
-const SelectShowHide = styled.select<{$show: boolean}>`
-	display: ${p => p.$show ? '' : 'none'};
-`;
