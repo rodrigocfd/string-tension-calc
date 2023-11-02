@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import {onMounted, ref, toRaw, watch} from 'vue';
 import {Chart} from 'chart.js/auto';
-import store from '@/model/store';
+import useStore from '@/model/useStore';
 import * as c from '@/model/consts';
+
+const store = useStore();
 
 const canvas = ref<HTMLCanvasElement | null>(null);
 let chart: Chart<'line', number[], string> | null = null;
@@ -24,7 +26,7 @@ onMounted(() => {
 	});
 });
 
-watch([store.guitars, store.unit], ([gtrs, unit], [prevGtrs, prevUnit]) => {
+watch([() => store.guitars, () => store.unit], ([gtrs, unit], [prevGtrs, prevUnit]) => {
 	const maxNumStrs = Math.max(...gtrs.map(gtr => gtr.strings.length));
 	chart!.data.labels = c.STRING_NAMES.slice(0, maxNumStrs).reverse();
 
@@ -45,7 +47,7 @@ watch([store.guitars, store.unit], ([gtrs, unit], [prevGtrs, prevUnit]) => {
 </script>
 
 <template>
-	<div :class="m.chart" v-show="store.guitars.value.length > 0">
+	<div :class="m.chart" v-show="store.guitars.length > 0">
 		<canvas ref="canvas" />
 	</div>
 </template>

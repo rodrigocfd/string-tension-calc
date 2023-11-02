@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import store from '@/model/store';
+import useStore from '@/model/useStore';
 import GuitarList from './GuitarList.vue';
 import LineChart from './LineChart.vue';
 import Unit from './Unit.vue';
+
+const store = useStore();
 </script>
 
 <template>

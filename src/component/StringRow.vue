@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {computed} from 'vue';
 import {IGuitar, IString} from '@/model/types';
-import store from '@/model/store';
+import useStore from '@/model/useStore';
 import * as c from '@/model/consts';
 import Gauge from './Gauge.vue';
 import Note from './Note.vue';
@@ -11,6 +11,8 @@ const props = defineProps<{
 	str: IString;
 	guitar: IGuitar;
 }>();
+
+const store = useStore();
 
 const isModifGauge = computed((): boolean => {
 	const pack = c.PACKS.find(p => p.name === props.guitar.packName)!;
@@ -36,7 +38,7 @@ const isModifNote = computed((): boolean => {
 		</div>
 		<div>
 			<input type="text" :class="m.tension" :value="props.str.tension.toFixed(2)" disabled />
-			{{store.unit.value}}
+			{{store.unit}}
 		</div>
 	</div>
 </template>

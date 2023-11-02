@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {IGuitar} from '@/model/types';
-import store from '@/model/store';
+import useStore from '@/model/useStore';
 import Pack from './Pack.vue';
 import Scale from './Scale.vue';
 import StringRow from './StringRow.vue';
@@ -11,6 +11,8 @@ const props = defineProps<{
 	guitarIndex: number;
 	guitar: IGuitar;
 }>();
+
+const store = useStore();
 </script>
 
 <template>

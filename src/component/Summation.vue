@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import {computed} from 'vue';
 import {IGuitar} from '@/model/types';
-import store from '@/model/store';
+import useStore from '@/model/useStore';
 
 const props = defineProps<{
 	guitar: IGuitar;
 }>();
+
+const store = useStore();
 
 const sum = computed(() =>
 	props.guitar.strings.reduce((accum, str) => accum + str.tension, 0),
@@ -14,7 +16,7 @@ const sum = computed(() =>
 
 <template>
 	<div>∑ <input type="text" :class="m.tension" :value="sum.toFixed(2)" disabled />
-		{{store.unit.value}}
+		{{store.unit}}
 	</div>
 </template>
 

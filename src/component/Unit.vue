@@ -1,17 +1,12 @@
 <script setup lang="ts">
-import {computed} from 'vue';
-import {IUnit} from '@/model/types';
-import store from '@/model/store';
+import useStore from '@/model/useStore';
 import * as c from '@/model/consts';
 
-const currentUnit = computed({
-	get: (): IUnit => store.unit.value,
-	set: (unit: IUnit): void => store.setUnit(unit),
-});
+const store = useStore();
 </script>
 
 <template>
-	<select v-model="currentUnit">
+	<select v-model="store.unit">
 		<option v-for="unit of c.UNITS" :key="unit.name" :value="unit.name">
 			unit: {{unit.name}}
 		</option>

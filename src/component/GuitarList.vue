@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import store from '@/model/store';
+import useStore from '@/model/useStore';
 import Guitar from './Guitar.vue';
+
+const store = useStore();
 </script>
 
 <template>
 	<transition-group name="sets" tag="div" :class="m.arena">
-		<div v-for="(guitar, idx) of store.guitars.value" :key="guitar._key">
+		<div v-for="(guitar, idx) of store.guitars" :key="guitar._key">
 			<Guitar :guitarIndex="idx" :guitar="guitar" />
 		</div>
 	</transition-group>
