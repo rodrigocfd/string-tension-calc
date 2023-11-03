@@ -165,6 +165,7 @@ export const SCALE_MODES = [
 ] as const;
 
 export const SCALE_LENGTHS = [
+	22.2,
 	24,
 	24.75,
 	25,
