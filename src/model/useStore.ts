@@ -1,16 +1,19 @@
+import {reactive, toRefs} from 'vue';
 import {defineStore} from 'pinia';
 import {IGauge, IGuitar, INote, IPackName, IScale, IString, ITuningName, IUnit} from './types';
 import {calcTension} from './funcs';
 import * as c from './consts';
 
-const useStore = defineStore('global', {
-	state: () => ({
+const useStore = defineStore('global', () => {
+	const state = reactive({
 		unit: 'kg/cm' as IUnit,
 		guitars: [] as IGuitar[],
-	}),
-	actions: {
+	});
+
+	return {
+		...toRefs(state),
 		addNew(): void {
-			this.guitars.push({
+			state.guitars.push({
 				_key: genKey(),
 				scale: c.DEFAULT_SCALE,
 				packName: c.DEFAULT_PACK_NAME,
@@ -19,20 +22,20 @@ const useStore = defineStore('global', {
 			});
 		},
 		moveLeft(guitar: IGuitar): void {
-			const idx = this.guitars.findIndex(g => g._key === guitar._key);
-			const tmp = this.guitars[idx];
-			this.guitars[idx] = this.guitars[idx - 1];
-			this.guitars[idx - 1] = tmp;
+			const idx = state.guitars.findIndex(g => g._key === guitar._key);
+			const tmp = state.guitars[idx];
+			state.guitars[idx] = state.guitars[idx - 1];
+			state.guitars[idx - 1] = tmp;
 		},
 		remove(guitar: IGuitar): void {
-			const idx = this.guitars.findIndex(g => g._key === guitar._key);
-			this.guitars.splice(idx, 1);
+			const idx = state.guitars.findIndex(g => g._key === guitar._key);
+			state.guitars.splice(idx, 1);
 		},
 		changeScale(guitar: IGuitar, scale: IScale): void {
 			guitar.scale = scale;
 			guitar.strings.forEach((str, strIdx) =>
 				str.tension = calcTension(strIdx, guitar.strings.length,
-					str.gauge, str.note, guitar.scale, this.unit),
+					str.gauge, str.note, guitar.scale, state.unit),
 			);
 		},
 		changePack(guitar: IGuitar, name: IPackName): void {
@@ -48,16 +51,16 @@ const useStore = defineStore('global', {
 			const strObj = guitar.strings[strIdx];
 			strObj.gauge = gauge;
 			strObj.tension = calcTension(strIdx, guitar.strings.length,
-				gauge, strObj.note, guitar.scale, this.unit);
+				gauge, strObj.note, guitar.scale, state.unit);
 		},
 		changeNote(guitar: IGuitar, str: IString, note: INote): void {
 			const strIdx = guitar.strings.findIndex(s => s._key === str._key);
 			const strObj = guitar.strings[strIdx];
 			strObj.note = note;
 			strObj.tension = calcTension(strIdx, guitar.strings.length,
-				strObj.gauge, note, guitar.scale, this.unit);
+				strObj.gauge, note, guitar.scale, state.unit);
 		},
-	},
+	};
 });
 
 export default useStore;
