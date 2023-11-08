@@ -10,8 +10,7 @@ const useStore = defineStore('global', () => {
 		guitars: [] as IGuitar[],
 	});
 
-	return {
-		...toRefs(state),
+	const pub = {
 		addNew(): void {
 			state.guitars.push({
 				_key: genKey(),
@@ -61,6 +60,8 @@ const useStore = defineStore('global', () => {
 				strObj.gauge, note, guitar.scale, state.unit);
 		},
 	};
+
+	return {...toRefs(state), ...pub};
 });
 
 export default useStore;
