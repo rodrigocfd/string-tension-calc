@@ -1,4 +1,4 @@
-import {reactive, toRefs} from 'vue';
+import {computed, reactive} from 'vue';
 import {defineStore} from 'pinia';
 import {IGauge, IGuitar, INote, IPackName, IScale, IString, ITuningName, IUnit} from './types';
 import {calcTension} from './funcs';
@@ -10,7 +10,23 @@ const useStore = defineStore('global', () => {
 		guitars: [] as IGuitar[],
 	});
 
+	const vals = {
+		unit: computed(() => state.unit),
+		guitars: computed(() => state.guitars),
+	};
+
 	const pub = {
+		changeUnit(u: IUnit): void {
+			state.unit = u;
+			state.guitars.forEach(g => {
+				const pack = c.PACKS.find(pack => pack.name === g.packName)!;
+				const tuning = c.TUNINGS.find(tuning => tuning.name === g.tuningName)!;
+				g.strings.forEach((s, strIdx) => {
+					s.tension = calcTension(strIdx, pack.gauges.length,
+						s.gauge, tuning.notes[strIdx], g.scale, state.unit);
+				});
+			});
+		},
 		addNew(): void {
 			state.guitars.push({
 				_key: genKey(),
@@ -61,7 +77,7 @@ const useStore = defineStore('global', () => {
 		},
 	};
 
-	return {...toRefs(state), ...pub};
+	return {...vals, ...pub};
 });
 
 export default useStore;

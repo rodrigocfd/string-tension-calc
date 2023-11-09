@@ -22,8 +22,8 @@
 		"vue": "3.3.8"
 	},
 	"devDependencies": {
-		"@types/node": "20.8.10",
-		"@vitejs/plugin-vue": "4.4.0",
+		"@types/node": "20.9.0",
+		"@vitejs/plugin-vue": "4.4.1",
 		"gh-pages": "6.0.0",
 		"sass": "1.69.5",
 		"typescript": "5.2.2",
