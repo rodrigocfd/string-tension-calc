@@ -8,7 +8,7 @@ $colors: (
 	6: #c9cbcf,
 );
 @each $idx, $color in $colors {
-	.gtrColor#{$idx} {
+	.gtrBox.gtrColor#{$idx} {
 		border-top: 4px solid $color;
 	}
 }

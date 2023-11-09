@@ -19,7 +19,7 @@ export default function Guitar(props: Props) {
 	const changePack = useStore(s => s.changePack);
 	const changeTuning = useStore(s => s.changeTuning);
 
-	const clsBox = [s.gtrBox, s.gtrColor + props.guitarIndex].join(' ');
+	const clsBox = [s.gtrBox, s['gtrColor' + props.guitarIndex]].join(' ');
 
 	return <div className={clsBox}>
 		<div className={s.topRow}>
