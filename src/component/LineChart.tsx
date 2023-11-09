@@ -11,9 +11,14 @@ export default function LineChart() {
 	const [chart, setChart] = useState<Chart<'line', number[], string> | null>(null);
 
 	useEffect(() => {
-		if (canvas.current !== null) {
+		if (canvas.current === null) {
+			if (chart !== null) {
+				chart.destroy();
+				setChart(null);
+			}
+		} else {
 			if (chart === null) {
-				setChart(new Chart(canvas.current!, {
+				setChart(new Chart(canvas.current, {
 					type: 'line',
 					data: {
 						labels: [],
