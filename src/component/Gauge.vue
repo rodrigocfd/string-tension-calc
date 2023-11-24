@@ -6,7 +6,6 @@ import * as c from '@/model/consts';
 const props = defineProps<{
 	gauge: IGauge;
 }>();
-
 const emit = defineEmits<{
 	'update:gauge': [gauge: IGauge];
 }>();

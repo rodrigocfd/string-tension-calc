@@ -6,7 +6,6 @@ import * as c from '@/model/consts';
 const props = defineProps<{
 	scale: IScale;
 }>();
-
 const emit = defineEmits<{
 	'update:scale': [scale: IScale];
 }>();

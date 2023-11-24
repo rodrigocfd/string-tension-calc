@@ -6,7 +6,6 @@ import * as c from '@/model/consts';
 const props = defineProps<{
 	tuningName: ITuningName;
 }>();
-
 const emit = defineEmits<{
 	'update:tuningName': [tuningName: ITuningName];
 }>();

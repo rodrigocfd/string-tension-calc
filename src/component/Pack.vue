@@ -6,7 +6,6 @@ import * as c from '@/model/consts';
 const props = defineProps<{
 	packName: IPackName;
 }>();
-
 const emit = defineEmits<{
 	'update:packName': [name: IPackName],
 }>();

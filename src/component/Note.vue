@@ -7,7 +7,6 @@ const props = defineProps<{
 	stringIndex: number;
 	note: INote;
 }>();
-
 const emit = defineEmits<{
 	'update:note': [note: INote];
 }>();
