@@ -104,8 +104,7 @@ function genStrings(
 	tuningName: ITuningName,
 	scale: IScale,
 	unit: IUnit,
-): IString[]
-{
+): IString[] {
 	const pack = c.PACKS.find(pack => pack.name === packName)!;
 	return pack.gauges.map((gauge, strIdx) => {
 		const tuning = c.TUNINGS.find(tuning => tuning.name === tuningName)!;

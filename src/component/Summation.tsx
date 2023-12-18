@@ -1,3 +1,4 @@
+import {useMemo} from 'react';
 import {IGuitar} from '@/model/types';
 import {useStore} from '@/model/store';
 import s from '@/component-styles/Summation.module.scss';
@@ -8,7 +9,9 @@ interface Props {
 
 export default function Summation(props: Props) {
 	const unit = useStore(s => s.unit);
-	const sum = props.guitar.strings.reduce((accum, str) => accum + str.tension, 0);
+	const sum = useMemo(() =>
+		props.guitar.strings.reduce((accum, str) => accum + str.tension, 0),
+	[props.guitar.strings]);
 
 	return <div>
 		∑ <input className={s.tension}
