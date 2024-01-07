@@ -1,5 +1,6 @@
 import {useEffect, useRef, useState} from 'react';
 import {Chart} from 'chart.js/auto';
+import {IGuitar, IUnit} from '@/model/types';
 import {useStore} from '@/model/store';
 import * as c from '@/model/consts';
 import s from '@/component-styles/LineChart.module.scss';
@@ -10,15 +11,29 @@ export default function LineChart() {
 	const canvas = useRef<HTMLCanvasElement | null>(null);
 	const [chart, setChart] = useState<Chart<'line', number[], string> | null>(null);
 
+	useChart(canvas.current, unit, guitars, chart, setChart);
+
+	return <div className={s.chart}>
+		<canvas ref={canvas} />
+	</div>;
+}
+
+function useChart(
+	canvas: HTMLCanvasElement | null,
+	unit: IUnit,
+	guitars: IGuitar[],
+	chart: Chart<'line', number[], string> | null,
+	setChart: (chart: Chart<'line', number[], string> | null) => void,
+) {
 	useEffect(() => {
-		if (canvas.current === null) {
+		if (canvas === null) {
 			if (chart !== null) {
 				chart.destroy();
 				setChart(null);
 			}
 		} else {
 			if (chart === null) {
-				setChart(new Chart(canvas.current, {
+				setChart(new Chart(canvas, {
 					type: 'line',
 					data: {
 						labels: [],
@@ -49,13 +64,5 @@ export default function LineChart() {
 				chart.update('none');
 			}
 		}
-	}, [canvas.current, unit, guitars]);
-
-	return <>
-		{guitars.length > 0 &&
-			<div className={s.chart}>
-				<canvas ref={canvas} />
-			</div>
-		}
-	</>;
+	}, [canvas, unit, guitars, chart]);
 }

@@ -10,7 +10,7 @@ export const useStore = create(immer(
 		unit: 'kg/cm' as IUnit,
 		guitars: [] as IGuitar[],
 	},
-	(set, get) => ({
+	set => ({
 		setUnit(unit: IUnit): void {
 			set(state => {
 				state.unit = unit;
