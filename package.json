@@ -17,17 +17,17 @@
 		"deploy": "gh-pages -d build"
 	},
 	"dependencies": {
-		"chart.js": "4.4.0",
+		"chart.js": "4.4.1",
 		"pinia": "2.1.7",
-		"vue": "3.3.8"
+		"vue": "3.4.15"
 	},
 	"devDependencies": {
-		"@types/node": "20.9.5",
-		"@vitejs/plugin-vue": "4.5.0",
-		"gh-pages": "6.1.0",
-		"sass": "1.69.5",
-		"typescript": "5.3.2",
-		"vite": "4.5.0",
-		"vue-tsc": "1.8.22"
+		"@types/node": "20.11.7",
+		"@vitejs/plugin-vue": "5.0.3",
+		"gh-pages": "6.1.1",
+		"sass": "1.70.0",
+		"typescript": "5.3.3",
+		"vite": "5.0.12",
+		"vue-tsc": "1.8.27"
 	}
 }
