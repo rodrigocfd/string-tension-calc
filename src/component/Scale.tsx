@@ -14,7 +14,7 @@ export default function Scale(props: Props) {
 	const cmbLenHi = useRef<HTMLSelectElement| null>(null);
 	const isMulti = props.scale.mode === 'multi';
 
-	function change(ev: ChangeEvent<HTMLSelectElement>): void {
+	function change(_ev: ChangeEvent<HTMLSelectElement>): void {
 		const mode = cmbMode.current!.value as IScaleMode;
 		const lengthLo = parseFloat(cmbLenLo.current!.value) as IScaleLength;
 		const lengthHi = (mode === 'normal')

@@ -1,30 +1,23 @@
 import {useEffect, useRef, useState} from 'react';
 import {Chart} from 'chart.js/auto';
-import {IGuitar, IUnit} from '@/model/types';
 import {useStore} from '@/model/store';
 import * as c from '@/model/consts';
 import s from '@/component-styles/LineChart.module.scss';
 
 export default function LineChart() {
-	const unit = useStore(s => s.unit);
-	const guitars = useStore(s => s.guitars);
 	const canvas = useRef<HTMLCanvasElement | null>(null);
-	const [chart, setChart] = useState<Chart<'line', number[], string> | null>(null);
-
-	useChart(canvas.current, unit, guitars, chart, setChart);
+	useChart(canvas.current);
 
 	return <div className={s.chart}>
 		<canvas ref={canvas} />
 	</div>;
 }
 
-function useChart(
-	canvas: HTMLCanvasElement | null,
-	unit: IUnit,
-	guitars: IGuitar[],
-	chart: Chart<'line', number[], string> | null,
-	setChart: (chart: Chart<'line', number[], string> | null) => void,
-) {
+function useChart(canvas: HTMLCanvasElement | null) {
+	const unit = useStore(s => s.unit);
+	const guitars = useStore(s => s.guitars);
+	const [chart, setChart] = useState<Chart<'line', number[], string> | null>(null);
+
 	useEffect(() => {
 		if (canvas === null) {
 			if (chart !== null) {

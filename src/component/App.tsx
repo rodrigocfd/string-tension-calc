@@ -2,6 +2,7 @@ import {useStore} from '@/model/store';
 import GuitarList from './GuitarList';
 import LineChart from './LineChart';
 import Unit from './Unit';
+import github from '/github.svg';
 import s from '@/component-styles/App.module.scss';
 import '@/component-styles/global.scss';
 
@@ -16,7 +17,7 @@ export default function App() {
 				<button className={s.addNew} onClick={addNew}>New guitar</button>
 			</div>
 			<a className={s.repo} href='https://github.com/rodrigocfd/string-tension-calc'>
-				<img src='/github.svg' />
+				<img src={github} />
 			</a>
 		</header>
 		<GuitarList />

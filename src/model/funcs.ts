@@ -35,8 +35,8 @@ export function calcTension(
 	const freq = c.PITCHES.find(p => p.note === note)!.freq;
 	const effScaleLen = effectiveScaleLength(stringIndex, numStrings, scale);
 
-	let tension = polynomialGauge(gaugeFloat, isPlain) * Math.pow(2 * effScaleLen * freq, 2) / 386.4;
+	const tension = polynomialGauge(gaugeFloat, isPlain) * Math.pow(2 * effScaleLen * freq, 2) / 386.4;
 
 	const unitInfo = c.UNITS.find(u => u.name === unit)!;
 	return tension * unitInfo.lbFactor;
-};
+}
