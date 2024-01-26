@@ -2,8 +2,10 @@ import {IGauge, INote, IScale, IUnit} from './types';
 import * as c from './consts';
 
 function effectiveScaleLength(
-	stringIndex: number, numStrings: number, scale: IScale): number
-{
+	stringIndex: number,
+	numStrings: number,
+	scale: IScale,
+): number {
 	const diff = scale.lengthLo - scale.lengthHi;
 	const incr = diff / (numStrings - 1);
 	return scale.lengthHi + incr * stringIndex;
@@ -20,9 +22,13 @@ function polynomialGauge(gauge: number, isPlain: boolean): number {
 }
 
 export function calcTension(
-	stringIndex: number, numStrings: number, gauge: IGauge, note: INote,
-	scale: IScale, unit: IUnit): number
-{
+	stringIndex: number,
+	numStrings: number,
+	gauge: IGauge,
+	note: INote,
+	scale: IScale,
+	unit: IUnit,
+): number {
 	const gaugeStr = gauge;
 	const gaugeFloat = parseFloat(gaugeStr.slice(0, -2));
 	const isPlain = gaugeStr.endsWith('P');

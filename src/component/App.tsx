@@ -13,7 +13,7 @@ export default function App() {
 			<h1>String Tension Calculator</h1>
 			<div className={s.topButtons}>
 				<Unit />
-				<button className={s.addNew} onClick={() => addNew()}>New guitar</button>
+				<button className={s.addNew} onClick={addNew}>New guitar</button>
 			</div>
 			<a className={s.repo} href='https://github.com/rodrigocfd/string-tension-calc'>
 				<img src='/github.svg' />
