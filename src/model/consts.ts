@@ -1,3 +1,6 @@
+/* eslint array-bracket-spacing: 0 */
+/* eslint object-curly-spacing: 0 */
+
 import {IPackName, IPitchesForString, IScale, ITuningName} from './types';
 
 export const GAUGES = [
