@@ -1,29 +1,29 @@
 <script setup lang="ts">
 import {computed} from 'vue';
-import {INote} from '@/model/types';
+import {TNote} from '@/model/types';
 import * as c from '@/model/consts';
 
 const props = defineProps<{
-	stringIndex: number;
-	note: INote;
+	strIndex: number;
+	note: TNote;
 }>();
 const emit = defineEmits<{
-	'update:note': [note: INote];
+	'update:note': [note: TNote];
 }>();
 
-const currentNote = computed({
-	get: (): INote => props.note,
-	set: (note: INote): void => emit('update:note', note),
+const note = computed({
+	get: (): TNote => props.note,
+	set: (note: TNote): void => emit('update:note', note),
 });
 
-const pitches = c.PITCHES_FOR_STRING
-	.find(p => p.stringIndex === props.stringIndex)!.pitches;
+const pitches = computed(() =>
+	c.PITCHES_FOR_STRING.find(p => p.stringIndex === props.strIndex)!.pitches);
 </script>
 
 <template>
-	<select v-model="currentNote">
+	<select v-model="note">
 		<option v-for="pitch of pitches" :key="pitch.note" :value="pitch.note">
-			{{pitch.note}} ({{pitch.descr}})
+			{{pitch.note}} {{pitch.descr}}
 		</option>
 	</select>
 </template>

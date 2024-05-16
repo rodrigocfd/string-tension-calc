@@ -9,13 +9,13 @@ const store = useStore();
 
 <template>
 	<header :class="m.header">
-		<h1 :class="m.title">String Tension Calculator</h1>
+		<h1>String Tension Calculator</h1>
 		<div :class="m.topButtons">
 			<Unit />
-			<button :class="m.add" @click="() => store.addNew()">New guitar</button>
+			<button :class="m.addNew" @click="store.addNew">New guitar</button>
 		</div>
 		<a :class="m.repo" href="https://github.com/rodrigocfd/string-tension-calc">
-			<img src="/github.svg" />
+			<img src="/gh-logo.svg" />
 		</a>
 	</header>
 	<GuitarList />
@@ -27,10 +27,11 @@ const store = useStore();
 		font-family: 'Segoe UI', sans-serif;
 		font-size: 10pt;
 	}
+
 	.header {
 		display: flex;
 		align-items: baseline;
-		.title {
+		& > h1 {
 			font-size: 16pt;
 			margin: 0 18px 12px 0;
 		}
@@ -40,7 +41,7 @@ const store = useStore();
 				flex-direction: column;
 				gap: 6px;
 			}
-			.add {
+			.addNew {
 				margin-left: 12px;
 				white-space: nowrap;
 			}

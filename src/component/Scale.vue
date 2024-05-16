@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {computed, ref} from 'vue';
-import {IScale, IScaleLength, IScaleMode} from '@/model/types';
+import {computed} from 'vue';
+import {IScale, TScaleLength, TScaleMode} from '@/model/types';
 import * as c from '@/model/consts';
 
 const props = defineProps<{
@@ -10,45 +10,58 @@ const emit = defineEmits<{
 	'update:scale': [scale: IScale];
 }>();
 
-const cmbMode = ref<HTMLSelectElement | null>(null);
-const cmbLenLo = ref<HTMLSelectElement | null>(null);
-const cmbLenHi = ref<HTMLSelectElement | null>(null);
-
-const isMulti = computed(() => props.scale.mode === 'multi');
-
-function changed(): void {
-	const mode = cmbMode.value!.value as IScaleMode;
-	const lengthLo = parseFloat(cmbLenLo.value!.value) as IScaleLength;
-	const lengthHi = (mode === 'normal')
-		? lengthLo
-		: parseFloat(cmbLenHi.value!.value) as IScaleLength;
-	emit('update:scale', {mode, lengthLo, lengthHi});
-}
+const mode = computed({
+	get: (): TScaleMode => props.scale.mode,
+	set: (mode: TScaleMode): void => {
+		emit('update:scale', {
+			mode,
+			lengthLo: props.scale.lengthLo,
+			lengthHi: (mode === 'normal') ? props.scale.lengthLo : props.scale.lengthHi,
+		});
+	},
+});
+const lengthLo = computed({
+	get: (): TScaleLength => props.scale.lengthLo,
+	set: (lengthLo: TScaleLength): void => {
+		emit('update:scale', {
+			...props.scale,
+			lengthLo,
+			lengthHi: (props.scale.mode === 'normal') ? lengthLo : props.scale.lengthHi,
+		});
+	},
+});
+const lengthHi = computed({
+	get: (): TScaleLength => props.scale.lengthHi,
+	set: (lengthHi: TScaleLength): void => emit('update:scale', {...props.scale, lengthHi}),
+});
 </script>
 
 <template>
 	<div :class="m.scaleRow">
-		<select :value="props.scale.mode" @change="changed" ref="cmbMode">
+		<select v-model="mode">
 			<option v-for="mode of c.SCALE_MODES" :key="mode" :value="mode">
 				{{mode}}
 			</option>
 		</select>
 
-		<select :value="props.scale.lengthLo" @change="changed" ref="cmbLenLo">
+		<select v-model="lengthLo">
 			<option v-for="len of c.SCALE_LENGTHS" :key="len" :value="len">
 				{{len}}''
 			</option>
 		</select>
-		<div v-show="isMulti">(low)</div>
 
-		<div v-show="isMulti">to</div>
+		<template v-if="props.scale.mode === 'multi'">
+			<div>(low)</div>
+			<div>to</div>
 
-		<select v-show="isMulti" :value="props.scale.lengthHi" @change="changed" ref="cmbLenHi">
-			<option v-for="len of c.SCALE_LENGTHS" :key="len" :value="len">
-				{{len}}''
-			</option>
-		</select>
-		<div v-show="isMulti">(high)</div>
+			<select v-model="lengthHi">
+				<option v-for="len of c.SCALE_LENGTHS" :key="len" :value="len">
+					{{len}}''
+				</option>
+			</select>
+
+			<div>(high)</div>
+		</template>
 	</div>
 </template>
 

@@ -1,46 +1,46 @@
 import * as c from './consts';
 
-export type IGauge = typeof c.GAUGES[number];
-export type INote = typeof c.PITCHES[number]['note'];
-export type INumStrings = typeof c.NUM_STRINGS[number];
-export type IPack = typeof c.PACKS[number];
-export type IPackName = typeof c.PACKS[number]['name'];
-export type IScaleLength = typeof c.SCALE_LENGTHS[number];
-export type IScaleMode = typeof c.SCALE_MODES[number];
-export type IStringIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
-export type ITuningName = typeof c.TUNINGS[number]['name'];
-export type IUnit = typeof c.UNITS[number]['name'];
+export type TGauge = typeof c.GAUGES[number] | null;
+export type TNote = typeof c.PITCHES[number]['note'];
+export type TNumStrings = typeof c.NUM_STRINGS[number];
+export type TPack = typeof c.PACKS[number];
+export type TPackName = typeof c.PACKS[number]['name'];
+export type TScaleLength = typeof c.SCALE_LENGTHS[number];
+export type TScaleMode = typeof c.SCALE_MODES[number];
+export type TStringIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
+export type TTuningName = typeof c.TUNINGS[number]['name'];
+export type TUnit = typeof c.UNITS[number]['name'];
 
 export interface IDefaultPack {
-	numStrings: INumStrings;
-	packName: IPackName;
+	numStrings: TNumStrings;
+	packName: TPackName;
 }
 
 export interface IGuitar {
-	_key: number;
+	_id: number;
 	scale: IScale;
-	packName: IPackName;
-	tuningName: ITuningName;
+	packName: TPackName;
+	tuningName: TTuningName;
 	strings: IString[];
 }
 
 export interface IString {
-	_key: number;
-	gauge: IGauge;
-	note: INote;
+	_id: number;
+	gauge: TGauge;
+	note: TNote;
 	tension: number;
 }
 
 export interface IPitchesForString {
-	stringIndex: IStringIndex;
+	stringIndex: TStringIndex;
 	pitches: {
-		note: INote;
+		note: TNote;
 		descr: string;
-	}[],
+	}[];
 }
 
 export interface IScale {
-	mode: IScaleMode;
-	lengthLo: IScaleLength;
-	lengthHi: IScaleLength;
+	mode: TScaleMode;
+	lengthLo: TScaleLength;
+	lengthHi: TScaleLength;
 }

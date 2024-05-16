@@ -1,21 +1,16 @@
 <script setup lang="ts">
 import {computed} from 'vue';
-import {ITuningName} from '@/model/types';
+import {TTuningName} from '@/model/types';
 import * as c from '@/model/consts';
 
 const props = defineProps<{
-	tuningName: ITuningName;
+	tuningName: TTuningName;
 }>();
 const emit = defineEmits<{
-	'update:tuningName': [tuningName: ITuningName];
+	'update:tuningName': [tuningName: TTuningName];
 }>();
 
-const currentTuningName = computed({
-	get: (): ITuningName => props.tuningName,
-	set: (name: ITuningName): void => emit('update:tuningName', name),
-});
-
-const tuningsByKind: {kind: string, tuningNames: ITuningName[]}[] = [
+const tuningsByKind: {kind: string; tuningNames: TTuningName[]}[] = [
 	{kind: 'Standard', tuningNames: []},
 	{kind: 'Drop', tuningNames: []},
 ];
@@ -24,13 +19,20 @@ c.TUNINGS.forEach(defTuning => {
 	tuningsByKind.find(defTuning => kind === defTuning.kind)!
 		.tuningNames.push(defTuning.name);
 });
+
+const tuningName = computed({
+	get: (): TTuningName => props.tuningName,
+	set: (tuningName: TTuningName): void => emit('update:tuningName', tuningName),
+});
 </script>
 
 <template>
-	<select v-model="currentTuningName">
-		<optgroup v-for="group of tuningsByKind" :key="group.kind" :label="group.kind">
-			<option v-for="tuning of group.tuningNames" :key="tuning" :value="tuning">
-				{{tuning}}
+	<select v-model="tuningName">
+		<optgroup v-for="group of tuningsByKind"
+			:key="group.kind"
+			:label="group.kind">
+			<option v-for="name of group.tuningNames" :key="name">
+				{{name}}
 			</option>
 		</optgroup>
 	</select>

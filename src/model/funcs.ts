@@ -1,48 +1,40 @@
-import {IGauge, INote, IPackName, IScale, IString, ITuningName, IUnit} from './types';
+import {IGuitar, IScale, IString, TGauge, TNote, TPackName, TTuningName, TUnit} from './types';
 import * as c from './consts';
 
-let curKey = 0;
-export function genKey(): number {
-	return curKey++;
+let curId = 0;
+export function nextId(): number {
+	return curId++;
 }
 
 export function genStrings(
-	packName: IPackName,
-	tuningName: ITuningName,
+	packName: TPackName,
+	tuningName: TTuningName,
 	scale: IScale,
-	unit: IUnit,
+	unit: TUnit,
 ): IString[] {
 	const pack = c.PACKS.find(pack => pack.name === packName)!;
 	return pack.gauges.map((gauge, strIdx) => {
 		const tuning = c.TUNINGS.find(tuning => tuning.name === tuningName)!;
+		const tension = (gauge === null) ? NaN
+			: calcTension(strIdx, pack.gauges.length, gauge, tuning.notes[strIdx], scale, unit);
 		return {
-			_key: genKey(),
+			_id: nextId(),
 			gauge,
 			note: tuning.notes[strIdx],
-			tension: calcTension(strIdx, pack.gauges.length,
-				gauge, tuning.notes[strIdx], scale, unit),
+			tension,
 		};
 	});
 }
 
-export function calcTension(
-	stringIndex: number,
-	numStrings: number,
-	gauge: IGauge,
-	note: INote,
-	scale: IScale,
-	unit: IUnit,
-): number {
-	const gaugeStr = gauge;
-	const gaugeFloat = parseFloat(gaugeStr.slice(0, -2));
-	const isPlain = gaugeStr.endsWith('P');
-	const freq = c.PITCHES.find(p => p.note === note)!.freq;
-	const effScaleLen = effectiveScaleLength(stringIndex, numStrings, scale);
-
-	let tension = polynomialGauge(gaugeFloat, isPlain) * Math.pow(2 * effScaleLen * freq, 2) / 386.4;
-
-	const unitInfo = c.UNITS.find(u => u.name === unit)!;
-	return tension * unitInfo.lbFactor;
+export function countValidStrings(guitar: IGuitar): number {
+	let count = guitar.strings.length;
+	for (let i = guitar.strings.length - 1; i >= 0; --i) {
+		if (!isNaN(guitar.strings[i].tension)) {
+			count = i + 1;
+			break;
+		}
+	}
+	return Math.max(6, count);
 }
 
 function effectiveScaleLength(
@@ -63,4 +55,28 @@ function polynomialGauge(gauge: number, isPlain: boolean): number {
 			-74026.84724, 1389623.565, -15576312.23, 95696503.28, -247760614.2];
 
 	return coefs.reduce((tot, coef, i) => tot + coef * Math.pow(gauge, i), 0);
+}
+
+export function calcTension(
+	stringIndex: number,
+	numStrings: number,
+	gauge: TGauge,
+	note: TNote,
+	scale: IScale,
+	unit: TUnit,
+): number {
+	if (gauge === null) {
+		return NaN;
+	} else {
+		const gaugeStr = gauge;
+		const gaugeFloat = parseFloat(gaugeStr.slice(0, -2));
+		const isPlain = gaugeStr.endsWith('P');
+		const freq = c.PITCHES.find(p => p.note === note)!.freq;
+		const effScaleLen = effectiveScaleLength(stringIndex, numStrings, scale);
+
+		const tension = polynomialGauge(gaugeFloat, isPlain) * Math.pow(2 * effScaleLen * freq, 2) / 386.4;
+
+		const unitInfo = c.UNITS.find(u => u.name === unit)!;
+		return tension * unitInfo.lbFactor;
+	}
 }

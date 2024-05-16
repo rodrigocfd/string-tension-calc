@@ -1,35 +1,39 @@
 <script setup lang="ts">
 import {computed} from 'vue';
-import {INumStrings, IPackName} from '@/model/types';
+import {TNumStrings, TPackName} from '@/model/types';
 import * as c from '@/model/consts';
 
 const props = defineProps<{
-	packName: IPackName;
+	packName: TPackName;
 }>();
 const emit = defineEmits<{
-	'update:packName': [name: IPackName],
+	'update:packName': [packName: TPackName];
 }>();
 
-const currentPackName = computed({
-	get: (): IPackName => props.packName,
-	set: (name: IPackName): void => emit('update:packName', name),
-});
-
-const packsByNumStrings: {num: INumStrings, packNames: IPackName[]}[] = [
+const packsByNumStrings: {num: TNumStrings; packNames: TPackName[]}[] = [
 	{num: 6, packNames: []},
 	{num: 7, packNames: []},
 	{num: 8, packNames: []},
 ];
-c.PACKS.forEach(defPack => {
-	packsByNumStrings.find(p => p.num === defPack.gauges.length)!
-		.packNames.push(defPack.name);
+c.PACKS.forEach(pack => {
+	packsByNumStrings.find(p => p.num === pack.gauges.filter(g => g !== null).length)!
+		.packNames.push(pack.name);
+});
+
+const packName = computed({
+	get: (): TPackName => props.packName,
+	set: (packName: TPackName): void => emit('update:packName', packName),
 });
 </script>
 
 <template>
-	<select v-model="currentPackName">
-		<optgroup v-for="group of packsByNumStrings" :key="group.num" :label="group.num + ' strings'">
-			<option v-for="packName of group.packNames" :key="packName" :value="packName">
+	<select v-model="packName">
+		<optgroup v-for="packGroup of packsByNumStrings"
+			:key="packGroup.num"
+			:label="packGroup.num + ' strings'">
+			<option v-for="packName of packGroup.packNames"
+				:key="packName"
+				:value="packName">
 				{{packName}}
 			</option>
 		</optgroup>

@@ -9,14 +9,18 @@ const props = defineProps<{
 
 const store = useStore();
 
-const sum = computed(() =>
-	props.guitar.strings.reduce((accum, str) => accum + str.tension, 0),
+const sumTension = computed(() =>
+	props.guitar.strings.reduce((accum, str) =>
+		accum + (isNaN(str.tension) ? 0 : str.tension), 0),
 );
 </script>
 
 <template>
-	<div>∑ <input type="text" :class="m.tension" :value="sum.toFixed(2)" disabled />
-		{{store.unit}}
+	<div>
+		∑ <input :class="m.tension"
+			type="text"
+			:value="sumTension.toFixed(2)"
+			disabled /> {{store.unit}}
 	</div>
 </template>
 

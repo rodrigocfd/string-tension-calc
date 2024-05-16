@@ -1,6 +1,7 @@
 .vscode/
-node_modules/
 build/
+node_modules/
+desktop.ini
 package-lock.json
-yarn.lock
 pnpm-lock.yaml
+yarn.lock

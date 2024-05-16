@@ -16,12 +16,15 @@ const store = useStore();
 </script>
 
 <template>
-	<div :class="[m.guitarBox, m['color' + (props.guitarIndex % 7)]]">
+	<div :class="[m.gtrBox, m['color' + props.guitarIndex % 7]]">
 		<div :class="m.topRow">
 			<div :class="m.name">Guitar #{{props.guitarIndex + 1}}</div>
-			<div :class="m.topButtons">
-				<button @click="() => store.moveLeft(props.guitar)"
-					v-if="props.guitarIndex > 0" title="Move left">⇐</button>
+			<div :class="m.topBtns">
+				<button v-if="props.guitarIndex > 0"
+					@click="() => store.moveLeft(props.guitar)"
+					title="Move left">
+					⇐
+				</button>
 				<button @click="() => store.remove(props.guitar)" title="Remove">✕</button>
 			</div>
 		</div>
@@ -31,17 +34,19 @@ const store = useStore();
 		</div>
 		<div>
 			<Pack :packName="props.guitar.packName"
-				@update:packName="name => store.changePack(props.guitar, name)" />
+				@update:packName="n => store.changePack(props.guitar, n)" />
 		</div>
 		<div :class="m.tuningSum">
 			<Tuning :tuningName="props.guitar.tuningName"
-				@update:tuningName="name => store.changeTuning(props.guitar, name)" />
-			<Summation :guitarIndex="props.guitarIndex" :guitar="props.guitar" />
+				@update:tuningName="n => store.changeTuning(props.guitar, n)" />
+			<Summation :guitar="props.guitar" />
 		</div>
-		<div>
-			<div v-for="(str, idx) of props.guitar.strings" :key="str._key">
-				<StringRow :strIndex="idx" :str="str" :guitar="props.guitar" />
-			</div>
+		<div :class="m.stringRow">
+			<StringRow v-for="(s, strIdx) of props.guitar.strings"
+				:key="s._id"
+				:strIndex="strIdx"
+				:str="s"
+				:guitar="props.guitar" />
 		</div>
 	</div>
 </template>
@@ -57,14 +62,15 @@ const store = useStore();
 		6: #c9cbcf,
 	);
 	@each $idx, $color in $colors {
-		.color#{$idx} {
+		.gtrBox.color#{$idx} {
 			border: 1px solid #ddd;
 			border-top: 4px solid $color;
 		}
 	}
 
-	.guitarBox {
+	.gtrBox {
 		padding: 2px 1px;
+		border: 1px solid #ddd;
 		& > div {
 			padding: 3px 6px;
 		}
@@ -76,7 +82,7 @@ const store = useStore();
 			.name {
 				font-size: 115%;
 			}
-			.topButtons {
+			.topBtns {
 				display: flex;
 				gap: 6px;
 			}
@@ -85,6 +91,10 @@ const store = useStore();
 			display: flex;
 			justify-content: space-between;
 			padding-right: 9px;
+		}
+		.stringRow {
+			display: grid;
+			grid-template-columns: repeat(4, auto);
 		}
 	}
 </style>

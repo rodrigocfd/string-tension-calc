@@ -6,32 +6,30 @@ const store = useStore();
 </script>
 
 <template>
-	<transition-group name="sets" tag="div" :class="m.arena">
-		<div v-for="(guitar, idx) of store.guitars" :key="guitar._key">
-			<Guitar :guitarIndex="idx" :guitar="guitar" />
+	<transition-group name="guitars" tag="div">
+		<div v-for="(g, idx) of store.guitars" :key="g._id" :class="m.gtrBlock">
+			<Guitar :guitarIndex="idx" :guitar="g" />
 		</div>
 	</transition-group>
 </template>
 
 <style module="m" lang="scss">
-	.arena {
-		& > div {
-			display: inline-block;
-			vertical-align: top;
-			margin: 0 10px 10px 0;
-		}
+	.gtrBlock {
+		display: inline-block;
+		vertical-align: top;
+		margin: 0 10px 10px 0;
 	}
 
-	:global(.sets-move),
-	:global(.sets-enter-active),
-	:global(.sets-leave-active) {
+	:global(.guitars-move),
+	:global(.guitars-enter-active),
+	:global(.guitars-leave-active) {
 		transition: all .3s ease;
 	}
-	:global(.sets-enter-from),
-	:global(.sets-leave-to) {
+	:global(.guitars-enter-from),
+	:global(.guitars-leave-to) {
 		opacity: 0;
 	}
-	:global(.sets-leave-active) {
+	:global(.guitars-leave-active) {
 		position: absolute;
 	}
 </style>
