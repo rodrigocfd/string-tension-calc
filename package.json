@@ -1,7 +1,7 @@
 {
 	"name": "string-tension-calc",
 	"private": true,
-	"version": "0.0.0",
+	"version": "2.0.0",
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
@@ -11,7 +11,7 @@
 		"deploy": "npm run build && gh-pages -d build"
 	},
 	"dependencies": {
-		"chart.js": "^4.4.2",
+		"chart.js": "^4.4.3",
 		"pinia": "^2.1.7",
 		"vue": "^3.4.27"
 	},
@@ -21,7 +21,7 @@
 		"@vue/eslint-config-typescript": "^13.0.0",
 		"eslint": "^8.57.0",
 		"gh-pages": "^6.1.1",
-		"sass": "^1.77.1",
+		"sass": "^1.77.2",
 		"typescript": "^5.4.5",
 		"vite": "^5.2.11",
 		"vue-tsc": "^2.0.19"
