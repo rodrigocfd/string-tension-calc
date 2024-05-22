@@ -6,7 +6,7 @@ interface Props {
 	onChange(tuningName: ITuningName): void;
 }
 
-const tuningsByKind: {kind: string, tuningNames: ITuningName[]}[] = [
+const tuningsByKind: {kind: string; tuningNames: ITuningName[]}[] = [
 	{kind: 'Standard', tuningNames: []},
 	{kind: 'Drop', tuningNames: []},
 ];
@@ -23,9 +23,9 @@ export default function Tuning(props: Props) {
 				{group.tuningNames.map(tuning =>
 					<option key={tuning} value={tuning}>
 						{tuning}
-					</option>
+					</option>,
 				)}
-			</optgroup>
+			</optgroup>,
 		)}
 	</select>;
 }

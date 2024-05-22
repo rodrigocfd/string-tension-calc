@@ -36,7 +36,7 @@ export interface IPitchesForString {
 	pitches: {
 		note: INote;
 		descr: string;
-	}[],
+	}[];
 }
 
 export interface IScale {

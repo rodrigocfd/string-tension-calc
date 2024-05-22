@@ -18,7 +18,7 @@ export default function Note(props: Props) {
 		{pitches.map(pitch =>
 			<option key={pitch.note} value={pitch.note}>
 				{pitch.note} {pitch.descr}
-			</option>
+			</option>,
 		)}
 	</select>;
 }

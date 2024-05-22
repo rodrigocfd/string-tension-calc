@@ -10,7 +10,7 @@ export default function Unit() {
 		{c.UNITS.map(u =>
 			<option key={u.name} value={u.name}>
 				unit: {u.name}
-			</option>
+			</option>,
 		)}
 	</select>;
 }

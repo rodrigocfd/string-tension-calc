@@ -6,7 +6,7 @@ interface Props {
 	onChange(gauge: IGauge): void;
 }
 
-const gaugesByKind: {kind: 'P'|'W', label: string, gauges: IGauge[]}[] = [
+const gaugesByKind: {kind: 'P'|'W'; label: string; gauges: IGauge[]}[] = [
 	{kind: 'P', label: 'Plain', gauges: []},
 	{kind: 'W', label: 'Wound', gauges: []},
 ];
@@ -22,9 +22,9 @@ export default function Gauge(props: Props) {
 				{group.gauges.map(gauge =>
 					<option key={gauge} value={gauge}>
 						{gauge}
-					</option>
+					</option>,
 				)}
-			</optgroup>
+			</optgroup>,
 		)}
 	</select>;
 }

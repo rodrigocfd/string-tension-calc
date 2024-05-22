@@ -28,7 +28,7 @@ export default function Scale(props: Props) {
 			{c.SCALE_MODES.map(mode =>
 				<option key={mode} value={mode}>
 					{mode}
-				</option>
+				</option>,
 			)}
 		</select>
 
@@ -36,7 +36,7 @@ export default function Scale(props: Props) {
 			{c.SCALE_LENGTHS.map(len =>
 				<option key={len} value={len}>
 					{len}''
-				</option>
+				</option>,
 			)}
 		</select>
 		<div style={{display: isMulti ? '' : 'none'}}>(low)</div>
@@ -50,7 +50,7 @@ export default function Scale(props: Props) {
 			{c.SCALE_LENGTHS.map(len =>
 				<option key={len} value={len}>
 					{len}''
-				</option>
+				</option>,
 			)}
 		</select>
 		<div style={{display: isMulti ? '' : 'none'}}>(high)</div>

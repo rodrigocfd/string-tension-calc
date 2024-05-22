@@ -16,7 +16,7 @@ export default function GuitarList() {
 		{guitars.map((g, idx) =>
 			<motion.div key={g._id} className={s.gtrBlock} layout {...animation}>
 				<Guitar guitarIndex={idx} guitar={g} />
-			</motion.div>
+			</motion.div>,
 		)}
 	</AnimatePresence>;
 }

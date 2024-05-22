@@ -18,8 +18,8 @@
 		"deploy": "gh-pages -d build"
 	},
 	"dependencies": {
-		"chart.js": "4.4.2",
-		"framer-motion": "11.2.0",
+		"chart.js": "4.4.3",
+		"framer-motion": "11.2.6",
 		"immer": "10.1.1",
 		"react": "18.3.1",
 		"react-dom": "18.3.1",
@@ -29,14 +29,14 @@
 		"@types/node": "20.12.12",
 		"@types/react": "18.3.2",
 		"@types/react-dom": "18.3.0",
-		"@typescript-eslint/eslint-plugin": "7.9.0",
-		"@typescript-eslint/parser": "7.9.0",
+		"@typescript-eslint/eslint-plugin": "7.10.0",
+		"@typescript-eslint/parser": "7.10.0",
 		"@vitejs/plugin-react": "4.2.1",
 		"eslint": "8.57.0",
 		"eslint-plugin-react-hooks": "4.6.2",
 		"eslint-plugin-react-refresh": "0.4.7",
 		"gh-pages": "6.1.1",
-		"sass": "1.77.1",
+		"sass": "1.77.2",
 		"typescript": "5.4.5",
 		"vite": "5.2.11"
 	}

@@ -43,7 +43,7 @@ export default function Guitar(props: Props) {
 		</div>
 		<div>
 			{props.guitar.strings.map((s, strIdx) =>
-				<StringRow key={s._id} strIndex={strIdx} str={s} guitar={props.guitar} />
+				<StringRow key={s._id} strIndex={strIdx} str={s} guitar={props.guitar} />,
 			)}
 		</div>
 	</div>;

@@ -6,7 +6,7 @@ interface Props {
 	onChange(packName: IPackName): void;
 }
 
-const packsByNumStrings: {num: INumStrings, packNames: IPackName[]}[] = [
+const packsByNumStrings: {num: INumStrings; packNames: IPackName[]}[] = [
 	{num: 6, packNames: []},
 	{num: 7, packNames: []},
 	{num: 8, packNames: []},
@@ -23,9 +23,9 @@ export default function Pack(props: Props) {
 				{group.packNames.map(packName =>
 					<option key={packName} value={packName}>
 						{packName}
-					</option>
+					</option>,
 				)}
-			</optgroup>
+			</optgroup>,
 		)}
 	</select>;
 }
