@@ -8,7 +8,8 @@ $colors: (
 	6: #c9cbcf,
 );
 @each $idx, $color in $colors {
-	.gtrBox.gtrColor#{$idx} {
+	.gtrBox.color#{$idx} {
+		border: 1px solid #ddd;
 		border-top: 4px solid $color;
 	}
 }
@@ -36,5 +37,9 @@ $colors: (
 		display: flex;
 		justify-content: space-between;
 		padding-right: 9px;
+	}
+	.stringRow {
+		display: grid;
+		grid-template-columns: repeat(4, auto);
 	}
 }

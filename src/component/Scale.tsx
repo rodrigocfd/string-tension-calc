@@ -1,5 +1,5 @@
 import {ChangeEvent, useRef} from 'react';
-import {IScale, IScaleMode, IScaleLength} from '@/model/types';
+import {IScale, TScaleLength, TScaleMode} from '@/model/types';
 import * as c from '@/model/consts';
 import s from '@/component-styles/Scale.module.scss';
 
@@ -15,11 +15,11 @@ export default function Scale(props: Props) {
 	const isMulti = props.scale.mode === 'multi';
 
 	function change(_ev: ChangeEvent<HTMLSelectElement>): void {
-		const mode = cmbMode.current!.value as IScaleMode;
-		const lengthLo = parseFloat(cmbLenLo.current!.value) as IScaleLength;
+		const mode = cmbMode.current!.value as TScaleMode;
+		const lengthLo = parseFloat(cmbLenLo.current!.value) as TScaleLength;
 		const lengthHi = (mode === 'normal')
 			? lengthLo
-			: parseFloat(cmbLenHi.current!.value) as IScaleLength;
+			: parseFloat(cmbLenHi.current!.value) as TScaleLength;
 		props.onChange({mode, lengthLo, lengthHi});
 	}
 

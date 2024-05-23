@@ -1,17 +1,17 @@
 import {create} from 'zustand';
 import {combine} from 'zustand/middleware';
 import {immer} from 'zustand/middleware/immer';
-import {IGauge, IGuitar, INote, IPackName, IScale, IString, ITuningName, IUnit} from './types';
-import {calcTension} from './funcs';
+import {IGuitar, IScale, IString, TGauge, TNote, TPackName, TTuningName, TUnit} from './types';
+import {calcTension, genStrings, nextId} from './funcs';
 import * as c from './consts';
 
 export const useStore = create(immer(
 	combine({
-		unit: 'kg/cm' as IUnit,
+		unit: 'kg/cm' as TUnit,
 		guitars: [] as IGuitar[],
 	},
 	set => ({
-		setUnit(unit: IUnit): void {
+		setUnit(unit: TUnit): void {
 			set(state => {
 				state.unit = unit;
 				state.guitars.forEach(guitar => {
@@ -26,7 +26,7 @@ export const useStore = create(immer(
 		addNew(): void {
 			set(state => {
 				state.guitars.push({
-					_id: genId(),
+					_id: nextId(),
 					scale: c.DEFAULT_SCALE,
 					packName: c.DEFAULT_PACK_NAME,
 					tuningName: c.DEFAULT_TUNING_NAME,
@@ -57,21 +57,21 @@ export const useStore = create(immer(
 				);
 			});
 		},
-		changePack(guitar: IGuitar, name: IPackName): void {
+		changePack(guitar: IGuitar, name: TPackName): void {
 			set(state => {
 				const ourGtr = state.guitars.find(g => g._id === guitar._id)!;
 				ourGtr.packName = name;
 				ourGtr.strings = genStrings(name, ourGtr.tuningName, ourGtr.scale, state.unit);
 			});
 		},
-		changeTuning(guitar: IGuitar, name: ITuningName): void {
+		changeTuning(guitar: IGuitar, name: TTuningName): void {
 			set(state => {
 				const ourGtr = state.guitars.find(g => g._id === guitar._id)!;
 				ourGtr.tuningName = name;
 				ourGtr.strings = genStrings(ourGtr.packName, name, ourGtr.scale, state.unit);
 			});
 		},
-		changeGauge(guitar: IGuitar, str: IString, gauge: IGauge): void {
+		changeGauge(guitar: IGuitar, str: IString, gauge: TGauge): void {
 			set(state => {
 				const ourGtr = state.guitars.find(g => g._id === guitar._id)!;
 				const strIdx = ourGtr.strings.findIndex(s => s._id === str._id);
@@ -81,7 +81,7 @@ export const useStore = create(immer(
 					gauge, ourStr.note, guitar.scale, state.unit);
 			});
 		},
-		changeNote(guitar: IGuitar, str: IString, note: INote): void {
+		changeNote(guitar: IGuitar, str: IString, note: TNote): void {
 			set(state => {
 				const ourGtr = state.guitars.find(g => g._id === guitar._id)!;
 				const strIdx = ourGtr.strings.findIndex(s => s._id === str._id);
@@ -94,26 +94,4 @@ export const useStore = create(immer(
 	})),
 ));
 
-let curId = 0;
-function genId(): number {
-	return curId++;
-}
-
-function genStrings(
-	packName: IPackName,
-	tuningName: ITuningName,
-	scale: IScale,
-	unit: IUnit,
-): IString[] {
-	const pack = c.PACKS.find(pack => pack.name === packName)!;
-	return pack.gauges.map((gauge, strIdx) => {
-		const tuning = c.TUNINGS.find(tuning => tuning.name === tuningName)!;
-		return {
-			_id: genId(),
-			gauge,
-			note: tuning.notes[strIdx],
-			tension: calcTension(strIdx, pack.gauges.length,
-				gauge, tuning.notes[strIdx], scale, unit),
-		};
-	});
-}
+export default useStore;

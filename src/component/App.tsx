@@ -1,4 +1,4 @@
-import {useStore} from '@/model/store';
+import {useStore} from '@/model/useStore';
 import GuitarList from './GuitarList';
 import LineChart from './LineChart';
 import Unit from './Unit';

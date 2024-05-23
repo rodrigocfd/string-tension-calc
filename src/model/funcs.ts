@@ -1,5 +1,40 @@
-import {IGauge, INote, IScale, IUnit} from './types';
+import {IGuitar, IScale, IString, TGauge, TNote, TPackName, TTuningName, TUnit} from './types';
 import * as c from './consts';
+
+let curId = 0;
+export function nextId(): number {
+	return curId++;
+}
+
+export function genStrings(
+	packName: TPackName,
+	tuningName: TTuningName,
+	scale: IScale,
+	unit: TUnit,
+): IString[] {
+	const pack = c.PACKS.find(pack => pack.name === packName)!;
+	return pack.gauges.map((gauge, strIdx) => {
+		const tuning = c.TUNINGS.find(tuning => tuning.name === tuningName)!;
+		return {
+			_id: nextId(),
+			gauge,
+			note: tuning.notes[strIdx],
+			tension: calcTension(strIdx, pack.gauges.length,
+				gauge, tuning.notes[strIdx], scale, unit),
+		};
+	});
+}
+
+export function countValidStrings(guitar: IGuitar): number {
+	let count = guitar.strings.length;
+	for (let i = guitar.strings.length - 1; i >= 0; --i) {
+		if (!isNaN(guitar.strings[i].tension)) {
+			count = i + 1;
+			break;
+		}
+	}
+	return Math.max(6, count);
+}
 
 function effectiveScaleLength(
 	stringIndex: number,
@@ -24,19 +59,23 @@ function polynomialGauge(gauge: number, isPlain: boolean): number {
 export function calcTension(
 	stringIndex: number,
 	numStrings: number,
-	gauge: IGauge,
-	note: INote,
+	gauge: TGauge,
+	note: TNote,
 	scale: IScale,
-	unit: IUnit,
+	unit: TUnit,
 ): number {
-	const gaugeStr = gauge;
-	const gaugeFloat = parseFloat(gaugeStr.slice(0, -2));
-	const isPlain = gaugeStr.endsWith('P');
-	const freq = c.PITCHES.find(p => p.note === note)!.freq;
-	const effScaleLen = effectiveScaleLength(stringIndex, numStrings, scale);
+	if (gauge === null) {
+		return NaN;
+	} else {
+		const gaugeStr = gauge;
+		const gaugeFloat = parseFloat(gaugeStr.slice(0, -2));
+		const isPlain = gaugeStr.endsWith('P');
+		const freq = c.PITCHES.find(p => p.note === note)!.freq;
+		const effScaleLen = effectiveScaleLength(stringIndex, numStrings, scale);
 
-	const tension = polynomialGauge(gaugeFloat, isPlain) * Math.pow(2 * effScaleLen * freq, 2) / 386.4;
+		const tension = polynomialGauge(gaugeFloat, isPlain) * Math.pow(2 * effScaleLen * freq, 2) / 386.4;
 
-	const unitInfo = c.UNITS.find(u => u.name === unit)!;
-	return tension * unitInfo.lbFactor;
+		const unitInfo = c.UNITS.find(u => u.name === unit)!;
+		return tension * unitInfo.lbFactor;
+	}
 }

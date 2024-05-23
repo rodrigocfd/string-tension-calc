@@ -1,5 +1,5 @@
 import {IGuitar} from '@/model/types';
-import {useStore} from '@/model/store';
+import {useStore} from '@/model/useStore';
 import Pack from './Pack';
 import Scale from './Scale';
 import StringRow from './StringRow';
@@ -19,7 +19,7 @@ export default function Guitar(props: Props) {
 	const changePack = useStore(s => s.changePack);
 	const changeTuning = useStore(s => s.changeTuning);
 
-	const clsBox = [s.gtrBox, s['gtrColor' + props.guitarIndex]].join(' ');
+	const clsBox = [s.gtrBox, s['color' + props.guitarIndex % 7]].join(' ');
 
 	return <div className={clsBox}>
 		<div className={s.topRow}>
@@ -41,9 +41,12 @@ export default function Guitar(props: Props) {
 			<Tuning tuningName={props.guitar.tuningName} onChange={t => changeTuning(props.guitar, t)} />
 			<Summation guitar={props.guitar} />
 		</div>
-		<div>
-			{props.guitar.strings.map((s, strIdx) =>
-				<StringRow key={s._id} strIndex={strIdx} str={s} guitar={props.guitar} />,
+		<div className={s.stringRow}>
+			{props.guitar.strings.map((str, strIdx) =>
+				<StringRow key={str._id}
+					strIndex={strIdx}
+					str={str}
+					guitar={props.guitar} />,
 			)}
 		</div>
 	</div>;

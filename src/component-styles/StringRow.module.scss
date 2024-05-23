@@ -1,13 +1,9 @@
-.strRow {
-	display: flex;
-	align-items: baseline;
-	& > div {
-		margin: 2px 3px;
-	}
-	.strName {
+.elem {
+	margin: 2px 3px;
+	&.strName {
 		width: 26px;
 	}
-	.modif {
+	&.modif {
 		padding: 1px;
 		&.yes {
 			border: 1px solid red;

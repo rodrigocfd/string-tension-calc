@@ -1,6 +1,6 @@
 import {useMemo} from 'react';
 import {IGuitar, IString} from '@/model/types';
-import {useStore} from '@/model/store';
+import {useStore} from '@/model/useStore';
 import * as c from '@/model/consts';
 import Gauge from './Gauge';
 import Note from './Note';
@@ -27,24 +27,31 @@ export default function StringRow(props: Props) {
 		return tuning.notes[props.strIndex] !== props.str.note;
 	}, [props.guitar.tuningName, props.strIndex, props.str.note]);
 
-	const clsModifGauge = [s.modif, isModifGauge ? s.yes : s.no].join(' ');
-	const clsModifNote  = [s.modif, isModifNote  ? s.yes : s.no].join(' ');
+	const clsModifGauge = [s.elem, s.modif, isModifGauge ? s.yes : s.no].join(' ');
+	const clsModifNote  = [s.elem, s.modif, isModifNote  ? s.yes : s.no].join(' ');
 
-	return <div className={s.strRow}>
-		<div className={s.strName}>{c.STRING_NAMES[props.strIndex]}</div>
+	const tensionStr = useMemo(() =>
+		isNaN(props.str.tension) ? '–' : props.str.tension.toFixed(2),
+	[props.str.tension]);
+
+	return <>
+		<div className={[s.strName, s.elem].join(' ')}>{c.STRING_NAMES[props.strIndex]}</div>
 		<div className={clsModifGauge}>
-			<Gauge gauge={props.str.gauge} onChange={g => changeGauge(props.guitar, props.str, g)} />
+			<Gauge gauge={props.str.gauge}
+				onChange={g => changeGauge(props.guitar, props.str, g)} />
 		</div>
 		<div className={clsModifNote}>
-			<Note strIndex={props.strIndex}
-				note={props.str.note}
-				onChange={n => changeNote(props.guitar, props.str, n)} />
+			{!isNaN(props.str.tension) &&
+				<Note strIndex={props.strIndex}
+					note={props.str.note}
+					onChange={n => changeNote(props.guitar, props.str, n)} />
+			}
 		</div>
-		<div>
+		<div className={s.elem}>
 			<input className={s.tension}
 				type='text'
-				value={props.str.tension.toFixed(2)}
+				value={tensionStr}
 				disabled /> {unit}
 		</div>
-	</div>;
+	</>;
 }

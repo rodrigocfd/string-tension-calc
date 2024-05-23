@@ -1,5 +1,5 @@
 import {AnimatePresence, motion} from 'framer-motion';
-import {useStore} from '@/model/store';
+import {useStore} from '@/model/useStore';
 import Guitar from './Guitar';
 import s from '@/component-styles/GuitarList.module.scss';
 
