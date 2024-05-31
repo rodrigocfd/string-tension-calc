@@ -3,14 +3,15 @@ import {useStore} from '@/model/useStore';
 import Guitar from './Guitar';
 import s from '@/component-styles/GuitarList.module.scss';
 
+const animation = {
+	initial: {scale: 0},
+	animate: {scale: 1},
+	exit: {scale: 0},
+	transition: {duration: .25},
+};
+
 export default function GuitarList() {
 	const guitars = useStore(s => s.guitars);
-	const animation = {
-		initial: {scale: 0},
-		animate: {scale: 1},
-		exit: {scale: 0},
-		transition: {duration: .25},
-	};
 
 	return <AnimatePresence>
 		{guitars.map((g, idx) =>
