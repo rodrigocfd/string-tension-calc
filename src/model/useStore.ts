@@ -2,7 +2,7 @@ import {create} from 'zustand';
 import {combine} from 'zustand/middleware';
 import {immer} from 'zustand/middleware/immer';
 import {IGuitar, IScale, IString, TGauge, TNote, TPackName, TTuningName, TUnit} from './types';
-import {calcTension, genStrings, nextId} from './funcs';
+import {calcTension, countValidStrings, genStrings, nextId} from './funcs';
 import * as c from './consts';
 
 export const useStore = create(immer(
@@ -16,7 +16,8 @@ export const useStore = create(immer(
 				state.unit = unit;
 				state.guitars.forEach(guitar => {
 					guitar.strings.forEach((str, strIdx) => {
-						str.tension = calcTension(strIdx, guitar.strings.length,
+						const numValidStrs = countValidStrings(guitar);
+						str.tension = calcTension(strIdx, numValidStrs,
 							str.gauge, str.note, guitar.scale, state.unit);
 					});
 				});
@@ -50,9 +51,10 @@ export const useStore = create(immer(
 		changeScale(guitar: IGuitar, scale: IScale): void {
 			set(state => {
 				const ourGtr = state.guitars.find(g => g._id === guitar._id)!;
+				const numValidStrs = countValidStrings(ourGtr);
 				ourGtr.scale = scale;
 				ourGtr.strings.forEach((str, strIdx) =>
-					str.tension = calcTension(strIdx, ourGtr.strings.length,
+					str.tension = calcTension(strIdx, numValidStrs,
 						str.gauge, str.note, scale, state.unit),
 				);
 			});
@@ -74,20 +76,22 @@ export const useStore = create(immer(
 		changeGauge(guitar: IGuitar, str: IString, gauge: TGauge): void {
 			set(state => {
 				const ourGtr = state.guitars.find(g => g._id === guitar._id)!;
+				const numValidStrs = countValidStrings(ourGtr);
 				const strIdx = ourGtr.strings.findIndex(s => s._id === str._id);
 				const ourStr = ourGtr.strings[strIdx];
 				ourStr.gauge = gauge;
-				ourStr.tension = calcTension(strIdx, guitar.strings.length,
+				ourStr.tension = calcTension(strIdx, numValidStrs,
 					gauge, ourStr.note, guitar.scale, state.unit);
 			});
 		},
 		changeNote(guitar: IGuitar, str: IString, note: TNote): void {
 			set(state => {
 				const ourGtr = state.guitars.find(g => g._id === guitar._id)!;
+				const numValidStrs = countValidStrings(ourGtr);
 				const strIdx = ourGtr.strings.findIndex(s => s._id === str._id);
 				const ourStr = ourGtr.strings[strIdx];
 				ourStr.note = note;
-				ourStr.tension = calcTension(strIdx, guitar.strings.length,
+				ourStr.tension = calcTension(strIdx, numValidStrs,
 					str.gauge, note, guitar.scale, state.unit);
 			});
 		},
