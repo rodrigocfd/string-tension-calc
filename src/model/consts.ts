@@ -72,6 +72,7 @@ export const NUM_STRINGS = [6, 7, 8] as const;
 
 export const PACKS = [
 	{gauges: ['.007 P', '.009 P', '.011 P', '.020 W', '.030 W', '.038 W', null,     null    ], name: ".007 Dunlop Rev. Willy's"},
+	{gauges: ['.007 P', '.009 P', '.013 P', '.020 W', '.026 W', '.036 W', null,     null    ], name: '.007 Ernie Ball Zippy Slinky'},
 	{gauges: ['.008 P', '.010 P', '.012 P', '.020 W', '.030 W', '.040 W', null,     null    ], name: ".008 Dunlop Rev. Willy's"},
 	{gauges: ['.008 P', '.010 P', '.015 P', '.021 W', '.030 W', '.038 W', null,     null    ], name: ".008 D'Addario EXL130"},
 	{gauges: ['.008 P', '.011 P', '.014 P', '.022 W', '.030 W', '.038 W', null,     null    ], name: '.008 Ernie Ball Extra Slinky'},
