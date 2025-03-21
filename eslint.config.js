@@ -61,10 +61,12 @@ export default tseslint.config(
 			'@stylistic/no-multi-spaces': 'warn',
 			'@stylistic/no-whitespace-before-property': 'warn',
 			'@stylistic/object-curly-spacing': ['warn', 'never'],
+			'@stylistic/padded-blocks': ['warn', {switches: 'never'}],
 			'@stylistic/quotes': ['warn', 'single', {avoidEscape: true}],
 			'@stylistic/semi': ['warn', 'always'],
 			'@stylistic/space-infix-ops': 'warn',
 			'@stylistic/template-curly-spacing': ['warn', 'never'],
+			'@stylistic/type-annotation-spacing': ['warn'],
 			'@typescript-eslint/no-unused-vars': ['warn', {
 				'argsIgnorePattern': '^_',
 				'varsIgnorePattern': '^_',
