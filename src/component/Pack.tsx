@@ -1,5 +1,5 @@
-import * as c from '@/model/consts';
-import {TNumStrings, TPackName} from '@/model/types';
+import * as c from '~/model/consts';
+import {TNumStrings, TPackName} from '~/model/types';
 
 interface Props {
 	packName: TPackName;

@@ -1,9 +1,9 @@
 import ghlogo from '/ghlogo.svg';
-import useStore from '@/model/useStore';
+import useStore from '~/model/useStore';
 import GuitarList from './GuitarList';
 import LineChart from './LineChart';
 import Unit from './Unit';
-import css from '@/css/App.module.css';
+import css from '~/css/App.module.css';
 
 export default function App() {
 	const store = useStore();

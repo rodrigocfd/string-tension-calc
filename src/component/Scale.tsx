@@ -1,7 +1,7 @@
 import {ChangeEvent} from 'react';
-import * as c from '@/model/consts';
-import {IScale, TScaleLength, TScaleMode} from '@/model/types';
-import css from '@/css/Scale.module.css';
+import * as c from '~/model/consts';
+import {IScale, TScaleLength, TScaleMode} from '~/model/types';
+import css from '~/css/Scale.module.css';
 
 interface Props {
 	scale: IScale;

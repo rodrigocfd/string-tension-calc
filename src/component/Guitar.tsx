@@ -1,12 +1,12 @@
-import {cn} from '@/model/funcs';
-import {IGuitar} from '@/model/types';
-import useStore from '@/model/useStore';
+import {cn} from '~/model/funcs';
+import {IGuitar} from '~/model/types';
+import useStore from '~/model/useStore';
 import Pack from './Pack';
 import Scale from './Scale';
 import StringRow from './StringRow';
 import Summation from './Summation';
 import Tuning from './Tuning';
-import css from '@/css/Guitar.module.css';
+import css from '~/css/Guitar.module.css';
 
 interface Props {
 	guitarIndex: number;

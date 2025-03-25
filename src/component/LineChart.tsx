@@ -1,10 +1,10 @@
 import {useEffect, useMemo, useRef, useState} from 'react';
 import {Chart, ChartData} from 'chart.js/auto';
-import * as c from '@/model/consts';
-import {countValidStrings} from '@/model/funcs';
-import {IGuitar} from '@/model/types';
-import useStore from '@/model/useStore';
-import css from '@/css/LineChart.module.css';
+import * as c from '~/model/consts';
+import {countValidStrings} from '~/model/funcs';
+import {IGuitar} from '~/model/types';
+import useStore from '~/model/useStore';
+import css from '~/css/LineChart.module.css';
 
 export default function LineChart() {
 	const store = useStore();

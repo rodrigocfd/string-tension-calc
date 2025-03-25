@@ -1,11 +1,11 @@
 import {useMemo} from 'react';
-import * as c from '@/model/consts';
-import {cn} from '@/model/funcs';
-import {IGuitar, IString, TGauge, TNote, TPackName, TTuningName} from '@/model/types';
-import useStore from '@/model/useStore';
+import * as c from '~/model/consts';
+import {cn} from '~/model/funcs';
+import {IGuitar, IString, TGauge, TNote, TPackName, TTuningName} from '~/model/types';
+import useStore from '~/model/useStore';
 import Gauge from './Gauge';
 import Note from './Note';
-import css from '@/css/StringRow.module.css';
+import css from '~/css/StringRow.module.css';
 
 interface Props {
 	strIndex: number;

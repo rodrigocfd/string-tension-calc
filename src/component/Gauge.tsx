@@ -1,6 +1,6 @@
 import {ChangeEvent} from 'react';
-import * as c from '@/model/consts';
-import {TGauge} from '@/model/types';
+import * as c from '~/model/consts';
+import {TGauge} from '~/model/types';
 
 interface Props {
 	gauge: TGauge;

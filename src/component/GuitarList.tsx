@@ -1,7 +1,7 @@
 import {AnimatePresence, HTMLMotionProps, motion} from 'framer-motion';
-import useStore from '@/model/useStore';
+import useStore from '~/model/useStore';
 import Guitar from './Guitar';
-import css from '@/css/GuitarList.module.css';
+import css from '~/css/GuitarList.module.css';
 
 const animation: HTMLMotionProps<'div'> = {
 	initial: {scale: 0},

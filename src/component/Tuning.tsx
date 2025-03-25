@@ -1,5 +1,5 @@
-import * as c from '@/model/consts';
-import {TTuningName} from '@/model/types';
+import * as c from '~/model/consts';
+import {TTuningName} from '~/model/types';
 
 interface Props {
 	tuningName: TTuningName;

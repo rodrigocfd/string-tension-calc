@@ -1,6 +1,6 @@
 import {useMemo} from 'react';
-import * as c from '@/model/consts';
-import {TNote} from '@/model/types';
+import * as c from '~/model/consts';
+import {TNote} from '~/model/types';
 
 interface Props {
 	strIndex: number;

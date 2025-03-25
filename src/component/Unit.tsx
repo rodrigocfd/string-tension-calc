@@ -1,6 +1,6 @@
-import * as c from '@/model/consts';
-import {TUnit} from '@/model/types';
-import useStore from '@/model/useStore';
+import * as c from '~/model/consts';
+import {TUnit} from '~/model/types';
+import useStore from '~/model/useStore';
 
 export default function Unit() {
 	const store = useStore();
