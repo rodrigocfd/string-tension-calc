@@ -64,6 +64,8 @@ export default tseslint.config(
 			'@stylistic/padded-blocks': ['warn', {switches: 'never'}],
 			'@stylistic/quotes': ['warn', 'single', {avoidEscape: true}],
 			'@stylistic/semi': ['warn', 'always'],
+			'@stylistic/space-before-blocks': ['warn'],
+			'@stylistic/space-before-function-paren': ['warn', {anonymous: 'always', named: 'never'}],
 			'@stylistic/space-infix-ops': 'warn',
 			'@stylistic/template-curly-spacing': ['warn', 'never'],
 			'@stylistic/type-annotation-spacing': ['warn'],
