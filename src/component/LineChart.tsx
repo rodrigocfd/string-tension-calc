@@ -50,15 +50,10 @@ function useChart(
 				if (guitars.length > 0) {
 					setChart(new Chart(canvas, {
 						type: 'line',
-						data: {
-							labels: [],
-							datasets: [],
-						},
+						data: {labels: [], datasets: []},
 						options: {
 							scales: {
-								y: {
-									min: 0,
-								},
+								y: {min: 0},
 							},
 						},
 					}));
