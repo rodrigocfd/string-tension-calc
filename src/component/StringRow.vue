@@ -1,18 +1,16 @@
 <script setup lang="ts">
 import {computed, useCssModule} from 'vue';
-import {IGuitar, IString} from '@/model/types';
-import useStore from '@/model/useStore';
+import * as c from '~/model/consts';
+import store from '~/model/store';
+import {IGuitar, IString} from '~/model/types';
 import Gauge from './Gauge.vue';
 import Note from './Note.vue';
-import * as c from '@/model/consts';
 
 const props = defineProps<{
 	strIndex: number;
 	str: IString;
 	guitar: IGuitar;
 }>();
-
-const store = useStore();
 
 const isModifGauge = computed(() => {
 	const pack = c.PACKS.find(p => p.name === props.guitar.packName)!;
@@ -56,11 +54,11 @@ const clsModifNote = computed(() => ({
 		<input :class="m.tension"
 			type="text"
 			:value="tension"
-			disabled /> {{store.unit}}
+			disabled /> {{store.d.unit}}
 	</div>
 </template>
 
-<style module="m" lang="scss">
+<style module="m">
 	.elem {
 		margin: 2px 3px;
 		&.strName {

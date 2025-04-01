@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import useStore from '@/model/useStore';
+import store from '~/model/store';
 import GuitarList from './GuitarList.vue';
 import LineChart from './LineChart.vue';
 import Unit from './Unit.vue';
-
-const store = useStore();
 </script>
 
 <template>
@@ -12,9 +10,11 @@ const store = useStore();
 		<h1>String Tension Calculator</h1>
 		<div :class="m.topButtons">
 			<Unit />
-			<button :class="m.addNew" @click="store.addNew">New guitar</button>
+			<button type='button' @click="store.addNew" :class="m.addNew">
+				New guitar
+			</button>
 		</div>
-		<a :class="m.repo" href="https://github.com/rodrigocfd/string-tension-calc">
+		<a href="https://github.com/rodrigocfd/string-tension-calc" :class="m.repo">
 			<img src="/gh-logo.svg" />
 		</a>
 	</header>
@@ -22,12 +22,7 @@ const store = useStore();
 	<LineChart />
 </template>
 
-<style module="m" lang="scss">
-	* {
-		font-family: 'Segoe UI', sans-serif;
-		font-size: 10pt;
-	}
-
+<style module="m">
 	.header {
 		display: flex;
 		align-items: baseline;

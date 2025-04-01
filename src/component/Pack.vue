@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {computed} from 'vue';
-import {TNumStrings, TPackName} from '@/model/types';
-import * as c from '@/model/consts';
+import * as c from '~/model/consts';
+import {TNumStrings, TPackName} from '~/model/types';
 
 const props = defineProps<{
 	packName: TPackName;

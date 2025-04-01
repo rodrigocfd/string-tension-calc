@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {computed} from 'vue';
-import {TTuningName} from '@/model/types';
-import * as c from '@/model/consts';
+import * as c from '~/model/consts';
+import {TTuningName} from '~/model/types';
 
 const props = defineProps<{
 	tuningName: TTuningName;

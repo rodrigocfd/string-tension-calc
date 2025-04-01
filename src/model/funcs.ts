@@ -1,5 +1,5 @@
-import {IGuitar, IScale, IString, TGauge, TNote, TPackName, TTuningName, TUnit} from './types';
 import * as c from './consts';
+import {IGuitar, IScale, IString, TGauge, TNote, TPackName, TTuningName, TUnit} from './types';
 
 let curId = 0;
 export function nextId(): number {
@@ -15,13 +15,12 @@ export function genStrings(
 	const pack = c.PACKS.find(pack => pack.name === packName)!;
 	return pack.gauges.map((gauge, strIdx) => {
 		const tuning = c.TUNINGS.find(tuning => tuning.name === tuningName)!;
-		const tension = (gauge === null) ? NaN
-			: calcTension(strIdx, pack.gauges.length, gauge, tuning.notes[strIdx], scale, unit);
 		return {
 			_id: nextId(),
 			gauge,
 			note: tuning.notes[strIdx],
-			tension,
+			tension: calcTension(strIdx, pack.gauges.length,
+				gauge, tuning.notes[strIdx], scale, unit),
 		};
 	});
 }

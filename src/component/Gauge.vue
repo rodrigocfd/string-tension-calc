@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {computed} from 'vue';
-import {TGauge} from '@/model/types';
-import * as c from '@/model/consts';
+import * as c from '~/model/consts';
+import {TGauge} from '~/model/types';
 
 const props = defineProps<{
 	gauge: TGauge;
@@ -10,7 +10,7 @@ const emit = defineEmits<{
 	'update:gauge': [gauge: TGauge];
 }>();
 
-const gaugesByKind: {kind: 'P'|'W'; label: string; gauges: TGauge[]}[] = [
+const gaugesByKind: {kind: 'P' | 'W'; label: string; gauges: TGauge[]}[] = [
 	{kind: 'P', label: 'Plain', gauges: []},
 	{kind: 'W', label: 'Wound', gauges: []},
 ];

@@ -1,0 +1,18 @@
+{
+	"eslint.validate": ["javascript", "typescript", "vue"],
+	"typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
+	"typescript.preferences.quoteStyle": "single",
+	"vue.autoInsert.bracketSpacing": false,
+	"vue.complete.casing.props": "camel",
+	"[javascript][typescript]": {
+		"editor.codeActionsOnSave": {
+			"source.fixAll.eslint": "explicit",
+		},
+	},
+	"[vue]": {
+		"editor.codeActionsOnSave": {
+			"source.fixAll.eslint": "explicit",
+		},
+		"editor.defaultFormatter": "Vue.volar",
+	},
+}

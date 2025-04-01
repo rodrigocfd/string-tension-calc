@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import {computed} from 'vue';
-import {TUnit} from '@/model/types';
-import useStore from '@/model/useStore';
-import * as c from '@/model/consts';
-
-const store = useStore();
+import * as c from '~/model/consts';
+import store from '~/model/store';
+import {TUnit} from '~/model/types';
 
 const unit = computed({
-	get: (): TUnit => store.unit,
+	get: (): TUnit => store.d.unit,
 	set: (u: TUnit): void => store.setUnit(u),
 });
 </script>

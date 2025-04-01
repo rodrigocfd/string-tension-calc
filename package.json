@@ -3,27 +3,46 @@
 	"private": true,
 	"version": "2.0.0",
 	"type": "module",
+	"author": {
+		"name": "Rodrigo César de Freitas Dias",
+		"email": "rcesar@gmail.com"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/rodrigocfd/string-tension-calc.git"
+	},
+	"bugs": {
+		"url": "https://github.com/rodrigocfd/string-tension-calc/issues"
+	},
+	"homepage": "https://rodrigocfd.github.io/string-tension-calc",
+	"license": "MIT",
 	"scripts": {
 		"dev": "vite",
-		"build": "npm run lint && vue-tsc && vite build",
+		"build": "npm run lint && tsc && vite build",
+		"lint": "eslint . --report-unused-disable-directives --max-warnings 0",
 		"preview": "vite preview",
-		"lint": "eslint . --ext ts,vue --report-unused-disable-directives --max-warnings 0",
-		"deploy": "npm run build && gh-pages -d build"
+		"predeploy": "npm run build",
+		"deploy": "gh-pages -d build"
 	},
 	"dependencies": {
-		"chart.js": "^4.4.3",
-		"pinia": "^2.1.7",
-		"vue": "^3.4.27"
+		"chart.js": "^4.4.8",
+		"vue": "^3.5.13"
 	},
 	"devDependencies": {
-		"@types/node": "^20.12.12",
-		"@vitejs/plugin-vue": "^5.0.4",
-		"@vue/eslint-config-typescript": "^13.0.0",
-		"eslint": "^8.57.0",
-		"gh-pages": "^6.1.1",
-		"sass": "^1.77.2",
-		"typescript": "^5.4.5",
-		"vite": "^5.2.11",
-		"vue-tsc": "^2.0.19"
+		"@eslint/js": "^9.23.0",
+		"@stylistic/eslint-plugin": "^4.2.0",
+		"@types/node": "^22.13.16",
+		"@vitejs/plugin-vue": "^5.2.3",
+		"@vue/eslint-config-typescript": "^14.5.0",
+		"@vue/tsconfig": "^0.7.0",
+		"eslint": "^9.23.0",
+		"eslint-plugin-simple-import-sort": "^12.1.1",
+		"eslint-plugin-vue": "^10.0.0",
+		"gh-pages": "^6.3.0",
+		"globals": "^16.0.0",
+		"typescript": "~5.8.2",
+		"typescript-eslint": "^8.29.0",
+		"vite": "^6.2.4",
+		"vue-tsc": "^2.2.8"
 	}
 }

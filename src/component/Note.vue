@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {computed} from 'vue';
-import {TNote} from '@/model/types';
-import * as c from '@/model/consts';
+import * as c from '~/model/consts';
+import {TNote} from '~/model/types';
 
 const props = defineProps<{
 	strIndex: number;

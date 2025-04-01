@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {IGuitar} from '@/model/types';
-import useStore from '@/model/useStore';
+import store from '~/model/store';
+import {IGuitar} from '~/model/types';
 import Pack from './Pack.vue';
 import Scale from './Scale.vue';
 import StringRow from './StringRow.vue';
@@ -11,8 +11,6 @@ const props = defineProps<{
 	guitarIndex: number;
 	guitar: IGuitar;
 }>();
-
-const store = useStore();
 </script>
 
 <template>
@@ -51,26 +49,18 @@ const store = useStore();
 	</div>
 </template>
 
-<style module="m" lang="scss">
-	$colors: (
-		0: #36a2eb,
-		1: #ff6384,
-		2: #ff9f40,
-		3: #ffcd56,
-		4: #4bc0c0,
-		5: #9966ff,
-		6: #c9cbcf,
-	);
-	@each $idx, $color in $colors {
-		.gtrBox.color#{$idx} {
-			border: 1px solid #ddd;
-			border-top: 4px solid $color;
-		}
-	}
-
+<style module="m">
 	.gtrBox {
 		padding: 2px 1px;
 		border: 1px solid #ddd;
+		&.color0 { border-top: 4px solid #36a2eb; }
+		&.color1 { border-top: 4px solid #ff6384; }
+		&.color2 { border-top: 4px solid #ff9f40; }
+		&.color3 { border-top: 4px solid #ffcd56; }
+		&.color4 { border-top: 4px solid #4bc0c0; }
+		&.color5 { border-top: 4px solid #9966ff; }
+		&.color6 { border-top: 4px solid #c9cbcf; }
+
 		& > div {
 			padding: 3px 6px;
 		}

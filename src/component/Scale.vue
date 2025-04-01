@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {computed} from 'vue';
-import {IScale, TScaleLength, TScaleMode} from '@/model/types';
-import * as c from '@/model/consts';
+import * as c from '~/model/consts';
+import {IScale, TScaleLength, TScaleMode} from '~/model/types';
 
 const props = defineProps<{
 	scale: IScale;
@@ -65,7 +65,7 @@ const lengthHi = computed({
 	</div>
 </template>
 
-<style module="m" lang="scss">
+<style module="m">
 	.scaleRow {
 		display: flex;
 		gap: 6px;

@@ -1,14 +1,13 @@
-import {defineConfig} from 'vite';
-import {resolve} from 'path';
 import vue from '@vitejs/plugin-vue';
+import path from 'path';
+import {defineConfig} from 'vite';
 
 export default defineConfig({
 	plugins: [vue()],
 	resolve: {
-		alias: [{
-			find: '@',
-			replacement: resolve(__dirname, 'src'),
-		}],
+		alias: {
+			'~': path.resolve(__dirname, './src'),
+		},
 	},
 	base: '/string-tension-calc',
 	server: {
@@ -16,5 +15,6 @@ export default defineConfig({
 	},
 	build: {
 		outDir: 'build',
+		chunkSizeWarningLimit: 1000,
 	},
 });

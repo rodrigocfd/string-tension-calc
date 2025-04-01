@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import {onMounted, ref, watch} from 'vue';
 import {Chart} from 'chart.js/auto';
-import useStore from '@/model/useStore';
-import {countValidStrings} from '@/model/funcs';
-import * as c from '@/model/consts';
-
-const store = useStore();
+import * as c from '~/model/consts';
+import {countValidStrings} from '~/model/funcs';
+import store from '~/model/store';
 
 const canvas = ref<HTMLCanvasElement | null>(null);
 let chart: Chart<'line', number[], string> | null = null;
@@ -27,10 +25,10 @@ onMounted(() => {
 	});
 });
 
-watch([() => store.guitars, () => store.unit], ([gtrs, _unit], [_prevGtrs, _prevUnit]) => {
-	const maxNumStrs = Math.max(...gtrs.map(gtr => countValidStrings(gtr)));
+watch([() => store.d.guitars, () => store.d.unit], () => {
+	const maxNumStrs = Math.max(...store.d.guitars.map(gtr => countValidStrings(gtr)));
 	chart!.data.labels = c.STRING_NAMES.slice(0, maxNumStrs).reverse();
-	chart!.data.datasets = gtrs.map((gtr, gtrIdx) => ({
+	chart!.data.datasets = store.d.guitars.map((gtr, gtrIdx) => ({
 		label: 'Guitar #' + (gtrIdx + 1),
 		data: gtr.strings.map(str => str.tension).slice(0, maxNumStrs).reverse(),
 		tension: .1,
@@ -44,12 +42,12 @@ watch([() => store.guitars, () => store.unit], ([gtrs, _unit], [_prevGtrs, _prev
 </script>
 
 <template>
-	<div :class="m.chart" v-show="store.guitars.length > 0">
+	<div :class="m.chart" v-show="store.d.guitars.length > 0">
 		<canvas ref="canvas" />
 	</div>
 </template>
 
-<style module="m" lang="scss">
+<style module="m">
 	.chart {
 		max-width: 100vw;
 		max-height: 240px;
