@@ -5,7 +5,7 @@ import store from '~/model/store';
 import {TUnit} from '~/model/types';
 
 const unit = computed({
-	get: (): TUnit => store.d.unit,
+	get: (): TUnit => store.unit,
 	set: (u: TUnit): void => store.setUnit(u),
 });
 </script>

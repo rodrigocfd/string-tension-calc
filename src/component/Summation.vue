@@ -18,7 +18,7 @@ const sumTension = computed(() =>
 		∑ <input :class="m.tension"
 			type="text"
 			:value="sumTension.toFixed(2)"
-			disabled /> {{store.d.unit}}
+			disabled /> {{store.unit}}
 	</div>
 </template>
 

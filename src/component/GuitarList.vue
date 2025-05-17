@@ -5,7 +5,7 @@ import Guitar from './Guitar.vue';
 
 <template>
 	<transition-group name="guitars" tag="div">
-		<div v-for="(g, idx) of store.d.guitars" :key="g._id" :class="m.gtrBlock">
+		<div v-for="(g, idx) of store.guitars" :key="g._id" :class="m.gtrBlock">
 			<Guitar :guitarIndex="idx" :guitar="g" />
 		</div>
 	</transition-group>

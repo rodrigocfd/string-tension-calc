@@ -54,7 +54,7 @@ const clsModifNote = computed(() => ({
 		<input :class="m.tension"
 			type="text"
 			:value="tension"
-			disabled /> {{store.d.unit}}
+			disabled /> {{store.unit}}
 	</div>
 </template>
 

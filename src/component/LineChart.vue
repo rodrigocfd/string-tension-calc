@@ -25,10 +25,10 @@ onMounted(() => {
 	});
 });
 
-watch([() => store.d.guitars, () => store.d.unit], () => {
-	const maxNumStrs = Math.max(...store.d.guitars.map(gtr => countValidStrings(gtr)));
+watch([() => store.guitars, () => store.unit], () => {
+	const maxNumStrs = Math.max(...store.guitars.map(gtr => countValidStrings(gtr)));
 	chart!.data.labels = c.STRING_NAMES.slice(0, maxNumStrs).reverse();
-	chart!.data.datasets = store.d.guitars.map((gtr, gtrIdx) => ({
+	chart!.data.datasets = store.guitars.map((gtr, gtrIdx) => ({
 		label: 'Guitar #' + (gtrIdx + 1),
 		data: gtr.strings.map(str => str.tension).slice(0, maxNumStrs).reverse(),
 		tension: .1,
@@ -42,7 +42,7 @@ watch([() => store.d.guitars, () => store.d.unit], () => {
 </script>
 
 <template>
-	<div :class="m.chart" v-show="store.d.guitars.length > 0">
+	<div :class="m.chart" v-show="store.guitars.length > 0">
 		<canvas ref="canvas" />
 	</div>
 </template>
