@@ -71,6 +71,7 @@ export default [
 			}],
 			'@stylistic/no-extra-semi': 'warn',
 			'@stylistic/no-multi-spaces': 'warn',
+			'@stylistic/no-multiple-empty-lines': ['warn', {max: 1, maxEOF: 0, maxBOF: 0}],
 			'@stylistic/no-whitespace-before-property': 'warn',
 			'@stylistic/object-curly-spacing': ['warn', 'never'],
 			'@stylistic/padded-blocks': ['warn', {switches: 'never'}],
