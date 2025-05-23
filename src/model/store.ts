@@ -6,9 +6,7 @@ import {IGuitar, IScale, IString, TGauge, TNote, TPackName, TTuningName, TUnit} 
 const state = reactive({
 	unit: 'kg/cm' as TUnit,
 	guitars: [] as IGuitar[],
-});
 
-const actions = {
 	setUnit(unit: TUnit): void {
 		state.unit = unit;
 		state.guitars.forEach(guitar => {
@@ -75,6 +73,7 @@ const actions = {
 		ourStr.tension = calcTension(strIdx, numValidStrs,
 			str.gauge, note, guitar.scale, state.unit);
 	},
-};
+});
 
-export default Object.assign(state, actions);
+const store = state;
+export default store;
