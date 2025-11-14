@@ -209,13 +209,11 @@ export const TUNINGS = [
 	{name: 'Drop C#', notes: ['D#4', 'A#3', 'F#3', 'C#3', 'G#2', 'C#2', 'G#1', 'D#1']},
 	{name: 'Drop C', notes: ['D4', 'A3', 'F3', 'C3', 'G2', 'C2', 'G1', 'D1']},
 	{name: 'Drop B', notes: ['C#4', 'G#3', 'E3', 'B2', 'F#2', 'B1', 'F#1', 'C#1']},
-	{name: 'Drop A', notes: ['B4', 'F#4', 'D4', 'A3', 'E3', 'A2', 'E2', 'A1']},
-	{name: 'Drop A#', notes: ['C5', 'G4', 'D#4', 'A#3', 'F3', 'A#2', 'F2', 'A#1']},
-	{name: 'Drop G#', notes: ['G#4', 'D#4', 'B3', 'F#3', 'C#3', 'G#2', 'C#2', 'G#1']},
-	{name: 'Drop G', notes: ['G4', 'D4', 'A3', 'F3', 'C3', 'G2', 'C2', 'G1']},
-	{name: 'Drop F#', notes: ['F#4', 'C#4', 'A3', 'E3', 'B2', 'F#2', 'B1', 'F#1']},
-	{name: 'Drop F', notes: ['F4', 'C4', 'A3', 'E3', 'A2', 'F2', 'A1', 'F1']},
-	
+	{name: 'Drop A#', notes: ['C4', 'G3', 'D#3', 'A#2', 'F2', 'A#1', 'F1', 'C1']},
+	{name: 'Drop A', notes: ['B3', 'F#3', 'D3', 'A2', 'E2', 'A1', 'E1', 'B0']},
+	{name: 'Drop G#', notes: ['A#3', 'F3', 'C#3', 'G#2', 'C#2', 'G#1', 'D#1', 'A#0']},
+	{name: 'Drop G', notes: ['A3', 'E3', 'C3', 'G2', 'C2', 'G1', 'D1', 'A0']},
+
 ] as const;
 
 export const UNITS = [
