@@ -1,45 +1,35 @@
 import js from '@eslint/js';
 import stylistic from '@stylistic/eslint-plugin';
-import react from 'eslint-plugin-react';
+import {defineConfig, globalIgnores} from 'eslint/config';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
-import valtio from 'eslint-plugin-valtio';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
-export default tseslint.config(
-	{ignores: ['build']},
+export default defineConfig([
+	globalIgnores(['build']),
 	{
-		extends: [js.configs.recommended, ...tseslint.configs.recommended],
 		files: ['**/*.{js,ts,tsx}'],
+		extends: [
+			js.configs.recommended,
+			tseslint.configs.recommended,
+			reactHooks.configs.flat.recommended,
+			reactRefresh.configs.vite,
+		],
 		languageOptions: {
 			ecmaVersion: 2020,
 			globals: globals.browser,
 		},
 		plugins: {
-			'react-hooks': reactHooks,
-			'react-refresh': reactRefresh,
-			'react': react,
 			'simple-import-sort': simpleImportSort,
-			'valtio': valtio,
 			'@stylistic': stylistic,
 		},
 		rules: {
-			...reactHooks.configs.recommended.rules,
-			...valtio.configs.recommended.rules,
-			'react-refresh/only-export-components': ['warn', {allowConstantExport: true}],
-
-			'eqeqeq': ['warn', 'always'],
-			'no-empty': 'warn',
-			'no-sparse-arrays': 'error',
-			'prefer-const': 'warn',
-			'react/jsx-key': 'error',
 			'simple-import-sort/exports': 'warn',
 			'simple-import-sort/imports': ['warn', {
 				groups: [['^\\u0000', '^node:', '^react$', '^react-dom$', '^@?\\w', '^', '^\\.', '^.+\\.css$']],
 			}],
-			'valtio/state-snapshot-rule': 'error',
 			'@stylistic/array-bracket-spacing': ['warn', 'never'],
 			'@stylistic/comma-dangle': ['warn', 'always-multiline'],
 			'@stylistic/comma-spacing': 'warn',
@@ -48,7 +38,6 @@ export default tseslint.config(
 			'@stylistic/indent': ['warn', 'tab'],
 			'@stylistic/jsx-curly-spacing': ['warn', {children: true}],
 			'@stylistic/jsx-equals-spacing': 'warn',
-			'@stylistic/jsx-props-no-multi-spaces': 'warn',
 			'@stylistic/jsx-quotes': ['warn', 'prefer-single'],
 			'@stylistic/jsx-tag-spacing': ['warn', {beforeClosing: 'never'}],
 			'@stylistic/key-spacing': ['warn', {beforeColon: false, afterColon: true, mode: 'minimum'}],
@@ -76,4 +65,4 @@ export default tseslint.config(
 			}],
 		},
 	},
-);
+]);

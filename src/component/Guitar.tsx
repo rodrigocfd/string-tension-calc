@@ -1,12 +1,10 @@
-import {cn} from '~/model/funcs';
 import {IGuitar} from '~/model/types';
 import useStore from '~/model/useStore';
-import Pack from './Pack';
+import PackName from './PackName';
 import Scale from './Scale';
 import StringRow from './StringRow';
 import Summation from './Summation';
 import Tuning from './Tuning';
-import css from '~/css/Guitar.module.css';
 
 interface Props {
 	guitarIndex: number;
@@ -14,29 +12,33 @@ interface Props {
 }
 
 export default function Guitar(props: Props) {
-	const store = useStore();
+	const moveLeft = useStore(s => s.moveLeft);
+	const remove = useStore(s => s.remove);
+	const changeScale = useStore(s => s.changeScale);
+	const changePack = useStore(s => s.changePack);
+	const changeTuning = useStore(s => s.changeTuning);
 
-	return <div className={cn(css.guitar, css['color' + (props.guitarIndex % 7)])}>
-		<div className={css.topRow}>
-			<div className={css.name}>Guitar #{props.guitarIndex + 1}</div>
-			<div className={css.btns}>
+	return <div className={'Guitar-box Guitar-color' + (props.guitarIndex % 7)}>
+		<div className='Guitar-topRow'>
+			<div className='Guitar-name'>Guitar #{props.guitarIndex + 1}</div>
+			<div className='Guitar-topBtns'>
 				{props.guitarIndex > 0 &&
-					<button onClick={() => store.moveLeft(props.guitar)} title='Move left'>⇐</button>
+					<button type='button' onClick={() => moveLeft(props.guitar)} title='Move left'>⇐</button>
 				}
-				<button onClick={() => store.remove(props.guitar)} title='Remove'>✕</button>
+				<button type='button' onClick={() => remove(props.guitar)}>✕</button>
 			</div>
 		</div>
 		<div>
-			<Scale scale={props.guitar.scale} onChange={s => store.changeScale(props.guitar, s)} />
+			<Scale scale={props.guitar.scale} onChange={s => changeScale(props.guitar, s)} />
 		</div>
 		<div>
-			<Pack packName={props.guitar.packName} onChange={p => store.changePack(props.guitar, p)} />
+			<PackName packName={props.guitar.packName} onChange={pn => changePack(props.guitar, pn)} />
 		</div>
-		<div className={css.tuningSumRow}>
-			<Tuning tuningName={props.guitar.tuningName} onChange={t => store.changeTuning(props.guitar, t)} />
+		<div className='Guitar-tuningSum'>
+			<Tuning tuningName={props.guitar.tuningName} onChange={tn => changeTuning(props.guitar, tn)} />
 			<Summation guitar={props.guitar} />
 		</div>
-		<div className={css.stringRow}>
+		<div className='Guitar-stringRow'>
 			{props.guitar.strings.map((str, strIdx) =>
 				<StringRow key={str._id}
 					strIndex={strIdx}

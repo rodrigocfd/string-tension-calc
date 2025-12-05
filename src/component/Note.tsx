@@ -5,7 +5,7 @@ import {TNote} from '~/model/types';
 interface Props {
 	strIndex: number;
 	note: TNote;
-	onChange(note: TNote): void;
+	onChange(n: TNote): void;
 }
 
 export default function Note(props: Props) {

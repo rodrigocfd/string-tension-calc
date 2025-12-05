@@ -3,9 +3,10 @@ import {TUnit} from '~/model/types';
 import useStore from '~/model/useStore';
 
 export default function Unit() {
-	const store = useStore();
+	const unit = useStore(s => s.unit);
+	const setUnit = useStore(s => s.setUnit);
 
-	return <select value={store.unit} onChange={e => store.setUnit(e.target.value as TUnit)}>
+	return <select value={unit} onChange={ev => setUnit(ev.target.value as TUnit)}>
 		{c.UNITS.map(u =>
 			<option key={u.name} value={u.name}>
 				unit: {u.name}

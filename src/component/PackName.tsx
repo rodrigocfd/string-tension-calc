@@ -3,15 +3,10 @@ import {TNumStrings, TPackName} from '~/model/types';
 
 interface Props {
 	packName: TPackName;
-	onChange(packName: TPackName): void;
+	onChange(pn: TPackName): void;
 }
 
-interface PacksByNumStrings {
-	num: TNumStrings;
-	packNames: TPackName[];
-}
-
-const packsByNumStrings: PacksByNumStrings[] = [
+const packsByNumStrings: {num: TNumStrings; packNames: TPackName[]}[] = [
 	{num: 6, packNames: []},
 	{num: 7, packNames: []},
 	{num: 8, packNames: []},
@@ -21,13 +16,13 @@ c.PACKS.forEach(pack => {
 		.packNames.push(pack.name);
 });
 
-export default function Pack(props: Props) {
-	return <select value={props.packName} onChange={e => props.onChange(e.target.value as TPackName)}>
-		{packsByNumStrings.map(group =>
-			<optgroup key={group.num} label={group.num + ' strings'}>
-				{group.packNames.map(packName =>
+export default function PackName(props: Props) {
+	return <select value={props.packName} onChange={ev => props.onChange(ev.target.value as TPackName)}>
+		{packsByNumStrings.map(packGroup =>
+			<optgroup key={packGroup.num} label={packGroup.num + ' strings'}>
+				{packGroup.packNames.map(packName =>
 					<option key={packName} value={packName}>
-						[{group.num}] {packName}
+						{packName}
 					</option>,
 				)}
 			</optgroup>,

@@ -1,11 +1,10 @@
 import {ChangeEvent} from 'react';
 import * as c from '~/model/consts';
 import {IScale, TScaleLength, TScaleMode} from '~/model/types';
-import css from '~/css/Scale.module.css';
 
 interface Props {
 	scale: IScale;
-	onChange(scale: IScale): void;
+	onChange(s: IScale): void;
 }
 
 export default function Scale(props: Props) {
@@ -33,7 +32,7 @@ export default function Scale(props: Props) {
 		});
 	}
 
-	return <div className={css.scaleRow}>
+	return <div className='Scale-row'>
 		<select value={props.scale.mode} onChange={onChangeMode}>
 			{c.SCALE_MODES.map(mode =>
 				<option key={mode} value={mode}>

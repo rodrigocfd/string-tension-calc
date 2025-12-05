@@ -1,18 +1,17 @@
-import {useEffect, useMemo, useRef, useState} from 'react';
+import {RefObject, useEffect, useMemo, useRef, useState} from 'react';
 import {Chart, ChartData} from 'chart.js/auto';
 import * as c from '~/model/consts';
 import {countValidStrings} from '~/model/funcs';
 import {IGuitar} from '~/model/types';
 import useStore from '~/model/useStore';
-import css from '~/css/LineChart.module.css';
 
 export default function LineChart() {
-	const store = useStore();
-	const chartData = useChartData(store.guitars);
+	const guitars = useStore(s => s.guitars);
+	const chartData = useChartData(guitars);
 	const canvas = useRef<HTMLCanvasElement | null>(null);
-	useChart(store.guitars, chartData, canvas.current);
+	useChart(guitars, chartData, canvas);
 
-	return <div className={css.chart}>
+	return <div className='LineChart-chart'>
 		<canvas ref={canvas} />
 	</div>;
 }
@@ -35,12 +34,12 @@ function useChartData(guitars: IGuitar[]) {
 function useChart(
 	guitars: IGuitar[],
 	chartData: ChartData<'line', number[], string>,
-	canvas: HTMLCanvasElement | null,
+	canvas: RefObject<HTMLCanvasElement | null>,
 ) {
 	const [chart, setChart] = useState<Chart<'line', number[], string> | null>(null);
 
 	useEffect(() => {
-		if (canvas === null) {
+		if (canvas.current === null) {
 			if (chart !== null) {
 				chart.destroy();
 				setChart(null);
@@ -48,7 +47,7 @@ function useChart(
 		} else {
 			if (chart === null) {
 				if (guitars.length > 0) {
-					setChart(new Chart(canvas, {
+					setChart(new Chart(canvas.current, {
 						type: 'line',
 						data: {labels: [], datasets: []},
 						options: {
@@ -63,7 +62,7 @@ function useChart(
 					chart.destroy();
 					setChart(null);
 				} else {
-					chart.data = chartData;
+					chart.data = chartData; // eslint-disable-line react-hooks/immutability
 					chart.update('none');
 				}
 			}

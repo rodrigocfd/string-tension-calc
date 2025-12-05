@@ -1,23 +1,20 @@
-import {useMemo} from 'react';
 import {IGuitar} from '~/model/types';
 import useStore from '~/model/useStore';
-import css from '~/css/Summation.module.css';
 
 interface Props {
 	guitar: IGuitar;
 }
 
 export default function Summation(props: Props) {
-	const store = useStore();
-	const sum = useMemo(() =>
-		props.guitar.strings.reduce((accum, str) =>
-			accum + (isNaN(str.tension) ? 0 : str.tension), 0),
-	[props.guitar.strings]);
+	const unit = useStore(s => s.unit);
+
+	const sumTension = props.guitar.strings.reduce((accum, str) =>
+		accum + (isNaN(str.tension) ? 0 : str.tension), 0);
 
 	return <div>
-		∑ <input type='text'
-			className={css.tension}
-			value={sum.toFixed(2)}
-			disabled /> {store.unit}
+		∑ <input className='Summation-tension'
+			type='text'
+			value={sumTension.toFixed(2)}
+			disabled /> {unit}
 	</div>;
 }

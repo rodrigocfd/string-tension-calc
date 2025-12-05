@@ -4,7 +4,7 @@ import {TGauge} from '~/model/types';
 
 interface Props {
 	gauge: TGauge;
-	onChange(gauge: TGauge): void;
+	onChange(g: TGauge): void;
 }
 
 interface GaugesByKind {

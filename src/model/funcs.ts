@@ -6,27 +6,6 @@ export function nextId(): number {
 	return curId++;
 }
 
-export function cn(...items: (string | null | undefined | [string, boolean])[]): string {
-	let fin = '';
-	for (let i = 0; i < items.length; ++i) {
-		const item = items[i];
-		if (item === null || item === undefined) {
-			continue;
-		} else if (typeof item === 'string') {
-			fin += item + ' ';
-		} else if (Array.isArray(item) && item.length === 2) {
-			if (typeof item[0] === 'string') {
-				if (item[1]) fin += item[0] + ' ';
-			} else {
-				throw new Error(`cn() item #${i} is an invalid tuple: ${JSON.stringify(item)}`);
-			}
-		} else {
-			throw new Error(`cn() item #${i} is invalid: ${JSON.stringify(item)}`);
-		}
-	}
-	return fin.length ? fin.substring(0, fin.length - 1) : '';
-}
-
 export function genStrings(
 	packName: TPackName,
 	tuningName: TTuningName,

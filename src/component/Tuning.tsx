@@ -3,15 +3,10 @@ import {TTuningName} from '~/model/types';
 
 interface Props {
 	tuningName: TTuningName;
-	onChange(tuningName: TTuningName): void;
+	onChange(tn: TTuningName): void;
 }
 
-interface TuningsByKind {
-	kind: string;
-	tuningNames: TTuningName[];
-}
-
-const tuningsByKind: TuningsByKind[] = [
+const tuningsByKind: {kind: string; tuningNames: TTuningName[]}[] = [
 	{kind: 'Standard', tuningNames: []},
 	{kind: 'Drop', tuningNames: []},
 ];
@@ -22,12 +17,13 @@ c.TUNINGS.forEach(defTuning => {
 });
 
 export default function Tuning(props: Props) {
-	return <select value={props.tuningName} onChange={e => props.onChange(e.target.value as TTuningName)}>
+	return <select value={props.tuningName}
+		onChange={ev => props.onChange(ev.target.value as TTuningName)}>
 		{tuningsByKind.map(group =>
 			<optgroup key={group.kind} label={group.kind}>
-				{group.tuningNames.map(tuning =>
-					<option key={tuning} value={tuning}>
-						{tuning}
+				{group.tuningNames.map(name =>
+					<option key={name} value={name}>
+						{name}
 					</option>,
 				)}
 			</optgroup>,
