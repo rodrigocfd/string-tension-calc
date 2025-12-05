@@ -26,6 +26,7 @@
 	},
 	"dependencies": {
 		"chart.js": "^4.5.1",
+		"framer-motion": "^12.23.25",
 		"immer": "^11.0.1",
 		"react": "^19.2.1",
 		"react-dom": "^19.2.1",
